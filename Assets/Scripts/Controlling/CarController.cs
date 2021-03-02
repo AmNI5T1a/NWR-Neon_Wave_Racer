@@ -14,6 +14,7 @@ namespace NWR
         [SerializeField] private float motorForce;
         [SerializeField] private float breakForce;
         [SerializeField] private float MaxSteerAngle;
+        [SerializeField] private float speed;
 
         [Header("In game stats: ")]
         [SerializeField] private float currentbreakForce;
@@ -51,8 +52,8 @@ namespace NWR
 
             if (VirtualInputManager.Instance.MoveFront)
             {
-                _listOfWheelColliders[2].motorTorque = motorForce;
-                _listOfWheelColliders[3].motorTorque = motorForce;
+                _listOfWheelColliders[2].motorTorque = motorForce * speed;
+                _listOfWheelColliders[3].motorTorque = motorForce * speed;
             }
 
             if (VirtualInputManager.Instance.MoveBack)
