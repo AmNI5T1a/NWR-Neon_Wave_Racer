@@ -15,10 +15,11 @@ namespace NWR
         [SerializeField] private float breakForce;
         [SerializeField] private float MaxSteerAngle;
 
-        private float currentbreakForce;
-        private float currentSteerAngle;
-        private float horizontalInput;
-        private float verticalInput;
+        [Header("In game stats: ")]
+        [SerializeField] private float currentbreakForce;
+        [SerializeField] private float currentSteerAngle;
+        [SerializeField] private float horizontalInput;
+        [SerializeField] private float verticalInput;
         private void FixedUpdate()
         {
             GetInput();
@@ -40,24 +41,41 @@ namespace NWR
             if (VirtualInputManager.Instance.MoveLeft && VirtualInputManager.Instance.MoveRight)
                 return;
 
+            if (!VirtualInputManager.Instance.MoveFront && !VirtualInputManager.Instance.MoveBack)
+            {
+                _listOfWheelColliders[0].motorTorque = 0f;
+                _listOfWheelColliders[1].motorTorque = 0f;
+                _listOfWheelColliders[2].motorTorque = 0f;
+                _listOfWheelColliders[3].motorTorque = 0f;
+            }
+
             if (VirtualInputManager.Instance.MoveFront)
             {
                 _listOfWheelColliders[2].motorTorque = motorForce;
                 _listOfWheelColliders[3].motorTorque = motorForce;
+                Debug.Log("MoveFront");
             }
 
             if (VirtualInputManager.Instance.MoveBack)
             {
-                _listOfWheelColliders[2].motorTorque = -1 * motorForce / 1.3f;
-                _listOfWheelColliders[3].motorTorque = -1 * motorForce / 1.3f;
+                _listOfWheelColliders[2].motorTorque = -1 * motorForce;
+                _listOfWheelColliders[3].motorTorque = -1 * motorForce;
+                Debug.Log("MoveBack");
             }
 
             currentbreakForce = VirtualInputManager.Instance.Brake ? breakForce : 0f;
 
+            Debug.Log(currentbreakForce);
+
             if (VirtualInputManager.Instance.Brake)
             {
                 ApplyBreaking();
+                Debug.Log("Breaking...");
             }
+            // else
+            // {
+            //     StopBreaking();
+            // }
         }
 
         void ApplyBreaking()
@@ -67,6 +85,14 @@ namespace NWR
             _listOfWheelColliders[2].brakeTorque = currentbreakForce;
             _listOfWheelColliders[3].brakeTorque = currentbreakForce;
         }
+
+        // void StopBreaking()
+        // {
+        //     _listOfWheelColliders[0].brakeTorque = 0f;
+        //     _listOfWheelColliders[1].brakeTorque = 0f;
+        //     _listOfWheelColliders[2].brakeTorque = 0f;
+        //     _listOfWheelColliders[3].brakeTorque = 0f;
+        // }
 
         void HandleSteering()
         {
