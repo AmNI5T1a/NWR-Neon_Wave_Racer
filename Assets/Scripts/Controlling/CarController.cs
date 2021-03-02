@@ -53,29 +53,24 @@ namespace NWR
             {
                 _listOfWheelColliders[2].motorTorque = motorForce;
                 _listOfWheelColliders[3].motorTorque = motorForce;
-                Debug.Log("MoveFront");
             }
 
             if (VirtualInputManager.Instance.MoveBack)
             {
                 _listOfWheelColliders[2].motorTorque = -1 * motorForce;
                 _listOfWheelColliders[3].motorTorque = -1 * motorForce;
-                Debug.Log("MoveBack");
             }
 
             currentbreakForce = VirtualInputManager.Instance.Brake ? breakForce : 0f;
 
-            Debug.Log(currentbreakForce);
-
             if (VirtualInputManager.Instance.Brake)
             {
                 ApplyBreaking();
-                Debug.Log("Breaking...");
             }
-            // else
-            // {
-            //     StopBreaking();
-            // }
+            else
+            {
+                StopBreaking();
+            }
         }
 
         void ApplyBreaking()
@@ -86,13 +81,13 @@ namespace NWR
             _listOfWheelColliders[3].brakeTorque = currentbreakForce;
         }
 
-        // void StopBreaking()
-        // {
-        //     _listOfWheelColliders[0].brakeTorque = 0f;
-        //     _listOfWheelColliders[1].brakeTorque = 0f;
-        //     _listOfWheelColliders[2].brakeTorque = 0f;
-        //     _listOfWheelColliders[3].brakeTorque = 0f;
-        // }
+        void StopBreaking()
+        {
+            _listOfWheelColliders[0].brakeTorque = 0f;
+            _listOfWheelColliders[1].brakeTorque = 0f;
+            _listOfWheelColliders[2].brakeTorque = 0f;
+            _listOfWheelColliders[3].brakeTorque = 0f;
+        }
 
         void HandleSteering()
         {
