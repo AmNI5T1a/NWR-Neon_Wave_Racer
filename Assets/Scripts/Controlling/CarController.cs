@@ -21,11 +21,13 @@ namespace NWR
         [SerializeField] private float currentSteerAngle;
         [SerializeField] private float horizontalInput;
         [SerializeField] private float verticalInput;
+
         private void FixedUpdate()
         {
             GetInput();
             HandleMotor();
             HandleSteering();
+            Debug.Log(horizontalInput);
             UpdateWheels();
         }
 
@@ -58,8 +60,8 @@ namespace NWR
 
             if (VirtualInputManager.Instance.MoveBack)
             {
-                _listOfWheelColliders[2].motorTorque = -1 * motorForce;
-                _listOfWheelColliders[3].motorTorque = -1 * motorForce;
+                _listOfWheelColliders[2].motorTorque = -1 * motorForce * speed;
+                _listOfWheelColliders[3].motorTorque = -1 * motorForce * speed;
             }
 
             currentbreakForce = VirtualInputManager.Instance.Brake ? breakForce : 0f;
@@ -92,7 +94,7 @@ namespace NWR
 
         void HandleSteering()
         {
-            currentSteerAngle = MaxSteerAngle * horizontalInput;
+            currentSteerAngle = (MaxSteerAngle * horizontalInput) / 2;
 
             _listOfWheelColliders[0].steerAngle = currentSteerAngle;
             _listOfWheelColliders[1].steerAngle = currentSteerAngle;
