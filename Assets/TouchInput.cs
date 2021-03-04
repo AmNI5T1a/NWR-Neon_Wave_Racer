@@ -10,33 +10,31 @@ namespace NWR
 
     public class TouchInput : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
-        bool selectStatus = false;
-        void Update()
+        public void MoveFrontInput(bool status)
         {
-            ShowDebugLog();
+            VirtualInputManager.Instance.MoveFront = status;
+
         }
 
-        public void SelectButtonDown(bool status)
+        public void MoveLeftSideInput(bool status)
         {
-            this.selectStatus = status;
+            VirtualInputManager.Instance.MoveLeft = status;
         }
 
-        private void ShowDebugLog()
+        public void MoveRightSideInput(bool status)
         {
-            if (selectStatus == true)
-            {
-                Debug.LogWarning("Input working...");
-            }
+            VirtualInputManager.Instance.MoveRight = status;
         }
+
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            selectStatus = true;
+
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            selectStatus = false;
+
         }
     }
 }

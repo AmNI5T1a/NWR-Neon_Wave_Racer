@@ -33,8 +33,24 @@ namespace NWR
 
         void GetHorizontalAndVerticalInput()
         {
-            _horizontalInput = Input.GetAxis("Horizontal");
-            _verticalInput = Input.GetAxis("Vertical");
+            if (VirtualInputManager.Instance.MoveLeft && VirtualInputManager.Instance.MoveRight)
+            {
+                return;
+            }
+            if (VirtualInputManager.Instance.MoveLeft)
+            {
+                _horizontalInput = -1f;
+            }
+            else if (VirtualInputManager.Instance.MoveRight)
+            {
+                _horizontalInput = 1f;
+            }
+            else
+            {
+                _horizontalInput = 0f;
+            }
+            // _horizontalInput = Input.GetAxis("Horizontal");
+            // _verticalInput = Input.GetAxis("Vertical");
         }
 
         void Steer()
