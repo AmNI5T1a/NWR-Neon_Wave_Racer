@@ -20,7 +20,6 @@ namespace NWR
         [SerializeField] private float motorForce = 50f;
         [SerializeField] private float brakeForce = 50f;
         [SerializeField] private float maxSteerAngle = 30;
-        [SerializeField] private float speed = 10;
         [SerializeField] private float maxSpeed = 100;
 
         void FixedUpdate()
@@ -29,6 +28,7 @@ namespace NWR
             Steer();
             Accelerate();
             UpdateWheelsPoses();
+
         }
 
         void GetHorizontalAndVerticalInput()
@@ -100,6 +100,69 @@ namespace NWR
 
             transform.position = CurrentPosition;
             transform.rotation = CurrentRotation;
+        }
+
+
+
+
+        // TouchInput
+
+        public void HorizontalTouchInput(float horizontal)
+        {
+            _horizontalInput = horizontal;
+
+            SteerTouchInput(_horizontalInput);
+        }
+
+        public void VericalTouchInput(float vertical)
+        {
+            _verticalInput = vertical;
+
+            SteerTouchInput(_verticalInput);
+        }
+
+        public void SteerTouchInput(float horizontalTouchInput)
+        {
+            _steeringAngle = maxSteerAngle * horizontalTouchInput;
+
+            for (byte c = 0; c <= 1; c++)
+            {
+                _wheelColliders[c].steerAngle = _steeringAngle;
+            }
+        }
+
+        public void FrontMoveTouchInput(bool status)
+        {
+            if (status == true)
+            {
+                foreach (WheelCollider wheel in _wheelColliders)
+                    wheel.motorTorque = motorForce;
+                Debug.Log("Adding force to the wheels");
+            }
+            else if (status == false)
+            {
+                foreach (WheelCollider wheel in _wheelColliders)
+                    wheel.motorTorque = 0f;
+
+                Debug.LogWarning("Stop adding force to the wheels");
+            }
+        }
+
+        public void BrakeTouchInput(bool status)
+        {
+            if (status == true)
+            {
+                foreach (WheelCollider wheel in _wheelColliders)
+                    wheel.motorTorque = 0f;
+
+                foreach (WheelCollider wheel in _wheelColliders)
+                    wheel.brakeTorque = brakeForce;
+            }
+            else if (status == false)
+            {
+                foreach (WheelCollider wheel in _wheelColliders)
+                    wheel.brakeTorque = 0;
+            }
         }
     }
 }

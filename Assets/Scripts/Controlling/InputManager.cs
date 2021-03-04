@@ -1,12 +1,31 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace NWR
 {
-    public class KeyboardInput : MonoBehaviour
+    public enum MovementInput { Keyboard = 1, Touch = 2 };
+    public class InputManager : MonoBehaviour
     {
+        [SerializeField] private MovementInput input = MovementInput.Keyboard;
+
+        [SerializeField] private GameObject touchInput;
+        [SerializeField] private bool touchCanvasStatus = false;
+
+        void Start()
+        {
+            touchInput.SetActive(false);
+        }
         void Update()
+        {
+            if (input == MovementInput.Keyboard)
+                KeyboardInput();
+            else
+                TouchInput();
+        }
+
+        void KeyboardInput()
         {
             if (Input.GetKey(KeyCode.D))
             {
@@ -51,6 +70,14 @@ namespace NWR
             else
             {
                 VirtualInputManager.Instance.Brake = false;
+            }
+        }
+
+        void TouchInput()
+        {
+            if (touchCanvasStatus == false)
+            {
+                touchInput.SetActive(true);
             }
         }
     }
