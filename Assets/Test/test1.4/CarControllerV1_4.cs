@@ -20,10 +20,8 @@ namespace NWR
         [SerializeField] private float motorForce = 50f;
         [SerializeField] private float brakeForce = 50f;
         [SerializeField] private float maxSteerAngle = 30;
-        [SerializeField] private float turnSpeed = 15;
         [SerializeField] private float speed = 10;
         [SerializeField] private float maxSpeed = 100;
-
 
         void FixedUpdate()
         {
@@ -45,8 +43,6 @@ namespace NWR
 
             _wheelColliders[0].steerAngle = _steeringAngle;
             _wheelColliders[1].steerAngle = _steeringAngle;
-
-            _carRigidbody.velocity += new Vector3(_horizontalInput, 0f, 0f);
         }
 
         void Accelerate()
@@ -58,38 +54,31 @@ namespace NWR
             {
                 _carRigidbody.velocity = _carRigidbody.velocity.normalized * maxSpeed;
             }
+
+
             if (VirtualInputManager.Instance.MoveFront)
             {
-                _wheelColliders[0].motorTorque = motorForce;
-                _wheelColliders[1].motorTorque = motorForce;
-                _wheelColliders[2].motorTorque = motorForce;
-                _wheelColliders[3].motorTorque = motorForce;
+                foreach (WheelCollider wheel in _wheelColliders)
+                    wheel.motorTorque = motorForce;
             }
             else
             {
-                _wheelColliders[0].motorTorque = 0;
-                _wheelColliders[1].motorTorque = 0;
-                _wheelColliders[2].motorTorque = 0;
-                _wheelColliders[3].motorTorque = 0;
+                foreach (WheelCollider wheel in _wheelColliders)
+                    wheel.motorTorque = 0f;
             }
 
             if (VirtualInputManager.Instance.Brake)
             {
-                _wheelColliders[0].motorTorque = 0.0001f;
-                _wheelColliders[1].motorTorque = 0.0001f;
-                _wheelColliders[2].motorTorque = 0.0001f;
-                _wheelColliders[3].motorTorque = 0.0001f;
-                _wheelColliders[0].brakeTorque = brakeForce;
-                _wheelColliders[1].brakeTorque = brakeForce;
-                _wheelColliders[2].brakeTorque = brakeForce;
-                _wheelColliders[3].brakeTorque = brakeForce;
+                foreach (WheelCollider wheel in _wheelColliders)
+                    wheel.motorTorque = 0f;
+
+                foreach (WheelCollider wheel in _wheelColliders)
+                    wheel.brakeTorque = brakeForce;
             }
             else
             {
-                _wheelColliders[0].brakeTorque = 0;
-                _wheelColliders[1].brakeTorque = 0;
-                _wheelColliders[2].brakeTorque = 0;
-                _wheelColliders[3].brakeTorque = 0;
+                foreach (WheelCollider wheel in _wheelColliders)
+                    wheel.brakeTorque = 0;
 
             }
         }
