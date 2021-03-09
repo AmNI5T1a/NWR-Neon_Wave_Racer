@@ -8,14 +8,18 @@ namespace NWR
     public enum MovementInput { Keyboard = 1, Touch = 2 };
     public class InputManager : MonoBehaviour
     {
+        [Header("Global Settings:")]
         [SerializeField] private MovementInput input = MovementInput.Keyboard;
-
-        [SerializeField] private GameObject touchInput;
         [SerializeField] private bool touchCanvasStatus = false;
+
+        [Header("References: ")]
+        [SerializeField] private GameObject touchInput;
+        [SerializeField] private GameObject touchPad_Canvas;
 
         void Start()
         {
             touchInput.SetActive(false);
+            touchPad_Canvas.SetActive(false);
         }
         void Update()
         {
@@ -78,6 +82,7 @@ namespace NWR
             if (touchCanvasStatus == false)
             {
                 touchInput.SetActive(true);
+                touchPad_Canvas.SetActive(true);
             }
         }
     }

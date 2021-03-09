@@ -27,7 +27,6 @@ namespace NWR
             GetInput();
             HandleMotor();
             HandleSteering();
-            Debug.Log(horizontalInput);
             UpdateWheels();
         }
 

@@ -16,6 +16,11 @@ namespace NWR
 
         }
 
+        public void MoveBackInput(bool status)
+        {
+            VirtualInputManager.Instance.MoveBack = status;
+        }
+
         public void MoveLeftSideInput(bool status)
         {
             VirtualInputManager.Instance.MoveLeft = status;
@@ -24,6 +29,12 @@ namespace NWR
         public void MoveRightSideInput(bool status)
         {
             VirtualInputManager.Instance.MoveRight = status;
+        }
+
+
+        public void BrakesInput(bool status)
+        {
+            VirtualInputManager.Instance.Brake = status;
         }
 
 

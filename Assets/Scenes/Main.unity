@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 15295676}
   - component: {fileID: 15295675}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: TouchPad_Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -218,7 +218,8 @@ RectTransform:
   - {fileID: 1295097935}
   - {fileID: 1023850905}
   - {fileID: 1283177187}
-  - {fileID: 50365595}
+  - {fileID: 2014071260}
+  - {fileID: 492165564}
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -227,7 +228,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1 &50365594
+--- !u!1 &492165563
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -235,44 +236,44 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 50365595}
-  - component: {fileID: 50365599}
-  - component: {fileID: 50365598}
-  - component: {fileID: 50365597}
-  - component: {fileID: 50365596}
+  - component: {fileID: 492165564}
+  - component: {fileID: 492165568}
+  - component: {fileID: 492165567}
+  - component: {fileID: 492165566}
+  - component: {fileID: 492165565}
   m_Layer: 5
-  m_Name: TEST_SUBJECT
+  m_Name: FrontMoveButton (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!224 &50365595
+--- !u!224 &492165564
 RectTransform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 50365594}
+  m_GameObject: {fileID: 492165563}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 15295678}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1480, y: 436.29}
-  m_SizeDelta: {x: 745.6313, y: 264.5774}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -267, y: 252.9}
+  m_SizeDelta: {x: 360, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &50365596
+--- !u!114 &492165565
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 50365594}
+  m_GameObject: {fileID: 492165563}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
@@ -285,7 +286,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 858955384}
           m_TargetAssemblyTypeName: NWR.TouchInput, Assembly-CSharp
-          m_MethodName: SelectButtonDown
+          m_MethodName: MoveFrontInput
           m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -301,7 +302,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 858955384}
           m_TargetAssemblyTypeName: NWR.TouchInput, Assembly-CSharp
-          m_MethodName: SelectButtonDown
+          m_MethodName: MoveFrontInput
           m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -311,13 +312,13 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
---- !u!114 &50365597
+--- !u!114 &492165566
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 50365594}
+  m_GameObject: {fileID: 492165563}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
@@ -351,17 +352,17 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 50365598}
+  m_TargetGraphic: {fileID: 492165567}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &50365598
+--- !u!114 &492165567
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 50365594}
+  m_GameObject: {fileID: 492165563}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -375,7 +376,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f2e8135893e88ac488dc9fba5ccc76eb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1fcc882d94006f340899d21962ff675d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -385,26 +386,14 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!222 &50365599
+--- !u!222 &492165568
 CanvasRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 50365594}
+  m_GameObject: {fileID: 492165563}
   m_CullTransparentMesh: 1
---- !u!114 &223974227 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1028356354553885875, guid: 86367d993beddb44e83ba9edb976b050,
-    type: 3}
-  m_PrefabInstance: {fileID: 1050916867}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5756fc37f5f6d241b38183575515f07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &619652256
 GameObject:
   m_ObjectHideFlags: 0
@@ -434,9 +423,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdeddfed10b8e474ea124c3216503e9c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  input: 2
-  touchInput: {fileID: 858955383}
+  input: 1
   touchCanvasStatus: 0
+  touchInput: {fileID: 858955383}
+  touchPad_Canvas: {fileID: 15295674}
 --- !u!4 &619652258
 Transform:
   m_ObjectHideFlags: 0
@@ -724,9 +714,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 858955383}
-          m_TargetAssemblyTypeName: NWR.CarControllerV1_4, Assembly-CSharp
-          m_MethodName: 
+        - m_Target: {fileID: 858955384}
+          m_TargetAssemblyTypeName: NWR.TouchInput, Assembly-CSharp
+          m_MethodName: MoveFrontInput
           m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -740,9 +730,9 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 858955383}
-          m_TargetAssemblyTypeName: NWR.CarControllerV1_4, Assembly-CSharp
-          m_MethodName: 
+        - m_Target: {fileID: 858955384}
+          m_TargetAssemblyTypeName: NWR.TouchInput, Assembly-CSharp
+          m_MethodName: MoveFrontInput
           m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1494,26 +1484,26 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 223974227}
-          m_TargetAssemblyTypeName: NWR.CarControllerV1_4, Assembly-CSharp
-          m_MethodName: HorizontalTouchInput
-          m_Mode: 4
+        - m_Target: {fileID: 858955384}
+          m_TargetAssemblyTypeName: NWR.TouchInput, Assembly-CSharp
+          m_MethodName: MoveRightSideInput
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: 1
             m_StringArgument: 
-            m_BoolArgument: 0
+            m_BoolArgument: 1
           m_CallState: 2
   - eventID: 3
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 223974227}
-          m_TargetAssemblyTypeName: NWR.CarControllerV1_4, Assembly-CSharp
-          m_MethodName: HorizontalTouchInput
-          m_Mode: 4
+        - m_Target: {fileID: 858955384}
+          m_TargetAssemblyTypeName: NWR.TouchInput, Assembly-CSharp
+          m_MethodName: MoveRightSideInput
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1742,26 +1732,26 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 223974227}
-          m_TargetAssemblyTypeName: NWR.CarControllerV1_4, Assembly-CSharp
-          m_MethodName: HorizontalTouchInput
-          m_Mode: 4
+        - m_Target: {fileID: 858955384}
+          m_TargetAssemblyTypeName: NWR.TouchInput, Assembly-CSharp
+          m_MethodName: MoveLeftSideInput
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
             m_IntArgument: 0
             m_FloatArgument: -1
             m_StringArgument: 
-            m_BoolArgument: 0
+            m_BoolArgument: 1
           m_CallState: 2
   - eventID: 3
     callback:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 223974227}
-          m_TargetAssemblyTypeName: NWR.CarControllerV1_4, Assembly-CSharp
-          m_MethodName: HorizontalTouchInput
-          m_Mode: 4
+        - m_Target: {fileID: 858955384}
+          m_TargetAssemblyTypeName: NWR.TouchInput, Assembly-CSharp
+          m_MethodName: MoveLeftSideInput
+          m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1836,6 +1826,172 @@ Transform:
   m_Father: {fileID: 622875434}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2014071259
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2014071260}
+  - component: {fileID: 2014071264}
+  - component: {fileID: 2014071263}
+  - component: {fileID: 2014071262}
+  - component: {fileID: 2014071261}
+  m_Layer: 5
+  m_Name: FrontMoveButton (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2014071260
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014071259}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.56107, y: 0.56107, z: 0.56107}
+  m_Children: []
+  m_Father: {fileID: 15295678}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -190, y: 578}
+  m_SizeDelta: {x: 360, y: 360}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2014071261
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014071259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 2
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 858955384}
+          m_TargetAssemblyTypeName: NWR.TouchInput, Assembly-CSharp
+          m_MethodName: BrakesInput
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 2
+  - eventID: 3
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 858955384}
+          m_TargetAssemblyTypeName: NWR.TouchInput, Assembly-CSharp
+          m_MethodName: BrakesInput
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+--- !u!114 &2014071262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014071259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_WrapAround: 0
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 2014071263}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &2014071263
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014071259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 901e3cbe3ac5d174a987e82c705ceea3, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &2014071264
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2014071259}
+  m_CullTransparentMesh: 1
 --- !u!1001 &6921097829179981554
 PrefabInstance:
   m_ObjectHideFlags: 0
