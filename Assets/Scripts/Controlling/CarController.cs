@@ -6,115 +6,179 @@ namespace NWR
 {
     public class CarController : MonoBehaviour
     {
+        [Header("In game stats:")]
+        [SerializeField] private float _horizontalInput;
+        [SerializeField] private float _verticalInput;
+        [SerializeField] private float _steeringAngle;
+
         [Header("References: ")]
-        [SerializeField] private List<WheelCollider> _listOfWheelColliders;
-        [SerializeField] private List<Transform> _listOfWheelTransforms;
+        [SerializeField] private List<WheelCollider> _wheelColliders;
+        [SerializeField] private List<Transform> _wheelTransforms;
+        [SerializeField] private Rigidbody _carRigidbody;
 
         [Header("Stats: ")]
-        [SerializeField] private float motorForce;
-        [SerializeField] private float breakForce;
-        [SerializeField] private float MaxSteerAngle;
-        [SerializeField] private float speed;
+        [SerializeField] private float motorForce = 50f;
+        [SerializeField] private float brakeForce = 50f;
+        [SerializeField] private float maxSteerAngle = 30;
+        [SerializeField] private float maxSpeed = 100;
 
-        [Header("In game stats: ")]
-        [SerializeField] private float currentbreakForce;
-        [SerializeField] private float currentSteerAngle;
-        [SerializeField] private float horizontalInput;
-        [SerializeField] private float verticalInput;
-
-        private void FixedUpdate()
+        void FixedUpdate()
         {
-            GetInput();
-            HandleMotor();
-            HandleSteering();
-            UpdateWheels();
+            GetHorizontalAndVerticalInput();
+            Steer();
+            Accelerate();
+            UpdateWheelsPoses();
+
         }
 
-        void GetInput()
+        void GetHorizontalAndVerticalInput()
         {
-            horizontalInput = Input.GetAxis("Horizontal");
-            verticalInput = Input.GetAxis("Vertical");
-        }
-        void HandleMotor()
-        {
-            if (VirtualInputManager.Instance.MoveFront && VirtualInputManager.Instance.MoveBack)
-                return;
-
             if (VirtualInputManager.Instance.MoveLeft && VirtualInputManager.Instance.MoveRight)
+            {
                 return;
-
-            if (!VirtualInputManager.Instance.MoveFront && !VirtualInputManager.Instance.MoveBack)
-            {
-                _listOfWheelColliders[0].motorTorque = 0f;
-                _listOfWheelColliders[1].motorTorque = 0f;
-                _listOfWheelColliders[2].motorTorque = 0f;
-                _listOfWheelColliders[3].motorTorque = 0f;
             }
-
-            if (VirtualInputManager.Instance.MoveFront)
+            if (VirtualInputManager.Instance.MoveLeft)
             {
-                _listOfWheelColliders[2].motorTorque = motorForce * speed;
-                _listOfWheelColliders[3].motorTorque = motorForce * speed;
+                _horizontalInput = -1f;
             }
-
-            if (VirtualInputManager.Instance.MoveBack)
+            else if (VirtualInputManager.Instance.MoveRight)
             {
-                _listOfWheelColliders[2].motorTorque = -1 * motorForce * speed;
-                _listOfWheelColliders[3].motorTorque = -1 * motorForce * speed;
-            }
-
-            currentbreakForce = VirtualInputManager.Instance.Brake ? breakForce : 0f;
-
-            if (VirtualInputManager.Instance.Brake)
-            {
-                ApplyBreaking();
+                _horizontalInput = 1f;
             }
             else
             {
-                StopBreaking();
+                _horizontalInput = 0f;
+            }
+            // _horizontalInput = Input.GetAxis("Horizontal");
+            // _verticalInput = Input.GetAxis("Vertical");
+        }
+
+        void Steer()
+        {
+            _steeringAngle = maxSteerAngle * _horizontalInput;
+
+            _wheelColliders[0].steerAngle = _steeringAngle;
+            _wheelColliders[1].steerAngle = _steeringAngle;
+        }
+
+        void Accelerate()
+        {
+            if (VirtualInputManager.Instance.MoveFront && VirtualInputManager.Instance.Brake)
+                return;
+
+            if (_carRigidbody.velocity.magnitude > maxSpeed)
+            {
+                _carRigidbody.velocity = _carRigidbody.velocity.normalized * maxSpeed;
+            }
+
+
+            if (VirtualInputManager.Instance.MoveFront)
+            {
+                foreach (WheelCollider wheel in _wheelColliders)
+                    wheel.motorTorque = motorForce;
+            }
+            else
+            {
+                foreach (WheelCollider wheel in _wheelColliders)
+                    wheel.motorTorque = 0f;
+            }
+
+            if (VirtualInputManager.Instance.Brake)
+            {
+                foreach (WheelCollider wheel in _wheelColliders)
+                    wheel.motorTorque = 0f;
+
+                foreach (WheelCollider wheel in _wheelColliders)
+                    wheel.brakeTorque = brakeForce;
+            }
+            else
+            {
+                foreach (WheelCollider wheel in _wheelColliders)
+                    wheel.brakeTorque = 0;
+
             }
         }
 
-        void ApplyBreaking()
+        void UpdateWheelsPoses()
         {
-            _listOfWheelColliders[0].brakeTorque = currentbreakForce;
-            _listOfWheelColliders[1].brakeTorque = currentbreakForce;
-            _listOfWheelColliders[2].brakeTorque = currentbreakForce;
-            _listOfWheelColliders[3].brakeTorque = currentbreakForce;
+            UpdateWheelsPose(_wheelColliders[0], _wheelTransforms[0]);
+            UpdateWheelsPose(_wheelColliders[1], _wheelTransforms[1]);
+            UpdateWheelsPose(_wheelColliders[2], _wheelTransforms[2]);
+            UpdateWheelsPose(_wheelColliders[3], _wheelTransforms[3]);
         }
 
-        void StopBreaking()
+        void UpdateWheelsPose(WheelCollider collider, Transform transform)
         {
-            _listOfWheelColliders[0].brakeTorque = 0f;
-            _listOfWheelColliders[1].brakeTorque = 0f;
-            _listOfWheelColliders[2].brakeTorque = 0f;
-            _listOfWheelColliders[3].brakeTorque = 0f;
+            Vector3 CurrentPosition = transform.position;
+            Quaternion CurrentRotation = transform.rotation;
+
+            collider.GetWorldPose(out CurrentPosition, out CurrentRotation);
+
+            transform.position = CurrentPosition;
+            transform.rotation = CurrentRotation;
         }
 
-        void HandleSteering()
-        {
-            currentSteerAngle = (MaxSteerAngle * horizontalInput) / 2;
 
-            _listOfWheelColliders[0].steerAngle = currentSteerAngle;
-            _listOfWheelColliders[1].steerAngle = currentSteerAngle;
+
+
+        // TouchInput
+
+        public void HorizontalTouchInput(float horizontal)
+        {
+            _horizontalInput = horizontal;
+
+            SteerTouchInput(_horizontalInput);
         }
 
-        void UpdateWheels()
+        public void VericalTouchInput(float vertical)
         {
-            UpdateSingleWheel(_listOfWheelColliders[0], _listOfWheelTransforms[0]);
-            UpdateSingleWheel(_listOfWheelColliders[1], _listOfWheelTransforms[1]);
-            UpdateSingleWheel(_listOfWheelColliders[2], _listOfWheelTransforms[2]);
-            UpdateSingleWheel(_listOfWheelColliders[3], _listOfWheelTransforms[3]);
+            _verticalInput = vertical;
+
+            SteerTouchInput(_verticalInput);
         }
 
-        void UpdateSingleWheel(WheelCollider wheelCollider, Transform wheelTransform)
+        public void SteerTouchInput(float horizontalTouchInput)
         {
-            Vector3 pos;
-            Quaternion rot;
-            wheelCollider.GetWorldPose(out pos, out rot);
+            _steeringAngle = maxSteerAngle * horizontalTouchInput;
 
-            wheelTransform.rotation = rot;
-            wheelTransform.position = pos;
+            for (byte c = 0; c <= 1; c++)
+            {
+                _wheelColliders[c].steerAngle = _steeringAngle;
+            }
+        }
+
+        public void FrontMoveTouchInput(bool status)
+        {
+            if (status == true)
+            {
+                foreach (WheelCollider wheel in _wheelColliders)
+                    wheel.motorTorque = motorForce;
+                Debug.Log("Adding force to the wheels");
+            }
+            else if (status == false)
+            {
+                foreach (WheelCollider wheel in _wheelColliders)
+                    wheel.motorTorque = 0f;
+
+                Debug.LogWarning("Stop adding force to the wheels");
+            }
+        }
+
+        public void BrakeTouchInput(bool status)
+        {
+            if (status == true)
+            {
+                foreach (WheelCollider wheel in _wheelColliders)
+                    wheel.motorTorque = 0f;
+
+                foreach (WheelCollider wheel in _wheelColliders)
+                    wheel.brakeTorque = brakeForce;
+            }
+            else if (status == false)
+            {
+                foreach (WheelCollider wheel in _wheelColliders)
+                    wheel.brakeTorque = 0;
+            }
         }
     }
 }
