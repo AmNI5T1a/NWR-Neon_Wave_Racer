@@ -9,7 +9,7 @@ namespace NWR
     public class InputManager : MonoBehaviour
     {
         [Header("Global Settings:")]
-        [SerializeField] private MovementInput input = MovementInput.Keyboard;
+        [SerializeField] public MovementInput input = MovementInput.Keyboard;
         [SerializeField] private bool touchCanvasStatus = false;
 
         [Header("References: ")]
