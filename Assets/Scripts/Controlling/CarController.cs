@@ -88,7 +88,13 @@ namespace NWR
 
             if (VirtualInputManager.Instance.MoveFront)
             {
-                _carRigidbody.AddForce(Vector3.forward * motorTorque);
+                foreach (WheelCollider wheel in _listOfWheelColliders)
+                    wheel.motorTorque = motorTorque;
+            }
+            else
+            {
+                foreach (WheelCollider wheel in _listOfWheelColliders)
+                    wheel.motorTorque = 0f;
             }
         }
 
