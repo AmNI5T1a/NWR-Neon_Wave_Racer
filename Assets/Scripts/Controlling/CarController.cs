@@ -24,6 +24,8 @@ namespace NWR
         [SerializeField] private float _horizontalInputSteeringSpeed;
         [SerializeField] private float steeringSpeed;
         [SerializeField] private float motorTorque;
+        [SerializeField] private float brakeTorque;
+        [SerializeField] private float maxSpeed = 70;
 
 
         [Header("Stats in play mode: ")]
@@ -38,9 +40,17 @@ namespace NWR
 
             _currentSpeed = _carRigidbody.velocity.magnitude * 2.7f;
 
-
+            SpeedController();
             CarSteering();
             UpdateWheelsPoses();
+        }
+
+        void SpeedController()
+        {
+            if (_carRigidbody.velocity.magnitude > maxSpeed)
+            {
+                _carRigidbody.velocity = _carRigidbody.velocity.normalized * maxSpeed;
+            }
         }
 
         void CarSteering()
@@ -62,7 +72,7 @@ namespace NWR
 
             if (VirtualInputManager.Instance.MoveLeft)
             {
-                if (_horizontalInput >= -1f)
+                if (_horizontalInput > -1f)
                 {
                     _horizontalInput -= _horizontalInputSteeringSpeed;
 
@@ -75,7 +85,7 @@ namespace NWR
 
             if (VirtualInputManager.Instance.MoveRight)
             {
-                if (_horizontalInput <= 1f)
+                if (_horizontalInput < 1f)
                 {
                     _horizontalInput += _horizontalInputSteeringSpeed;
 
@@ -86,7 +96,7 @@ namespace NWR
                 }
             }
 
-            if (VirtualInputManager.Instance.MoveFront)
+            if (VirtualInputManager.Instance.MoveFront && !VirtualInputManager.Instance.Brake)
             {
                 foreach (WheelCollider wheel in _listOfWheelColliders)
                     wheel.motorTorque = motorTorque;
@@ -95,6 +105,17 @@ namespace NWR
             {
                 foreach (WheelCollider wheel in _listOfWheelColliders)
                     wheel.motorTorque = 0f;
+            }
+
+            if (VirtualInputManager.Instance.Brake && !VirtualInputManager.Instance.MoveFront)
+            {
+                foreach (WheelCollider wheel in _listOfWheelColliders)
+                    wheel.brakeTorque = brakeTorque;
+            }
+            else
+            {
+                foreach (WheelCollider wheel in _listOfWheelColliders)
+                    wheel.brakeTorque = 0f;
             }
         }
 

@@ -12,5 +12,6 @@ namespace NWR
         public bool MoveBack;
 
         public bool Brake;
+        public bool C;
     }
 }

@@ -75,6 +75,15 @@ namespace NWR
             {
                 VirtualInputManager.Instance.Brake = false;
             }
+
+            if (Input.GetKey(KeyCode.C))
+            {
+                VirtualInputManager.Instance.C = true;
+            }
+            else
+            {
+                VirtualInputManager.Instance.C = false;
+            }
         }
 
         void TouchInput()

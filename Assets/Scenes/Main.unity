@@ -142,7 +142,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &15295675
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,6 +234,106 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1678985032}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &397135070
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 397135073}
+  - component: {fileID: 397135072}
+  - component: {fileID: 397135071}
+  - component: {fileID: 397135074}
+  m_Layer: 0
+  m_Name: Camera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!81 &397135071
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397135070}
+  m_Enabled: 1
+--- !u!20 &397135072
+Camera:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397135070}
+  m_Enabled: 1
+  serializedVersion: 2
+  m_ClearFlags: 1
+  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_projectionMatrixMode: 1
+  m_GateFitMode: 2
+  m_FOVAxisMode: 0
+  m_SensorSize: {x: 36, y: 24}
+  m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
+  m_NormalizedViewPortRect:
+    serializedVersion: 2
+    x: 0
+    y: 0
+    width: 1
+    height: 1
+  near clip plane: 0.3
+  far clip plane: 1000
+  field of view: 60
+  orthographic: 0
+  orthographic size: 5
+  m_Depth: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingPath: -1
+  m_TargetTexture: {fileID: 0}
+  m_TargetDisplay: 0
+  m_TargetEye: 3
+  m_HDR: 1
+  m_AllowMSAA: 1
+  m_AllowDynamicResolution: 0
+  m_ForceIntoRT: 0
+  m_OcclusionCulling: 1
+  m_StereoConvergence: 10
+  m_StereoSeparation: 0.022
+--- !u!4 &397135073
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397135070}
+  m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
+  m_LocalPosition: {x: 3.426719, y: -2.3479233, z: -3.1398602}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 10, y: 0, z: 0}
+--- !u!114 &397135074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397135070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c50d4976125f294b87c330baddec74b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraTransform: {fileID: 397135073}
+  cameraSpeed: 10
+  distanceBetweenCameraAndObjectToFollow: {x: 0, y: 2, z: -5}
+  targetToFollow: {fileID: 1144722745}
 --- !u!1 &469449194
 GameObject:
   m_ObjectHideFlags: 0
@@ -914,6 +1014,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1023850904}
   m_CullTransparentMesh: 1
+--- !u!4 &1144722745 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6045484864674078758, guid: 7d75f1ef41ee2e549b391f45eb0d4f11,
+    type: 3}
+  m_PrefabInstance: {fileID: 7787499695925483189}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1283177186
 GameObject:
   m_ObjectHideFlags: 0
@@ -1643,41 +1749,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2160017711404862833, guid: 7d75f1ef41ee2e549b391f45eb0d4f11,
-        type: 3}
-      propertyPath: m_Mass
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 2160017711404862833, guid: 7d75f1ef41ee2e549b391f45eb0d4f11,
-        type: 3}
-      propertyPath: m_SidewaysFriction.m_Stiffness
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2272847332131829201, guid: 7d75f1ef41ee2e549b391f45eb0d4f11,
-        type: 3}
-      propertyPath: m_Mass
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 2272847332131829201, guid: 7d75f1ef41ee2e549b391f45eb0d4f11,
-        type: 3}
-      propertyPath: m_SidewaysFriction.m_Stiffness
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2891027479876227887, guid: 7d75f1ef41ee2e549b391f45eb0d4f11,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 96
-      objectReference: {fileID: 0}
-    - target: {fileID: 4776764130017703202, guid: 7d75f1ef41ee2e549b391f45eb0d4f11,
-        type: 3}
-      propertyPath: m_Mass
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 4776764130017703202, guid: 7d75f1ef41ee2e549b391f45eb0d4f11,
-        type: 3}
-      propertyPath: m_SidewaysFriction.m_Stiffness
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 6045484864674078758, guid: 7d75f1ef41ee2e549b391f45eb0d4f11,
         type: 3}
       propertyPath: m_RootOrder
@@ -1686,7 +1757,7 @@ PrefabInstance:
     - target: {fileID: 6045484864674078758, guid: 7d75f1ef41ee2e549b391f45eb0d4f11,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.783
+      value: 3.761
       objectReference: {fileID: 0}
     - target: {fileID: 6045484864674078758, guid: 7d75f1ef41ee2e549b391f45eb0d4f11,
         type: 3}
@@ -1737,16 +1808,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Volkswagen_Golf_Mk2_GTI
-      objectReference: {fileID: 0}
-    - target: {fileID: 7638146714946586648, guid: 7d75f1ef41ee2e549b391f45eb0d4f11,
-        type: 3}
-      propertyPath: m_Mass
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 7638146714946586648, guid: 7d75f1ef41ee2e549b391f45eb0d4f11,
-        type: 3}
-      propertyPath: m_SidewaysFriction.m_Stiffness
-      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d75f1ef41ee2e549b391f45eb0d4f11, type: 3}
