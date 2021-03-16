@@ -25,13 +25,26 @@ namespace NWR
         [SerializeField] private float steeringSpeed;
         [SerializeField] private float motorTorque;
         [SerializeField] private float brakeTorque;
-        [SerializeField] private float maxSpeed = 70;
+        [SerializeField] private float maxSpeed;
+
+        [SerializeField] private float[] gears;
+        [SerializeField] private float minRPM;
+        [SerializeField] private float maxRPM;
 
 
         [Header("Stats in play mode: ")]
-        [SerializeField] private float _currentSpeed;
         [SerializeField] private float _horizontalInput;
         [SerializeField] private float _verticalInput;
+
+        [Space(10)]
+
+        [SerializeField] private float _currentSpeed;
+        [SerializeField] private int currentSpeedGear;
+        [SerializeField] private float currentRPM;
+        void Start()
+        {
+            currentSpeedGear = 0;
+        }
 
 
         void FixedUpdate()
@@ -42,6 +55,8 @@ namespace NWR
 
             SpeedController();
             CarSteering();
+            CarMovement();
+            GearsSystem();
             UpdateWheelsPoses();
         }
 
@@ -95,11 +110,18 @@ namespace NWR
                     _listOfWheelColliders[1].steerAngle = _horizontalInput * steeringSpeed;
                 }
             }
+        }
+
+        void CarMovement()
+        {
+
+            if (VirtualInputManager.Instance.MoveFront && VirtualInputManager.Instance.Brake)
+                return;
 
             if (VirtualInputManager.Instance.MoveFront && !VirtualInputManager.Instance.Brake)
             {
                 foreach (WheelCollider wheel in _listOfWheelColliders)
-                    wheel.motorTorque = motorTorque;
+                    wheel.motorTorque = motorTorque * gears[currentSpeedGear];
             }
             else
             {
@@ -110,12 +132,42 @@ namespace NWR
             if (VirtualInputManager.Instance.Brake && !VirtualInputManager.Instance.MoveFront)
             {
                 foreach (WheelCollider wheel in _listOfWheelColliders)
+                {
+                    wheel.motorTorque = 0f;
                     wheel.brakeTorque = brakeTorque;
+                }
+
             }
             else
             {
                 foreach (WheelCollider wheel in _listOfWheelColliders)
                     wheel.brakeTorque = 0f;
+            }
+        }
+
+        void GearsSystem()
+        {
+            Debug.Log(Mathf.Abs((_listOfWheelColliders[0].rpm / 4) * gears[currentSpeedGear]));
+
+            currentRPM = Mathf.Abs((_listOfWheelColliders[0].rpm / 4) * gears[currentSpeedGear]);
+
+            ShiftSpeedGearDown();
+            ShiftSpeedGearUp();
+        }
+
+        void ShiftSpeedGearUp()
+        {
+            if (currentRPM > maxRPM && VirtualInputManager.Instance.MoveFront && currentSpeedGear <= 3)
+            {
+                currentSpeedGear++;
+            }
+        }
+
+        void ShiftSpeedGearDown()
+        {
+            if (currentRPM < minRPM && currentSpeedGear != 0)
+            {
+                currentSpeedGear--;
             }
         }
 

@@ -6,8 +6,6 @@ using UnityEditor.UI;
 
 namespace NWR
 {
-
-
     public class TouchInput : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
     {
         public void MoveFrontInput(bool status)
