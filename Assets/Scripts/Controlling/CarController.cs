@@ -18,6 +18,7 @@ namespace NWR
         [SerializeField] private List<Transform> _listOfWheelTransforms;
         [SerializeField] private Rigidbody _carRigidbody;
         [SerializeField] private Transform centerOfMassTransformPosition;
+        [SerializeField] private InputManager _inputManager;
 
         [Header("Settings: ")]
 
@@ -26,6 +27,7 @@ namespace NWR
         [SerializeField] private float motorTorque;
         [SerializeField] private float brakeTorque;
         [SerializeField] private float maxSpeed;
+        [SerializeField] private float minSpeed;
 
         [SerializeField] private float[] gears;
         [SerializeField] private float minRPM;
@@ -57,10 +59,14 @@ namespace NWR
 
             _currentSpeed = _carRigidbody.velocity.magnitude * 2.7f;
 
-            SpeedController();
-            CarSteering();
-            CarMovement();
-            GearsSystem();
+            if (_inputManager.inputLocked == false)
+            {
+                SpeedController();
+                CarSteering();
+                CarMovement();
+                GearsSystem();
+            }
+
             UpdateWheelsPoses();
         }
 
@@ -69,6 +75,11 @@ namespace NWR
             if (_carRigidbody.velocity.magnitude > maxSpeed)
             {
                 _carRigidbody.velocity = _carRigidbody.velocity.normalized * maxSpeed;
+            }
+
+            if (_carRigidbody.velocity.magnitude <= minSpeed && _inputManager.inputLocked == false)
+            {
+                _carRigidbody.velocity = _carRigidbody.velocity.normalized * minSpeed;
             }
         }
 
@@ -151,24 +162,19 @@ namespace NWR
 
         void GearsSystem()
         {
-            Debug.Log(Mathf.Abs((_listOfWheelColliders[0].rpm / 4) * gears[currentSpeedGear]));
-
             currentRPM = Mathf.Abs((_listOfWheelColliders[0].rpm / 4) * gears[currentSpeedGear]);
 
-            ShiftSpeedGearDown();
-            ShiftSpeedGearUp();
-        }
-
-        void ShiftSpeedGearUp()
-        {
+            ///          
+            /// Shift Up
+            ///
             if (currentRPM > maxRPM && VirtualInputManager.Instance.MoveFront && currentSpeedGear <= 3)
             {
                 currentSpeedGear++;
             }
-        }
 
-        void ShiftSpeedGearDown()
-        {
+            /// 
+            /// Shift Down
+            ///
             if (currentRPM < minRPM && currentSpeedGear != 0 && !shiftDownOnCooldown)
             {
                 currentSpeedGear--;
@@ -202,6 +208,12 @@ namespace NWR
 
             transform.position = CurrentPosition;
             transform.rotation = CurrentRotation;
+        }
+
+        public void AddForceWhileInputLocked()
+        {
+            foreach (WheelCollider wheel in _listOfWheelColliders)
+                wheel.motorTorque = 5000f;
         }
     }
 }

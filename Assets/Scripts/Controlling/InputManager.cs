@@ -9,8 +9,10 @@ namespace NWR
     public class InputManager : MonoBehaviour
     {
         [Header("Global Settings:")]
-        [SerializeField] public MovementInput input = MovementInput.Keyboard;
+        [SerializeField] public MovementInput input;
         [SerializeField] private bool touchCanvasStatus = false;
+        [SerializeField] public bool inputLocked = false;
+
 
         [Header("References: ")]
         [SerializeField] private GameObject touchInput;
@@ -23,9 +25,9 @@ namespace NWR
         }
         void Update()
         {
-            if (input == MovementInput.Keyboard)
+            if (input == MovementInput.Keyboard && inputLocked == false)
                 KeyboardInput();
-            else
+            else if (input == MovementInput.Touch && inputLocked == false)
                 TouchInput();
         }
 
