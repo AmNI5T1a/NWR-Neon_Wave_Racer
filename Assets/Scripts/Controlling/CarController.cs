@@ -41,9 +41,13 @@ namespace NWR
         [SerializeField] private float _currentSpeed;
         [SerializeField] private int currentSpeedGear;
         [SerializeField] private float currentRPM;
+        [SerializeField] private float shiftDownCooldown;
+        [SerializeField] private bool shiftDownOnCooldown;
         void Start()
         {
             currentSpeedGear = 0;
+
+            shiftDownOnCooldown = false;
         }
 
 
@@ -165,9 +169,19 @@ namespace NWR
 
         void ShiftSpeedGearDown()
         {
-            if (currentRPM < minRPM && currentSpeedGear != 0)
+            if (currentRPM < minRPM && currentSpeedGear != 0 && !shiftDownOnCooldown)
             {
                 currentSpeedGear--;
+                shiftDownCooldown = 1f;
+                shiftDownOnCooldown = true;
+            }
+            else if (currentRPM < minRPM && currentSpeedGear != 0 && shiftDownOnCooldown)
+            {
+                shiftDownCooldown -= Time.deltaTime;
+                if (shiftDownCooldown <= 0)
+                {
+                    shiftDownOnCooldown = false;
+                }
             }
         }
 
