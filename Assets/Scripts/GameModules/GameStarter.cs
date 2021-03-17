@@ -32,7 +32,6 @@ namespace NWR
             if (_inputManager.inputLocked)
             {
                 _player.GetComponent<CarController>().AddForceWhileInputLocked();
-                Debug.Log("Adding force to the car");
             }
 
             if (timeBeforeGiveControl <= 0)

@@ -27,7 +27,7 @@ namespace NWR
         {
             if (input == MovementInput.Keyboard && inputLocked == false)
                 KeyboardInput();
-            else if (input == MovementInput.Touch && inputLocked == false)
+            else if (input == MovementInput.Touch)
                 TouchInput();
         }
 
