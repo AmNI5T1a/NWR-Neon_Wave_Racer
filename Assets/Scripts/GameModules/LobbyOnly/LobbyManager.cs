@@ -13,10 +13,11 @@ namespace NWR
         [SerializeField] private GameObject _listOfRoads;
         [SerializeField] private GameObject _listOfGameStyles;
         [SerializeField] private GameObject _returnArrow;
+        [SerializeField] private UI_Inventory _UI_Inventory;
 
         [Header("Settings")]
         [SerializeField] public Inventory inventory;
-        [SerializeField] private UI_Inventory _UI_Inventory;
+        [SerializeField] public int money;
 
         [Header("In play mode settings")]
         [SerializeField] private bool roadMenuClosed = true;
@@ -58,11 +59,17 @@ namespace NWR
 
         void RefreshInventory()
         {
-            inventory.AddItem(new Item { itemType = Item.ItemType.Road, amount = 1, boughtStatus = true });
-            inventory.AddItem(new Item { itemType = Item.ItemType.Road, amount = 1, boughtStatus = true });
-            inventory.AddItem(new Item { itemType = Item.ItemType.GameStyle, amount = 1, boughtStatus = false });
+            inventory.AddItem(new Item { itemType = Item.ItemType.Road, amount = 1, boughtStatus = true, price = 228, posNumber = 1, name = "E347d" });
+            inventory.AddItem(new Item { itemType = Item.ItemType.Road, amount = 1, boughtStatus = false, price = 321, posNumber = 2, name = "A4gfjk" });
+            inventory.AddItem(new Item { itemType = Item.ItemType.GameStyle, amount = 1, boughtStatus = true, posNumber = 1, name = "One direction" });
+            inventory.AddItem(new Item { itemType = Item.ItemType.GameStyle, amount = 1, boughtStatus = true, posNumber = 2, name = "Oncoming traffic" });
 
             _UI_Inventory.RefreshInventory();
+        }
+
+        public void BuyItem(int price)
+        {
+
         }
 
         public void OpenOrCloseSelectRoadMenu()

@@ -700,12 +700,12 @@ GameObject:
   m_Component:
   - component: {fileID: 215952036}
   m_Layer: 5
-  m_Name: road_slot
+  m_Name: road_slotTemplate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &215952036
 RectTransform:
   m_ObjectHideFlags: 0
@@ -726,10 +726,10 @@ RectTransform:
   m_Father: {fileID: 480071668}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 46.8998, y: -32.8}
+  m_SizeDelta: {x: 85, y: 95.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &239136696
 GameObject:
@@ -976,6 +976,7 @@ GameObject:
   m_Component:
   - component: {fileID: 355692119}
   - component: {fileID: 355692120}
+  - component: {fileID: 355692121}
   m_Layer: 0
   m_Name: LobbyManager
   m_TagString: Untagged
@@ -1013,9 +1014,29 @@ MonoBehaviour:
   _listOfRoads: {fileID: 1397093407}
   _listOfGameStyles: {fileID: 900273956}
   _returnArrow: {fileID: 1470900532}
+  _UI_Inventory: {fileID: 355692121}
+  money: 0
   roadMenuClosed: 1
   gameStylesMenuClosed: 1
   _listOfOpenedWindows: []
+--- !u!114 &355692121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 355692118}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7bd1e950728cdc4bab9e54a2c9a968e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _lobbyManager: {fileID: 355692120}
+  _roadSlotContainer: {fileID: 480071667}
+  _roadSlotTemplate: {fileID: 215952035}
+  _gameStyleSlotContainer: {fileID: 1990802144}
+  _gameStyleSlotTemplate: {fileID: 383794740}
+  _listOfInstanciatedUIElements: []
 --- !u!1 &383359925
 GameObject:
   m_ObjectHideFlags: 0
@@ -1133,12 +1154,12 @@ GameObject:
   m_Component:
   - component: {fileID: 383794741}
   m_Layer: 5
-  m_Name: road_slot
+  m_Name: gameStyle_slotTemplate
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &383794741
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1158,10 +1179,10 @@ RectTransform:
   m_Father: {fileID: 1990802145}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 46.8998, y: -32.8}
+  m_SizeDelta: {x: 85, y: 95.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &401249826
 GameObject:
@@ -1460,7 +1481,7 @@ GameObject:
   - component: {fileID: 507027095}
   - component: {fileID: 507027094}
   m_Layer: 5
-  m_Name: Road_number (1)
+  m_Name: Road_name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2529,7 +2550,7 @@ GameObject:
   - component: {fileID: 1194950566}
   - component: {fileID: 1194950565}
   m_Layer: 5
-  m_Name: Road_number (1)
+  m_Name: Road_Name
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3259,7 +3280,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1530906009}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 355692120}
+        m_TargetAssemblyTypeName: NWR.LobbyManager, Assembly-CSharp
+        m_MethodName: BuyItem
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1530906009
 MonoBehaviour:
   m_ObjectHideFlags: 0
