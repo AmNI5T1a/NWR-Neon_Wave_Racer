@@ -14,5 +14,6 @@ namespace NWR
 
         public ItemType itemType;
         public int amount;
+        public bool boughtStatus;
     }
 }

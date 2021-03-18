@@ -15,7 +15,8 @@ namespace NWR
         [SerializeField] private GameObject _returnArrow;
 
         [Header("Settings")]
-        [SerializeField] private Inventory inventory;
+        [SerializeField] public Inventory inventory;
+        [SerializeField] private UI_Inventory _UI_Inventory;
 
         [Header("In play mode settings")]
         [SerializeField] private bool roadMenuClosed = true;
@@ -39,6 +40,7 @@ namespace NWR
 
             // Instanciate Inventory
             inventory = new Inventory();
+            RefreshInventory();
         }
 
 
@@ -52,6 +54,15 @@ namespace NWR
             {
                 _returnArrow.SetActive(false);
             }
+        }
+
+        void RefreshInventory()
+        {
+            inventory.AddItem(new Item { itemType = Item.ItemType.Road, amount = 1, boughtStatus = true });
+            inventory.AddItem(new Item { itemType = Item.ItemType.Road, amount = 1, boughtStatus = true });
+            inventory.AddItem(new Item { itemType = Item.ItemType.GameStyle, amount = 1, boughtStatus = false });
+
+            _UI_Inventory.RefreshInventory();
         }
 
         public void OpenOrCloseSelectRoadMenu()

@@ -12,8 +12,13 @@ namespace NWR
         public Inventory()
         {
             _listOfItems = new List<Item>();
-
-            Debug.Log("Inventory created");
         }
+
+        public void AddItem(Item newItem)
+        {
+            _listOfItems.Add(newItem);
+        }
+
+        public List<Item> GetInventory() => _listOfItems;
     }
 }
