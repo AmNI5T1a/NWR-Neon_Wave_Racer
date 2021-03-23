@@ -10,14 +10,30 @@ namespace NWR
     {
         [Header("References: ")]
         [SerializeField] public LobbyManager _lobbyManager;
+        [SerializeField] private GameObject _player;
+
         [Space(10)]
+
         [Header("RoadMenuUI Elements: ")]
         [SerializeField] private GameObject _roadSlotContainer;
         [SerializeField] private GameObject _roadSlotTemplate;
+
         [Space(10)]
         [Header("GameStylesUI Elements")]
         [SerializeField] private GameObject _gameStyleSlotContainer;
         [SerializeField] private GameObject _gameStyleSlotTemplate;
+
+        [Space(10)]
+
+        [Header("CarsMenuUI Elements")]
+        [SerializeField] private GameObject _carsMenuButtton;
+        [SerializeField] private GameObject _carsMenuSlotContainer;
+        [SerializeField] private GameObject _carsMenuSlotTemplate;
+
+        [Space(10)]
+
+        [Header("PlayerStatsUI Elements")]
+        [SerializeField] private GameObject _playersStatsMenu;
 
         [Header("In game settings: ")]
         [SerializeField] private List<GameObject> _listOfInstanciatedUIElements;
@@ -72,7 +88,23 @@ namespace NWR
 
                     _listOfInstanciatedUIElements.Add(slot);
                 }
+                else if (item.itemType == Item.ItemType.Car)
+                {
+                    GameObject slot = Instantiate(_carsMenuSlotTemplate, _carsMenuSlotContainer.transform);
+
+                    slot.SetActive(true);
+                }
             }
+            UpdateMoneyScore();
+        }
+
+        public void BuyAnItem()
+        {
+
+        }
+        private void UpdateMoneyScore()
+        {
+            _playersStatsMenu.transform.GetChild(1).GetComponent<Text>().text = _player.GetComponent<PlayerSettings>().playerMoney.ToString();
         }
     }
 }

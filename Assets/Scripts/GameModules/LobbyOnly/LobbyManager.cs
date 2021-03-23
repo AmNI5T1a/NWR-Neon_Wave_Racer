@@ -10,19 +10,38 @@ namespace NWR
     {
         [Header("References")]
         [SerializeField] private InputManager _inputManager;
+
         [SerializeField] private GameObject _listOfRoads;
         [SerializeField] private GameObject _listOfGameStyles;
+        [SerializeField] private GameObject _listOfCars;
         [SerializeField] private GameObject _returnArrow;
+
         [SerializeField] private UI_Inventory _UI_Inventory;
+
+        [SerializeField] private PlayerSettings _playerSettings;
 
         [Header("Settings")]
         [SerializeField] public Inventory inventory;
         [SerializeField] public int money;
 
         [Header("In play mode settings")]
+        [SerializeField] private List<GameObject> _listOfOpenedWindows;
+
+        [Space(5)]
+
         [SerializeField] private bool roadMenuClosed = true;
         [SerializeField] private bool gameStylesMenuClosed = true;
-        [SerializeField] private List<GameObject> _listOfOpenedWindows;
+        [SerializeField] private bool carsMenuClosed = true;
+
+        [Space(5)]
+
+        [SerializeField] private bool roadChoosen;
+        [SerializeField] private string choosenRoadName;
+
+        [Space(5)]
+
+        [SerializeField] private bool gameModeChoosen;
+        [SerializeField] private string choosenGameMode;
         void Awake()
         {
             // Lock input at the start of the game
@@ -38,6 +57,10 @@ namespace NWR
 
             // Close return arrow at the start of the game
             _returnArrow.SetActive(false);
+
+            // Close car list
+            carsMenuClosed = true;
+            _listOfCars.SetActive(false);
 
             // Instanciate Inventory
             inventory = new Inventory();
@@ -59,17 +82,45 @@ namespace NWR
 
         void RefreshInventory()
         {
-            inventory.AddItem(new Item { itemType = Item.ItemType.Road, amount = 1, boughtStatus = true, price = 228, posNumber = 1, name = "E347d" });
-            inventory.AddItem(new Item { itemType = Item.ItemType.Road, amount = 1, boughtStatus = false, price = 321, posNumber = 2, name = "A4gfjk" });
+            inventory.AddItem(new Item { itemType = Item.ItemType.Road, amount = 1, boughtStatus = true, price = 228, posNumber = 1, name = "Abell 520" });
+            inventory.AddItem(new Item { itemType = Item.ItemType.Road, amount = 1, boughtStatus = false, price = 321, posNumber = 2, name = "Sombrero" });
             inventory.AddItem(new Item { itemType = Item.ItemType.GameStyle, amount = 1, boughtStatus = true, posNumber = 1, name = "One direction" });
             inventory.AddItem(new Item { itemType = Item.ItemType.GameStyle, amount = 1, boughtStatus = true, posNumber = 2, name = "Oncoming traffic" });
+            inventory.AddItem(new Item { itemType = Item.ItemType.Car, amount = 1, boughtStatus = true, price = 1, posNumber = 1, name = "Golf GTI" });
+            inventory.AddItem(new Item { itemType = Item.ItemType.Car, amount = 1, boughtStatus = false, price = 32000, posNumber = 2, name = "Subaru WRX" });
+
 
             _UI_Inventory.RefreshInventory();
         }
 
-        public void BuyItem(int price)
+        void ChooseThisRoad(string roadName)
         {
+            choosenRoadName = roadName;
 
+            //Update UI
+        }
+
+        void ChooseThisGameStyle(string gameStyleName)
+        {
+            choosenGameMode = gameStyleName;
+
+            //Update UI
+        }
+
+        public void OpenOrCloseCarsMenu()
+        {
+            if (carsMenuClosed)
+            {
+                carsMenuClosed = false;
+                _listOfOpenedWindows.Add(_listOfCars);
+                _listOfCars.SetActive(true);
+            }
+            else if (!carsMenuClosed)
+            {
+                carsMenuClosed = true;
+                _listOfOpenedWindows.Remove(_listOfCars);
+                _listOfCars.SetActive(false);
+            }
         }
 
         public void OpenOrCloseSelectRoadMenu()
@@ -119,9 +170,12 @@ namespace NWR
             _listOfOpenedWindows.Remove(_listOfOpenedWindows[_listOfOpenedWindows.Count - 1]);
         }
 
-        public void TestDebugMessage()
+        public void StartAGame()
         {
-            Debug.Log("Button works well");
+            if (roadChoosen && gameModeChoosen)
+            {
+
+            }
         }
     }
 }

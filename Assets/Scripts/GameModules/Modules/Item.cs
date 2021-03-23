@@ -9,7 +9,8 @@ namespace NWR
         public enum ItemType
         {
             Road,
-            GameStyle
+            GameStyle,
+            Car
         }
 
         public ItemType itemType;
