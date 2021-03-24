@@ -130,18 +130,16 @@ namespace NWR
 
         void ChooseButtonClicked(Item item)
         {
-            string itemName = item.name;
-
             switch (item.itemType)
             {
                 case Item.ItemType.Road:
                     _lobbyManager.SetRoad(item);
-                    _selectRoadMenu.transform.GetChild(2).GetComponent<Text>().text = itemName;
+                    _selectRoadMenu.transform.GetChild(2).GetComponent<Text>().text = item.name;
                     _lobbyManager.OpenOrCloseSelectRoadMenu();
                     break;
                 case Item.ItemType.GameStyle:
                     _lobbyManager.SetGameMode(item);
-                    _selectGameModeMenu.transform.GetChild(2).GetComponent<Text>().text = itemName;
+                    _selectGameModeMenu.transform.GetChild(2).GetComponent<Text>().text = item.name;
                     _lobbyManager.OpenOrCloseSelectGameStyle();
                     break;
                 case Item.ItemType.Car:

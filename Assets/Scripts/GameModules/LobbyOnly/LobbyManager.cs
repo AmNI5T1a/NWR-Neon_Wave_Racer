@@ -84,8 +84,8 @@ namespace NWR
         {
             inventory.AddItem(new Item { itemType = Item.ItemType.Road, amount = 1, boughtStatus = true, price = 228, posNumber = 1, name = "Abell 520" });
             inventory.AddItem(new Item { itemType = Item.ItemType.Road, amount = 1, boughtStatus = false, price = 321, posNumber = 2, name = "Sombrero" });
-            inventory.AddItem(new Item { itemType = Item.ItemType.GameStyle, amount = 1, boughtStatus = true, posNumber = 1, name = "One direction" });
-            inventory.AddItem(new Item { itemType = Item.ItemType.GameStyle, amount = 1, boughtStatus = true, posNumber = 2, name = "Oncoming traffic" });
+            inventory.AddItem(new Item { itemType = Item.ItemType.GameStyle, amount = 1, boughtStatus = true, price = 100, posNumber = 1, name = "One direction" });
+            inventory.AddItem(new Item { itemType = Item.ItemType.GameStyle, amount = 1, boughtStatus = true, price = 200, posNumber = 2, name = "Oncoming traffic" });
             inventory.AddItem(new Item { itemType = Item.ItemType.Car, amount = 1, boughtStatus = true, price = 1, posNumber = 1, name = "Golf GTI" });
             inventory.AddItem(new Item { itemType = Item.ItemType.Car, amount = 1, boughtStatus = false, price = 32000, posNumber = 2, name = "Subaru WRX" });
 
@@ -158,20 +158,16 @@ namespace NWR
 
         public void SetRoad(Item item)
         {
-            item.name = choosenRoadName;
+            choosenRoadName = item.name;
 
             roadChoosen = true;
-
-            Debug.Log("Choosen road and set name: " + choosenRoadName);
         }
 
         public void SetGameMode(Item item)
         {
-            item.name = choosenGameMode;
+            choosenRoadName = item.name;
 
             gameModeChoosen = true;
-
-            Debug.Log("Choosen game mode and set name: " + choosenGameMode);
         }
     }
 }
