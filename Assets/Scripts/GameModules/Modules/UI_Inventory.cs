@@ -15,11 +15,13 @@ namespace NWR
         [Space(10)]
 
         [Header("RoadMenuUI Elements: ")]
+        [SerializeField] private GameObject _selectRoadMenu;
         [SerializeField] private GameObject _roadSlotContainer;
         [SerializeField] private GameObject _roadSlotTemplate;
 
         [Space(10)]
         [Header("GameStylesUI Elements")]
+        [SerializeField] private GameObject _selectGameModeMenu;
         [SerializeField] private GameObject _gameStyleSlotContainer;
         [SerializeField] private GameObject _gameStyleSlotTemplate;
 
@@ -37,6 +39,7 @@ namespace NWR
 
         [Header("In game settings: ")]
         [SerializeField] private List<GameObject> _listOfInstanciatedUIElements;
+        [SerializeField] private Button _button;
 
 
         void Awake()
@@ -57,11 +60,18 @@ namespace NWR
                     if (item.boughtStatus == false)
                     {
                         slot.transform.GetChild(4).GetChild(0).GetChild(0).GetComponent<Text>().text = item.price.ToString();
+
+                        _button = slot.transform.GetChild(4).GetChild(0).GetComponent<Button>();
+
+                        _button.AddEventListener(item, BuyButtonClicked);
                     }
                     else if (item.boughtStatus == true)
                     {
                         slot.transform.GetChild(4).gameObject.SetActive(false);
                         slot.transform.GetChild(5).gameObject.SetActive(true);
+
+                        _button = slot.transform.GetChild(5).GetChild(0).GetComponent<Button>();
+                        _button.AddEventListener(item, ChooseButtonClicked);
                     }
 
                     // Set name of the road
@@ -85,6 +95,10 @@ namespace NWR
                     // Set play mode name
                     slot.transform.GetChild(3).GetComponent<Text>().text = item.name;
 
+                    // Button
+                    _button = slot.transform.GetChild(4).GetChild(0).GetComponent<Button>();
+                    _button.AddEventListener(item, ChooseButtonClicked);
+
 
                     _listOfInstanciatedUIElements.Add(slot);
                 }
@@ -98,9 +112,47 @@ namespace NWR
             UpdateMoneyScore();
         }
 
-        public void BuyAnItem()
+        void OnShopItemButtonClicked(Item item)
         {
+            switch (item.itemType)
+            {
+                case Item.ItemType.Road:
 
+                    break;
+                case Item.ItemType.GameStyle:
+
+                    break;
+                case Item.ItemType.Car:
+
+                    break;
+            }
+        }
+
+        void ChooseButtonClicked(Item item)
+        {
+            string itemName = item.name;
+
+            switch (item.itemType)
+            {
+                case Item.ItemType.Road:
+                    _lobbyManager.SetRoad(item);
+                    _selectRoadMenu.transform.GetChild(2).GetComponent<Text>().text = itemName;
+                    _lobbyManager.OpenOrCloseSelectRoadMenu();
+                    break;
+                case Item.ItemType.GameStyle:
+                    _lobbyManager.SetGameMode(item);
+                    _selectGameModeMenu.transform.GetChild(2).GetComponent<Text>().text = itemName;
+                    _lobbyManager.OpenOrCloseSelectGameStyle();
+                    break;
+                case Item.ItemType.Car:
+                    Debug.LogWarning("Work in progress");
+                    break;
+            }
+        }
+
+        void BuyButtonClicked(Item item)
+        {
+            Debug.Log("BuyButtonClicked");
         }
         private void UpdateMoneyScore()
         {

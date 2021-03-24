@@ -1115,8 +1115,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _lobbyManager: {fileID: 355692120}
   _player: {fileID: 1457726080}
+  _selectRoadMenu: {fileID: 239136696}
   _roadSlotContainer: {fileID: 480071667}
   _roadSlotTemplate: {fileID: 215952035}
+  _selectGameModeMenu: {fileID: 401249826}
   _gameStyleSlotContainer: {fileID: 1990802144}
   _gameStyleSlotTemplate: {fileID: 383794740}
   _carsMenuButtton: {fileID: 1474511648}
@@ -1124,6 +1126,7 @@ MonoBehaviour:
   _carsMenuSlotTemplate: {fileID: 1174288769}
   _playersStatsMenu: {fileID: 1104698387}
   _listOfInstanciatedUIElements: []
+  _button: {fileID: 0}
 --- !u!1 &383359925
 GameObject:
   m_ObjectHideFlags: 0
@@ -2564,9 +2567,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Empty
-
-'
+  m_Text: Empty
 --- !u!222 &763116846
 CanvasRenderer:
   m_ObjectHideFlags: 0

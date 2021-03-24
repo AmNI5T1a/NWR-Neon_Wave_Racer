@@ -93,20 +93,6 @@ namespace NWR
             _UI_Inventory.RefreshInventory();
         }
 
-        void ChooseThisRoad(string roadName)
-        {
-            choosenRoadName = roadName;
-
-            //Update UI
-        }
-
-        void ChooseThisGameStyle(string gameStyleName)
-        {
-            choosenGameMode = gameStyleName;
-
-            //Update UI
-        }
-
         public void OpenOrCloseCarsMenu()
         {
             if (carsMenuClosed)
@@ -170,12 +156,22 @@ namespace NWR
             _listOfOpenedWindows.Remove(_listOfOpenedWindows[_listOfOpenedWindows.Count - 1]);
         }
 
-        public void StartAGame()
+        public void SetRoad(Item item)
         {
-            if (roadChoosen && gameModeChoosen)
-            {
+            item.name = choosenRoadName;
 
-            }
+            roadChoosen = true;
+
+            Debug.Log("Choosen road and set name: " + choosenRoadName);
+        }
+
+        public void SetGameMode(Item item)
+        {
+            item.name = choosenGameMode;
+
+            gameModeChoosen = true;
+
+            Debug.Log("Choosen game mode and set name: " + choosenGameMode);
         }
     }
 }
