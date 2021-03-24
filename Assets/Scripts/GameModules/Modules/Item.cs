@@ -16,7 +16,7 @@ namespace NWR
         public ItemType itemType;
         public int amount;
         public bool boughtStatus;
-        public int price;
+        public uint price;
         public int posNumber;
         public string name;
     }

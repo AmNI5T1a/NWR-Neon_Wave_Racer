@@ -169,5 +169,14 @@ namespace NWR
 
             gameModeChoosen = true;
         }
+
+        public void BuyItemFromShop(ref Item itemToBuy)
+        {
+            if (_playerSettings.playerMoney >= itemToBuy.price)
+            {
+                _playerSettings.playerMoney = _playerSettings.playerMoney - itemToBuy.price;
+                itemToBuy.boughtStatus = true;
+            }
+        }
     }
 }

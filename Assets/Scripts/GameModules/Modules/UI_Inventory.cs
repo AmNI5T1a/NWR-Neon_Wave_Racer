@@ -39,16 +39,28 @@ namespace NWR
 
         [Header("In game settings: ")]
         [SerializeField] private List<GameObject> _listOfInstanciatedUIElements;
-        [SerializeField] private Button _button;
+        [HideInInspector] private Button _button;
 
 
         void Awake()
         {
-            _listOfInstanciatedUIElements = new List<GameObject>();
+            //_listOfInstanciatedUIElements = new List<GameObject>();
+        }
+
+        public void DestroyAllUIComponentsBeforeRefresh()
+        {
+            for (byte c = 0; c < _listOfInstanciatedUIElements.Count; c++)
+            {
+                Destroy(_listOfInstanciatedUIElements[c]);
+            }
+
+            _listOfInstanciatedUIElements.Clear();
         }
 
         public void RefreshInventory()
         {
+            _listOfInstanciatedUIElements = new List<GameObject>();
+
             foreach (Item item in _lobbyManager.inventory.GetInventory())
             {
                 if (item.itemType == Item.ItemType.Road)
@@ -107,25 +119,11 @@ namespace NWR
                     GameObject slot = Instantiate(_carsMenuSlotTemplate, _carsMenuSlotContainer.transform);
 
                     slot.SetActive(true);
+
+                    _listOfInstanciatedUIElements.Add(slot);
                 }
             }
             UpdateMoneyScore();
-        }
-
-        void OnShopItemButtonClicked(Item item)
-        {
-            switch (item.itemType)
-            {
-                case Item.ItemType.Road:
-
-                    break;
-                case Item.ItemType.GameStyle:
-
-                    break;
-                case Item.ItemType.Car:
-
-                    break;
-            }
         }
 
         void ChooseButtonClicked(Item item)
@@ -148,13 +146,26 @@ namespace NWR
             }
         }
 
-        void BuyButtonClicked(Item item)
+        private void BuyButtonClicked(Item item)
         {
-            Debug.Log("BuyButtonClicked");
+            switch (item.itemType)
+            {
+                case Item.ItemType.Road:
+                    _lobbyManager.BuyItemFromShop(ref item);
+                    UpdateMoneyScore();
+                    break;
+                case Item.ItemType.GameStyle:
+                    _lobbyManager.BuyItemFromShop(ref item);
+                    UpdateMoneyScore();
+                    break;
+                case Item.ItemType.Car:
+                    _lobbyManager.BuyItemFromShop(ref item);
+                    UpdateMoneyScore();
+                    break;
+            }
+            DestroyAllUIComponentsBeforeRefresh();
+            RefreshInventory();
         }
-        private void UpdateMoneyScore()
-        {
-            _playersStatsMenu.transform.GetChild(1).GetComponent<Text>().text = _player.GetComponent<PlayerSettings>().playerMoney.ToString();
-        }
+        public void UpdateMoneyScore() => _playersStatsMenu.transform.GetChild(1).GetComponent<Text>().text = _player.GetComponent<PlayerSettings>().playerMoney.ToString();
     }
 }
