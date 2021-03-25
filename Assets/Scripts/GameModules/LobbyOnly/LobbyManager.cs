@@ -151,6 +151,10 @@ namespace NWR
             {
                 gameStylesMenuClosed = true;
             }
+            else if (_listOfOpenedWindows[_listOfOpenedWindows.Count - 1] == _listOfCars)
+            {
+                carsMenuClosed = true;
+            }
 
             _listOfOpenedWindows[_listOfOpenedWindows.Count - 1].SetActive(false);
             _listOfOpenedWindows.Remove(_listOfOpenedWindows[_listOfOpenedWindows.Count - 1]);

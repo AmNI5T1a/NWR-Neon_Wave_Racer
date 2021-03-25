@@ -193,6 +193,9 @@ namespace NWR
                     bool transactionCompletedStatus = _lobbyManager.BuyItemFromShop(ref item);
                     if (transactionCompletedStatus)
                     {
+                        _player.GetComponent<PlayerSettings>().UpdatePlayerCar(item);
+                        _buyACarButton.SetActive(false);
+                        _lobbyManager.OpenOrCloseCarsMenu();
                         UpdateMoneyScore();
                         break;
                     }
