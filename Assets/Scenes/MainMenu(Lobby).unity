@@ -1091,8 +1091,8 @@ MonoBehaviour:
   _listOfCars: {fileID: 2142908216}
   _returnArrow: {fileID: 1470900532}
   _UI_Inventory: {fileID: 355692121}
-  _playerSettings: {fileID: 0}
-  money: 0
+  _playerSettings: {fileID: 1457726081}
+  money: 120000
   _listOfOpenedWindows: []
   roadMenuClosed: 1
   gameStylesMenuClosed: 1
@@ -1126,7 +1126,6 @@ MonoBehaviour:
   _carsMenuSlotTemplate: {fileID: 1174288769}
   _playersStatsMenu: {fileID: 1104698387}
   _listOfInstanciatedUIElements: []
-  _button: {fileID: 0}
 --- !u!1 &383359925
 GameObject:
   m_ObjectHideFlags: 0
@@ -1530,7 +1529,7 @@ PrefabInstance:
     - target: {fileID: 9197331466611004344, guid: e1c671fa96b851f47bf405f048ad9260,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9197331466611004345, guid: e1c671fa96b851f47bf405f048ad9260,
         type: 3}
@@ -3965,6 +3964,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Volkswagen_Golf_Mk2_GTI
+      objectReference: {fileID: 0}
+    - target: {fileID: 2271902546736585320, guid: 7d75f1ef41ee2e549b391f45eb0d4f11,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7584144608676561153, guid: 7d75f1ef41ee2e549b391f45eb0d4f11,
         type: 3}
@@ -6487,7 +6491,7 @@ GameObject:
   - component: {fileID: 2095431534}
   - component: {fileID: 2095431533}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

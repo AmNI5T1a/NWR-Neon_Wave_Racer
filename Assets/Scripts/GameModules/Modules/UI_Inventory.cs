@@ -11,6 +11,7 @@ namespace NWR
         [Header("References: ")]
         [SerializeField] public LobbyManager _lobbyManager;
         [SerializeField] private GameObject _player;
+        [SerializeField] private ItemAssets _itemAssets;
 
         [Space(10)]
 
@@ -29,6 +30,7 @@ namespace NWR
 
         [Header("CarsMenuUI Elements")]
         [SerializeField] private GameObject _carsMenuButtton;
+        [SerializeField] private GameObject _buyACarButton;
         [SerializeField] private GameObject _carsMenuSlotContainer;
         [SerializeField] private GameObject _carsMenuSlotTemplate;
 
@@ -118,12 +120,40 @@ namespace NWR
                 {
                     GameObject slot = Instantiate(_carsMenuSlotTemplate, _carsMenuSlotContainer.transform);
 
+                    slot.transform.GetChild(0).GetComponent<Image>().sprite = item.GetItemSprite();
+
+                    _button = slot.transform.GetChild(1).GetComponent<Button>();
+                    if (item.boughtStatus == true)
+                    {
+                        _button.AddEventListener(item, ChooseButtonClicked);
+                    }
+                    else if (item.boughtStatus == false)
+                    {
+                        _button.AddEventListener(item, PreviewCar);
+                    }
+
                     slot.SetActive(true);
 
                     _listOfInstanciatedUIElements.Add(slot);
                 }
             }
             UpdateMoneyScore();
+        }
+
+        void PreviewCar(Item item)
+        {
+            // Show car block
+            _player.GetComponent<PlayerSettings>().playerCar.gameObject.SetActive(false);
+
+            GameObject carForPreview = item.GetCarAsGameObject();
+            carForPreview.SetActive(true);
+
+            // Show buy_button
+            _buyACarButton.SetActive(true);
+            _buyACarButton.GetComponent<Button>().AddEventListener(item, BuyButtonClicked);
+            _buyACarButton.transform.GetChild(1).GetComponent<Text>().text = item.price.ToString();
+
+            // Show close_preview_button 
         }
 
         void ChooseButtonClicked(Item item)
@@ -141,7 +171,8 @@ namespace NWR
                     _lobbyManager.OpenOrCloseSelectGameStyle();
                     break;
                 case Item.ItemType.Car:
-                    Debug.LogWarning("Work in progress");
+                    _player.GetComponent<PlayerSettings>().playerCar.SetActive(false);
+                    _player.GetComponent<PlayerSettings>().UpdatePlayerCar(item);
                     break;
             }
         }
@@ -159,8 +190,16 @@ namespace NWR
                     UpdateMoneyScore();
                     break;
                 case Item.ItemType.Car:
-                    _lobbyManager.BuyItemFromShop(ref item);
-                    UpdateMoneyScore();
+                    bool transactionCompletedStatus = _lobbyManager.BuyItemFromShop(ref item);
+                    if (transactionCompletedStatus)
+                    {
+                        UpdateMoneyScore();
+                        break;
+                    }
+                    else
+                    {
+                        Debug.Log("Not enough money");
+                    }
                     break;
             }
             DestroyAllUIComponentsBeforeRefresh();

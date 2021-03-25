@@ -86,13 +86,13 @@ namespace NWR
             inventory.AddItem(new Item { itemType = Item.ItemType.Road, amount = 1, boughtStatus = false, price = 321, posNumber = 2, name = "Sombrero" });
             inventory.AddItem(new Item { itemType = Item.ItemType.GameStyle, amount = 1, boughtStatus = true, price = 100, posNumber = 1, name = "One direction" });
             inventory.AddItem(new Item { itemType = Item.ItemType.GameStyle, amount = 1, boughtStatus = true, price = 200, posNumber = 2, name = "Oncoming traffic" });
-            inventory.AddItem(new Item { itemType = Item.ItemType.Car, amount = 1, boughtStatus = true, price = 1, posNumber = 1, name = "Golf GTI" });
-            inventory.AddItem(new Item { itemType = Item.ItemType.Car, amount = 1, boughtStatus = false, price = 32000, posNumber = 2, name = "Subaru WRX" });
+            inventory.AddItem(new Item { itemType = Item.ItemType.Car, amount = 1, boughtStatus = false, price = 1, posNumber = 1, name = "Golf GTI" });
+            inventory.AddItem(new Item { itemType = Item.ItemType.Car, amount = 1, boughtStatus = true, price = 32000, posNumber = 2, name = "Subaru WRX" });
 
 
             _UI_Inventory.RefreshInventory();
         }
-
+        #region InteractionWithUIElements
         public void OpenOrCloseCarsMenu()
         {
             if (carsMenuClosed)
@@ -155,7 +155,7 @@ namespace NWR
             _listOfOpenedWindows[_listOfOpenedWindows.Count - 1].SetActive(false);
             _listOfOpenedWindows.Remove(_listOfOpenedWindows[_listOfOpenedWindows.Count - 1]);
         }
-
+        #endregion
         public void SetRoad(Item item)
         {
             choosenRoadName = item.name;
@@ -170,12 +170,18 @@ namespace NWR
             gameModeChoosen = true;
         }
 
-        public void BuyItemFromShop(ref Item itemToBuy)
+        public bool BuyItemFromShop(ref Item itemToBuy)
         {
             if (_playerSettings.playerMoney >= itemToBuy.price)
             {
                 _playerSettings.playerMoney = _playerSettings.playerMoney - itemToBuy.price;
                 itemToBuy.boughtStatus = true;
+
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }
