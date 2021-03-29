@@ -37,6 +37,7 @@ namespace NWR
             {
                 case "Golf GTI": return ItemAssets.Instance.availableCarList[0];
                 case "Subaru WRX": return ItemAssets.Instance.availableCarList[1];
+                case "Dodge Charger": return ItemAssets.Instance.availableCarList[2];
 
                 default: return null;
             }

@@ -21,5 +21,9 @@ namespace NWR
 
         [Space(10)]
         [SerializeField] public List<GameObject> availableCarList;
+
+        [Space(10)]
+        [SerializeField] public List<AudioClip> lobbyBackgroundMusic;
+        [SerializeField] public List<AudioClip> playModeMusic;
     }
 }

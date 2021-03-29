@@ -88,6 +88,7 @@ namespace NWR
             inventory.AddItem(new Item { itemType = Item.ItemType.GameStyle, amount = 1, boughtStatus = true, price = 200, posNumber = 2, name = "Oncoming traffic" });
             inventory.AddItem(new Item { itemType = Item.ItemType.Car, amount = 1, boughtStatus = true, price = 1, posNumber = 1, name = "Golf GTI" });
             inventory.AddItem(new Item { itemType = Item.ItemType.Car, amount = 1, boughtStatus = false, price = 32000, posNumber = 2, name = "Subaru WRX" });
+            inventory.AddItem(new Item { itemType = Item.ItemType.Car, amount = 1, boughtStatus = false, price = 75000, posNumber = 3, name = "Dodge Charger" });
 
 
             _UI_Inventory.RefreshInventory();
@@ -191,7 +192,7 @@ namespace NWR
 
         public void StartAGame()
         {
-            if (gameModeChoosen && roadChoosen && carsMenuClosed)
+            if (gameModeChoosen && roadChoosen)
             {
 
             }
