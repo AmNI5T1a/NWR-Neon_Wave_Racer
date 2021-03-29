@@ -9,7 +9,6 @@ namespace NWR
     public class CameraFollow : MonoBehaviour
     {
         [SerializeField] private Transform cameraTransform;
-        [SerializeField] private float cameraSpeed = 10.0f;
         [SerializeField] private Vector3 distanceBetweenCameraAndObjectToFollow;
         [SerializeField] private Transform targetToFollow;
 

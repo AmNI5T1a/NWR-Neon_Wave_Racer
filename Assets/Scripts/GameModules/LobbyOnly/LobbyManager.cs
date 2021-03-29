@@ -42,7 +42,7 @@ namespace NWR
 
         [SerializeField] private bool gameModeChoosen;
         [SerializeField] private string choosenGameMode;
-        void Awake()
+        void Start()
         {
             // Lock input at the start of the game
             _inputManager.inputLocked = true;
@@ -186,6 +186,14 @@ namespace NWR
             else
             {
                 return false;
+            }
+        }
+
+        public void StartAGame()
+        {
+            if (gameModeChoosen && roadChoosen && carsMenuClosed)
+            {
+
             }
         }
     }

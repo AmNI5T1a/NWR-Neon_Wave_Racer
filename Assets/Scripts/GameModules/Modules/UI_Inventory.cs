@@ -11,7 +11,6 @@ namespace NWR
         [Header("References: ")]
         [SerializeField] public LobbyManager _lobbyManager;
         [SerializeField] private GameObject _player;
-        [SerializeField] private ItemAssets _itemAssets;
 
         [Space(10)]
 
@@ -42,7 +41,8 @@ namespace NWR
         [Header("In game settings: ")]
         [SerializeField] private List<GameObject> _listOfInstanciatedUIElements;
         [HideInInspector] private Button _button;
-
+        [SerializeField] private bool previewCarModeActive = false;
+        [SerializeField] private GameObject _carForPreview;
 
         void Awake()
         {
@@ -142,18 +142,25 @@ namespace NWR
 
         void PreviewCar(Item item)
         {
+            previewCarModeActive = true;
             // Show car block
             _player.GetComponent<PlayerSettings>().playerCar.gameObject.SetActive(false);
 
-            GameObject carForPreview = item.GetCarAsGameObject();
-            carForPreview.SetActive(true);
+            _carForPreview = item.GetCarAsGameObject();
+            _carForPreview.SetActive(true);
 
             // Show buy_button
             _buyACarButton.SetActive(true);
             _buyACarButton.GetComponent<Button>().AddEventListener(item, BuyButtonClicked);
             _buyACarButton.transform.GetChild(1).GetComponent<Text>().text = item.price.ToString();
-
             // Show close_preview_button 
+        }
+
+        private void ClosePreviewMode()
+        {
+            _carForPreview.SetActive(false);
+            previewCarModeActive = false;
+            _buyACarButton.SetActive(false);
         }
 
         void ChooseButtonClicked(Item item)
@@ -171,8 +178,12 @@ namespace NWR
                     _lobbyManager.OpenOrCloseSelectGameStyle();
                     break;
                 case Item.ItemType.Car:
+                    if (previewCarModeActive)
+                        ClosePreviewMode();
+
                     _player.GetComponent<PlayerSettings>().playerCar.SetActive(false);
                     _player.GetComponent<PlayerSettings>().UpdatePlayerCar(item);
+                    _carsMenuButtton.transform.GetChild(2).GetComponent<Text>().text = item.name;
                     break;
             }
         }
@@ -197,6 +208,7 @@ namespace NWR
                         _buyACarButton.SetActive(false);
                         _lobbyManager.OpenOrCloseCarsMenu();
                         UpdateMoneyScore();
+                        _carsMenuButtton.transform.GetChild(2).GetComponent<Text>().text = item.name;
                         break;
                     }
                     else

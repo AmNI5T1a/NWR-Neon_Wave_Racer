@@ -9,6 +9,7 @@ namespace NWR
         [SerializeField] public GameObject playerCar;
         [SerializeField] public uint playerMoney;
 
+
         public void UpdatePlayerCar(Item item)
         {
             playerCar = item.GetCarAsGameObject();
