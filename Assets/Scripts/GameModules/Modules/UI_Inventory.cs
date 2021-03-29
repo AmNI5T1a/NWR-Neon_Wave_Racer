@@ -11,6 +11,7 @@ namespace NWR
         [Header("References: ")]
         [SerializeField] public LobbyManager _lobbyManager;
         [SerializeField] private GameObject _player;
+        [SerializeField] private Canvas _canvas;
 
         [Space(10)]
 
@@ -140,27 +141,33 @@ namespace NWR
             UpdateMoneyScore();
         }
 
-        void PreviewCar(Item item)
-        {
-            previewCarModeActive = true;
-            // Show car block
-            _player.GetComponent<PlayerSettings>().playerCar.gameObject.SetActive(false);
-
-            _carForPreview = item.GetCarAsGameObject();
-            _carForPreview.SetActive(true);
-
-            // Show buy_button
-            _buyACarButton.SetActive(true);
-            _buyACarButton.GetComponent<Button>().AddEventListener(item, BuyButtonClicked);
-            _buyACarButton.transform.GetChild(1).GetComponent<Text>().text = item.price.ToString();
-            // Show close_preview_button 
-        }
-
         private void ClosePreviewMode()
         {
             _carForPreview.SetActive(false);
             previewCarModeActive = false;
-            _buyACarButton.SetActive(false);
+            Destroy(buyButton);
+        }
+
+        GameObject buyButton;
+
+        void PreviewCar(Item item)
+        {
+            if (previewCarModeActive)
+                ClosePreviewMode();
+
+            _player.GetComponent<PlayerSettings>().playerCar.SetActive(false);
+
+            _carForPreview = item.GetCarAsGameObject();
+            _carForPreview.SetActive(true);
+
+            buyButton = Instantiate(_buyACarButton, _buyACarButton.transform.position, _buyACarButton.transform.rotation);
+            buyButton.transform.SetParent(_canvas.transform);
+            buyButton.GetComponent<RectTransform>().localScale = buyButton.GetComponent<RectTransform>().localScale * 2;
+            buyButton.GetComponent<Button>().AddEventListener(item, BuyButtonClicked);
+            buyButton.transform.GetChild(1).GetComponent<Text>().text = item.price.ToString();
+            buyButton.SetActive(true);
+
+            previewCarModeActive = true;
         }
 
         void ChooseButtonClicked(Item item)
@@ -204,11 +211,18 @@ namespace NWR
                     bool transactionCompletedStatus = _lobbyManager.BuyItemFromShop(ref item);
                     if (transactionCompletedStatus)
                     {
-                        _player.GetComponent<PlayerSettings>().UpdatePlayerCar(item);
-                        _buyACarButton.SetActive(false);
+                        _player.GetComponent<PlayerSettings>().playerCar = item.GetCarAsGameObject();
+
+                        Destroy(buyButton);
                         _lobbyManager.OpenOrCloseCarsMenu();
+
+                        ClosePreviewMode();
+
                         UpdateMoneyScore();
+
+                        ///Update selected car
                         _carsMenuButtton.transform.GetChild(2).GetComponent<Text>().text = item.name;
+                        _player.GetComponent<PlayerSettings>().playerCar.SetActive(true);
                         break;
                     }
                     else
