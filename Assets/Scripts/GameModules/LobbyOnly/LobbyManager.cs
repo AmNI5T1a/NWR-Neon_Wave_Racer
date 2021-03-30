@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 namespace NWR
@@ -194,7 +195,8 @@ namespace NWR
         {
             if (gameModeChoosen && roadChoosen)
             {
-
+                PreGameSettings.playerSelectedCar = _playerSettings.playerCar;
+                SceneManager.LoadScene(1);
             }
         }
     }

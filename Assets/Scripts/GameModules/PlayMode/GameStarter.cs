@@ -9,14 +9,25 @@ namespace NWR
         [Header("References")]
         [SerializeField] private InputManager _inputManager;
         [SerializeField] private GameObject _player;
+        [SerializeField] private GameObject _camera;
+
+        [SerializeField] Transform carSpawnTransform;
 
 
         [Header("Settings")]
         [SerializeField] private float timeBeforeGiveControl;
+
+        [Header("In game settings: ")]
+        [SerializeField] GameObject playerCar;
         void Awake()
         {
             _inputManager.inputLocked = true;
 
+            playerCar = PreGameSettings.playerSelectedCar;
+
+            playerCar = Instantiate(_player.GetComponent<PlayerSettings>().playerCar, carSpawnTransform);
+
+            _camera.GetComponent<CameraFollow>().SetTargetToFollow(playerCar);
         }
 
         void Start()

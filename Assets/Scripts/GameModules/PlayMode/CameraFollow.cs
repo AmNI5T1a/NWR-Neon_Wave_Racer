@@ -12,6 +12,10 @@ namespace NWR
         [SerializeField] private Vector3 distanceBetweenCameraAndObjectToFollow;
         [SerializeField] private Transform targetToFollow;
 
+        public void SetTargetToFollow(GameObject target)
+        {
+            targetToFollow = target.transform;
+        }
         void Update()
         {
             Vector3 cameraPosition = targetToFollow.position + distanceBetweenCameraAndObjectToFollow;

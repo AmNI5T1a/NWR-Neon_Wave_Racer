@@ -23,14 +23,10 @@ namespace NWR
         {
             if (!_audioSource.isPlaying)
             {
-                byte newClipNumber = (byte)Random.Range(0f, lobbyMusic.Length);
-
-                _audioSource.clip = lobbyMusic[newClipNumber].clip;
-                _audioSource.pitch = lobbyMusic[newClipNumber].pitch;
-                _audioSource.Play();
+                NextClip();
             }
 
-            if (VirtualInputManager.Instance.C)
+            if (Input.GetKeyDown(KeyCode.C))
             {
                 NextClip();
             }
