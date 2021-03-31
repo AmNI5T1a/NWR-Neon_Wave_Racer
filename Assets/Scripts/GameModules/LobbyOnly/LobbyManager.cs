@@ -27,7 +27,6 @@ namespace NWR
         [SerializeField] public Inventory inventory;
 
         [Header("In play mode settings")]
-        [SerializeField] private List<GameObject> _listOfOpenedWindows;
 
         [HideInInspector] private bool roadMenuClosed = true;
         [HideInInspector] private bool gameStylesMenuClosed = true;
@@ -66,17 +65,6 @@ namespace NWR
         }
 
 
-        void Update()
-        {
-            if (_listOfOpenedWindows.Count >= 1)
-            {
-                _returnArrow.SetActive(true);
-            }
-            else if (_listOfOpenedWindows.Count == 0)
-            {
-                _returnArrow.SetActive(false);
-            }
-        }
 
         void RefreshInventory()
         {
@@ -91,74 +79,6 @@ namespace NWR
 
             _UI_Inventory.RefreshInventory();
         }
-        #region InteractionWithUIElements
-        public void OpenOrCloseCarsMenu()
-        {
-            if (carsMenuClosed)
-            {
-                carsMenuClosed = false;
-                _listOfOpenedWindows.Add(_listOfCars);
-                _listOfCars.SetActive(true);
-            }
-            else if (!carsMenuClosed)
-            {
-                carsMenuClosed = true;
-                _listOfOpenedWindows.Remove(_listOfCars);
-                _listOfCars.SetActive(false);
-            }
-        }
-
-        public void OpenOrCloseSelectRoadMenu()
-        {
-            if (roadMenuClosed)
-            {
-                _listOfRoads.SetActive(true);
-                _listOfOpenedWindows.Add(_listOfRoads);
-                roadMenuClosed = false;
-            }
-            else if (!roadMenuClosed)
-            {
-                _listOfRoads.SetActive(false);
-                _listOfOpenedWindows.Remove(_listOfRoads);
-                roadMenuClosed = true;
-            }
-        }
-
-        public void OpenOrCloseSelectGameStyle()
-        {
-            if (gameStylesMenuClosed)
-            {
-                _listOfGameStyles.SetActive(true);
-                _listOfOpenedWindows.Add(_listOfGameStyles);
-                gameStylesMenuClosed = false;
-            }
-            else if (!gameStylesMenuClosed)
-            {
-                _listOfGameStyles.SetActive(false);
-                _listOfOpenedWindows.Remove(_listOfGameStyles);
-                gameStylesMenuClosed = true;
-            }
-        }
-
-        public void CloseLastOpenedWindowWithReturnArrow()
-        {
-            if (_listOfOpenedWindows[_listOfOpenedWindows.Count - 1] == _listOfRoads)
-            {
-                roadMenuClosed = true;
-            }
-            else if (_listOfOpenedWindows[_listOfOpenedWindows.Count - 1] == _listOfGameStyles)
-            {
-                gameStylesMenuClosed = true;
-            }
-            else if (_listOfOpenedWindows[_listOfOpenedWindows.Count - 1] == _listOfCars)
-            {
-                carsMenuClosed = true;
-            }
-
-            _listOfOpenedWindows[_listOfOpenedWindows.Count - 1].SetActive(false);
-            _listOfOpenedWindows.Remove(_listOfOpenedWindows[_listOfOpenedWindows.Count - 1]);
-        }
-        #endregion
         public void SetRoad(Item item)
         {
             choosenRoadName = item.name;

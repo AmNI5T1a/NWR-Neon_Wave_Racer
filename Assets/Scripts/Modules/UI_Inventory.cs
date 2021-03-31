@@ -6,12 +6,14 @@ using UnityEngine.UI;
 
 namespace NWR
 {
-    public class UI_Inventory : MonoBehaviour
+    public class UI_Inventory : MonoBehaviour, IUIElementSwitcher, ICloseLastOpenedUIElement
     {
         [Header("References: ")]
         [SerializeField] public LobbyManager _lobbyManager;
         [SerializeField] private GameObject _player;
         [SerializeField] private Canvas _canvas;
+
+        [SerializeField] private GameObject _closeLastOpenedUIElement;
 
         [Space(10)]
 
@@ -40,6 +42,7 @@ namespace NWR
         [SerializeField] private GameObject _playersStatsMenu;
 
         [Header("In game settings: ")]
+        [SerializeField] public static List<GameObject> listOfOpenedUIElements;
         [SerializeField] private List<GameObject> _listOfInstanciatedUIElements;
         [HideInInspector] private Button _button;
         [SerializeField] private bool previewCarModeActive = false;
@@ -47,7 +50,29 @@ namespace NWR
 
         void Awake()
         {
-            //_listOfInstanciatedUIElements = new List<GameObject>();
+            listOfOpenedUIElements = new List<GameObject>();
+        }
+
+        void Start()
+        {
+
+        }
+
+        void Update()
+        {
+            ShowOrHideCloseArrorUIElement();
+        }
+
+        private void ShowOrHideCloseArrorUIElement()
+        {
+            if (listOfOpenedUIElements.Count >= 1)
+            {
+                _closeLastOpenedUIElement.SetActive(true);
+            }
+            else if (listOfOpenedUIElements.Count == 0)
+            {
+                _closeLastOpenedUIElement.SetActive(false);
+            }
         }
 
         public void DestroyAllUIComponentsBeforeRefresh()
@@ -177,12 +202,12 @@ namespace NWR
                 case Item.ItemType.Road:
                     _lobbyManager.SetRoad(item);
                     _selectRoadMenu.transform.GetChild(2).GetComponent<Text>().text = item.name;
-                    _lobbyManager.OpenOrCloseSelectRoadMenu();
+                    //_lobbyManager.OpenOrCloseSelectRoadMenu();
                     break;
                 case Item.ItemType.GameStyle:
                     _lobbyManager.SetGameMode(item);
                     _selectGameModeMenu.transform.GetChild(2).GetComponent<Text>().text = item.name;
-                    _lobbyManager.OpenOrCloseSelectGameStyle();
+                    //_lobbyManager.OpenOrCloseSelectGameStyle();
                     break;
                 case Item.ItemType.Car:
                     if (previewCarModeActive)
@@ -190,6 +215,7 @@ namespace NWR
 
                     _player.GetComponent<PlayerSettings>().playerCar.SetActive(false);
                     _player.GetComponent<PlayerSettings>().UpdatePlayerCar(item);
+
                     _carsMenuButtton.transform.GetChild(2).GetComponent<Text>().text = item.name;
                     break;
             }
@@ -214,7 +240,7 @@ namespace NWR
                         _player.GetComponent<PlayerSettings>().playerCar = item.GetCarAsGameObject();
 
                         Destroy(buyButton);
-                        _lobbyManager.OpenOrCloseCarsMenu();
+                        //_lobbyManager.OpenOrCloseCarsMenu();
 
                         ClosePreviewMode();
 
@@ -235,5 +261,25 @@ namespace NWR
             RefreshInventory();
         }
         public void UpdateMoneyScore() => _playersStatsMenu.transform.GetChild(1).GetComponent<Text>().text = _player.GetComponent<PlayerSettings>().playerMoney.ToString();
+
+        public void CloseOrOpenUIElement(GameObject gameObject)
+        {
+            if (gameObject.activeInHierarchy == false)
+            {
+                gameObject.SetActive(true);
+                listOfOpenedUIElements.Add(gameObject);
+            }
+            else
+            {
+                gameObject.SetActive(false);
+                listOfOpenedUIElements.Remove(gameObject);
+            }
+        }
+
+        public void CloseUIElement()
+        {
+            listOfOpenedUIElements[listOfOpenedUIElements.Count - 1].SetActive(false);
+            listOfOpenedUIElements.Remove(listOfOpenedUIElements[listOfOpenedUIElements.Count - 1]);
+        }
     }
 }
