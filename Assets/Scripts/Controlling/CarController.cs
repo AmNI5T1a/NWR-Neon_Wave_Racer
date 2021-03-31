@@ -162,7 +162,7 @@ namespace NWR
 
         void GearsSystem()
         {
-            currentRPM = Mathf.Abs((_listOfWheelColliders[0].rpm / 4) * gears[currentSpeedGear]);
+            currentRPM = Mathf.Abs((_listOfWheelColliders[0].rpm) * gears[currentSpeedGear]);
 
             ///          
             /// Shift Up

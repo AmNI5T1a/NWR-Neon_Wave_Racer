@@ -826,15 +826,20 @@ MonoBehaviour:
   _carRigidbody: {fileID: 9197331466611004347}
   centerOfMassTransformPosition: {fileID: 0}
   _inputManager: {fileID: 0}
-  _horizontalInputSteeringSpeed: 0.035
-  steeringSpeed: 15
-  motorTorque: 4400
-  brakeTorque: 5000
-  maxSpeed: 120
-  minSpeed: 0
-  gears: []
-  minRPM: 0
-  maxRPM: 0
+  _horizontalInputSteeringSpeed: 0.039
+  steeringSpeed: 16.5
+  motorTorque: 700
+  brakeTorque: 4000
+  maxSpeed: 90
+  minSpeed: 10
+  gears:
+  - 2
+  - 1.3
+  - 0.9
+  - 0.7
+  - 0.55
+  minRPM: 500
+  maxRPM: 900
   _horizontalInput: 0
   _verticalInput: 0
   _currentSpeed: 0

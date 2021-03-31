@@ -699,13 +699,18 @@ MonoBehaviour:
   _inputManager: {fileID: 0}
   _horizontalInputSteeringSpeed: 0.035
   steeringSpeed: 15
-  motorTorque: 4400
-  brakeTorque: 5000
+  motorTorque: 1000
+  brakeTorque: 3000
   maxSpeed: 120
-  minSpeed: 0
-  gears: []
-  minRPM: 0
-  maxRPM: 0
+  minSpeed: 10
+  gears:
+  - 2
+  - 1.5
+  - 1
+  - 0.8
+  - 0.55
+  minRPM: 600
+  maxRPM: 950
   _horizontalInput: 0
   _verticalInput: 0
   _currentSpeed: 0
