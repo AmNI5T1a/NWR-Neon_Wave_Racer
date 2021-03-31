@@ -764,7 +764,7 @@ GameObject:
   - component: {fileID: 9197331466611004345}
   m_Layer: 0
   m_Name: Subaru_STI_WRX
-  m_TagString: Player
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -778,7 +778,7 @@ Transform:
   m_GameObject: {fileID: 9197331466611004344}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.754, y: -0.002, z: -0.169}
-  m_LocalScale: {x: 0.78, y: 0.78, z: 0.78}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 9197331466610577308}
   - {fileID: 5870519190000966214}
@@ -825,14 +825,23 @@ MonoBehaviour:
   - {fileID: 9197331466610577306}
   _carRigidbody: {fileID: 9197331466611004347}
   centerOfMassTransformPosition: {fileID: 0}
+  _inputManager: {fileID: 0}
   _horizontalInputSteeringSpeed: 0.035
   steeringSpeed: 15
   motorTorque: 4400
   brakeTorque: 5000
   maxSpeed: 120
-  _currentSpeed: 0
+  minSpeed: 0
+  gears: []
+  minRPM: 0
+  maxRPM: 0
   _horizontalInput: 0
   _verticalInput: 0
+  _currentSpeed: 0
+  currentSpeedGear: 0
+  currentRPM: 0
+  shiftDownCooldown: 0
+  shiftDownOnCooldown: 0
 --- !u!1 &9197331466611004346
 GameObject:
   m_ObjectHideFlags: 0
@@ -929,7 +938,7 @@ GameObject:
   - component: {fileID: 9197331466611004349}
   m_Layer: 0
   m_Name: Body
-  m_TagString: Untagged
+  m_TagString: CarCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

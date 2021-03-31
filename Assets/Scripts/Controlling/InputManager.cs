@@ -18,6 +18,7 @@ namespace NWR
         [SerializeField] private GameObject touchInput;
         [SerializeField] private GameObject touchPad_Canvas;
 
+
         void Start()
         {
             touchInput.SetActive(false);

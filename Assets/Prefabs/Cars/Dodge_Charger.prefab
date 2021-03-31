@@ -586,8 +586,8 @@ GameObject:
   - component: {fileID: 3833059977826114431}
   - component: {fileID: 8138458775571877521}
   m_Layer: 0
-  m_Name: OldCar
-  m_TagString: Untagged
+  m_Name: Visual
+  m_TagString: CarCollider
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -620,8 +620,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.4261258, z: 6.196188}
-  m_Center: {x: 0, y: 0.9317523, z: 0.034980297}
+  m_Size: {x: 2.5963812, y: 1.4261258, z: 6.196188}
+  m_Center: {x: 0.022260427, y: 0.9317523, z: 0.034980297}
 --- !u!1 &5606350182761425330
 GameObject:
   m_ObjectHideFlags: 0
@@ -635,7 +635,7 @@ GameObject:
   - component: {fileID: 5606350182761425331}
   m_Layer: 0
   m_Name: Dodge_Charger
-  m_TagString: Player
+  m_TagString: Car
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -647,7 +647,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5606350182761425330}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

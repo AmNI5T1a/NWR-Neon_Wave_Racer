@@ -11,38 +11,35 @@ namespace NWR
     {
         [Header("References")]
         [SerializeField] private InputManager _inputManager;
+        [SerializeField] private PlayerSettings _playerSettings;
+        [SerializeField] private GameObject _player;
 
+        [Space(10)]
+
+        [SerializeField] private UI_Inventory _UI_Inventory;
+        [Space(2)]
         [SerializeField] private GameObject _listOfRoads;
         [SerializeField] private GameObject _listOfGameStyles;
         [SerializeField] private GameObject _listOfCars;
         [SerializeField] private GameObject _returnArrow;
 
-        [SerializeField] private UI_Inventory _UI_Inventory;
-
-        [SerializeField] private PlayerSettings _playerSettings;
-
         [Header("Settings")]
         [SerializeField] public Inventory inventory;
-        [SerializeField] public int money;
 
         [Header("In play mode settings")]
         [SerializeField] private List<GameObject> _listOfOpenedWindows;
 
-        [Space(5)]
+        [HideInInspector] private bool roadMenuClosed = true;
+        [HideInInspector] private bool gameStylesMenuClosed = true;
+        [HideInInspector] private bool carsMenuClosed = true;
 
-        [SerializeField] private bool roadMenuClosed = true;
-        [SerializeField] private bool gameStylesMenuClosed = true;
-        [SerializeField] private bool carsMenuClosed = true;
 
-        [Space(5)]
+        [HideInInspector] private bool roadChoosen;
+        [HideInInspector] private string choosenRoadName;
 
-        [SerializeField] private bool roadChoosen;
-        [SerializeField] private string choosenRoadName;
 
-        [Space(5)]
-
-        [SerializeField] private bool gameModeChoosen;
-        [SerializeField] private string choosenGameMode;
+        [HideInInspector] private bool gameModeChoosen;
+        [HideInInspector] private string choosenGameMode;
         void Start()
         {
             // Lock input at the start of the game
@@ -195,9 +192,24 @@ namespace NWR
         {
             if (gameModeChoosen && roadChoosen)
             {
-                PreGameSettings.playerSelectedCar = _playerSettings.playerCar;
-                SceneManager.LoadScene(1);
+                StartCoroutine(LoadAsyncScene(1));
             }
+        }
+
+        IEnumerator LoadAsyncScene(byte sceneNumber)
+        {
+            Scene currentScene = SceneManager.GetActiveScene();
+
+            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneNumber, LoadSceneMode.Additive);
+
+            while (!asyncLoad.isDone)
+            {
+                yield return null;
+            }
+
+            SceneManager.MoveGameObjectToScene(_playerSettings.playerCar, SceneManager.GetSceneByBuildIndex(1));
+
+            SceneManager.UnloadSceneAsync(currentScene);
         }
     }
 }

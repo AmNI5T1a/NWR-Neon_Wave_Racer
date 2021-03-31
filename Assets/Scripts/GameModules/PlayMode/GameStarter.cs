@@ -8,10 +8,9 @@ namespace NWR
     {
         [Header("References")]
         [SerializeField] private InputManager _inputManager;
-        [SerializeField] private GameObject _player;
         [SerializeField] private GameObject _camera;
 
-        [SerializeField] Transform carSpawnTransform;
+        [SerializeField] private Transform carSpawnTransform;
 
 
         [Header("Settings")]
@@ -23,18 +22,18 @@ namespace NWR
         {
             _inputManager.inputLocked = true;
 
-            playerCar = PreGameSettings.playerSelectedCar;
+            playerCar = GameObject.FindGameObjectWithTag("Car");
 
-            playerCar = Instantiate(_player.GetComponent<PlayerSettings>().playerCar, carSpawnTransform);
+            playerCar.transform.position = carSpawnTransform.position;
 
             _camera.GetComponent<CameraFollow>().SetTargetToFollow(playerCar);
+
+            playerCar.GetComponent<CarController>()._inputManager = _inputManager;
         }
 
         void Start()
         {
-            _player = GameObject.FindGameObjectWithTag("Player");
-
-            ShowErrorUfPlayerNotFound();
+            ShowErrorIfPlayerNotFound();
         }
 
         void Update()
@@ -42,7 +41,7 @@ namespace NWR
 
             if (_inputManager.inputLocked)
             {
-                _player.GetComponent<CarController>().AddForceWhileInputLocked();
+                playerCar.GetComponent<CarController>().AddForceWhileInputLocked();
             }
 
             if (timeBeforeGiveControl <= 0)
@@ -55,9 +54,9 @@ namespace NWR
             }
         }
 
-        void ShowErrorUfPlayerNotFound()
+        void ShowErrorIfPlayerNotFound()
         {
-            if (_player == null)
+            if (playerCar == null)
             {
                 Debug.LogError("Player doesn't found");
             }

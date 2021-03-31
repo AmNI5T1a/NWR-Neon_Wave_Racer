@@ -18,7 +18,7 @@ namespace NWR
         [SerializeField] private List<Transform> _listOfWheelTransforms;
         [SerializeField] private Rigidbody _carRigidbody;
         [SerializeField] private Transform centerOfMassTransformPosition;
-        [SerializeField] private InputManager _inputManager;
+        [SerializeField] public InputManager _inputManager;
 
         [Header("Settings: ")]
 
@@ -47,7 +47,7 @@ namespace NWR
         [SerializeField] private bool shiftDownOnCooldown;
         void Start()
         {
-            currentSpeedGear = 0;
+            currentSpeedGear = 1;
 
             shiftDownOnCooldown = false;
         }

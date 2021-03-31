@@ -16,7 +16,7 @@ namespace NWR
 
         void OnTriggerEnter(Collider collider)
         {
-            if (collider.gameObject.tag == "Player")
+            if (collider.gameObject.tag == "CarCollider")
             {
                 _roadSpawner.GetComponent<RoadSpawner>().SpawnNewRoad();
             }
