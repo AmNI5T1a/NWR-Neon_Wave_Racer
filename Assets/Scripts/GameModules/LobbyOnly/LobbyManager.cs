@@ -1,5 +1,6 @@
+#pragma warning disable 414
+
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -39,6 +40,9 @@ namespace NWR
 
         [HideInInspector] private bool gameModeChoosen;
         [HideInInspector] private string choosenGameMode;
+
+        [HideInInspector] private bool carChoosen;
+        [HideInInspector] private string choosenCarName;
         void Start()
         {
             // Lock input at the start of the game
@@ -91,6 +95,13 @@ namespace NWR
             choosenRoadName = item.name;
 
             gameModeChoosen = true;
+        }
+
+        public void SetCarName(Item item)
+        {
+            choosenCarName = item.name;
+
+            carChoosen = true;
         }
 
         public bool BuyItemFromShop(ref Item itemToBuy)

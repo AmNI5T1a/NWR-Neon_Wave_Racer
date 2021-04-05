@@ -41,7 +41,6 @@ namespace NWR
 
                 default: return null;
             }
-
         }
     }
 }

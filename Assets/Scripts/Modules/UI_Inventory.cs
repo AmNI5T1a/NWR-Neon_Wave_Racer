@@ -60,10 +60,10 @@ namespace NWR
 
         void Update()
         {
-            ShowOrHideCloseArrorUIElement();
+            ShowOrHideArrorUIElement();
         }
 
-        private void ShowOrHideCloseArrorUIElement()
+        private void ShowOrHideArrorUIElement()
         {
             if (listOfOpenedUIElements.Count >= 1)
             {
@@ -202,12 +202,18 @@ namespace NWR
                 case Item.ItemType.Road:
                     _lobbyManager.SetRoad(item);
                     _selectRoadMenu.transform.GetChild(2).GetComponent<Text>().text = item.name;
-                    //_lobbyManager.OpenOrCloseSelectRoadMenu();
+
+                    GameObject listOfRoads = _selectRoadMenu.transform.parent.transform.GetChild(5).gameObject;
+                    listOfRoads.SetActive(false);
+                    listOfOpenedUIElements.Remove(listOfRoads);
                     break;
                 case Item.ItemType.GameStyle:
                     _lobbyManager.SetGameMode(item);
                     _selectGameModeMenu.transform.GetChild(2).GetComponent<Text>().text = item.name;
-                    //_lobbyManager.OpenOrCloseSelectGameStyle();
+
+                    GameObject listOfGameStyles = _selectGameModeMenu.transform.parent.transform.GetChild(6).gameObject;
+                    listOfGameStyles.SetActive(false);
+                    listOfOpenedUIElements.Remove(listOfGameStyles);
                     break;
                 case Item.ItemType.Car:
                     if (previewCarModeActive)
@@ -216,7 +222,8 @@ namespace NWR
                     _player.GetComponent<PlayerSettings>().playerCar.SetActive(false);
                     _player.GetComponent<PlayerSettings>().UpdatePlayerCar(item);
 
-                    _carsMenuButtton.transform.GetChild(2).GetComponent<Text>().text = item.name;
+                    _lobbyManager.SetCarName(item);
+                    UpdateSelectedPlayerCarInUIComponent(item);
                     break;
             }
         }
@@ -235,19 +242,24 @@ namespace NWR
                     break;
                 case Item.ItemType.Car:
                     bool transactionCompletedStatus = _lobbyManager.BuyItemFromShop(ref item);
+
                     if (transactionCompletedStatus)
                     {
                         _player.GetComponent<PlayerSettings>().playerCar = item.GetCarAsGameObject();
 
                         Destroy(buyButton);
-                        //_lobbyManager.OpenOrCloseCarsMenu();
+
+                        GameObject carsMenu = _selectGameModeMenu.transform.parent.transform.GetChild(8).gameObject;
+                        carsMenu.SetActive(false);
+                        listOfOpenedUIElements.Remove(carsMenu);
 
                         ClosePreviewMode();
 
                         UpdateMoneyScore();
 
-                        ///Update selected car
-                        _carsMenuButtton.transform.GetChild(2).GetComponent<Text>().text = item.name;
+                        UpdateSelectedPlayerCarInUIComponent(item);
+                        _lobbyManager.SetCarName(item);
+
                         _player.GetComponent<PlayerSettings>().playerCar.SetActive(true);
                         break;
                     }
@@ -261,6 +273,8 @@ namespace NWR
             RefreshInventory();
         }
         public void UpdateMoneyScore() => _playersStatsMenu.transform.GetChild(1).GetComponent<Text>().text = _player.GetComponent<PlayerSettings>().playerMoney.ToString();
+        public void UpdateSelectedPlayerCarInUIComponent(in Item CarItem) =>
+            _carsMenuButtton.transform.GetChild(2).GetComponent<Text>().text = CarItem.name.ToString();
 
         public void CloseOrOpenUIElement(GameObject gameObject)
         {

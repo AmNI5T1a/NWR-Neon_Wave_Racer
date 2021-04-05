@@ -1172,7 +1172,6 @@ MonoBehaviour:
   _listOfGameStyles: {fileID: 900273956}
   _listOfCars: {fileID: 2142908216}
   _returnArrow: {fileID: 1470900532}
-  _listOfOpenedWindows: []
 --- !u!114 &355692121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1188,6 +1187,7 @@ MonoBehaviour:
   _lobbyManager: {fileID: 355692120}
   _player: {fileID: 1457726080}
   _canvas: {fileID: 3737291805877942727}
+  _closeLastOpenedUIElement: {fileID: 1470900532}
   _selectRoadMenu: {fileID: 239136696}
   _roadSlotContainer: {fileID: 480071667}
   _roadSlotTemplate: {fileID: 215952035}
@@ -1359,7 +1359,7 @@ GameObject:
   m_Component:
   - component: {fileID: 401249827}
   m_Layer: 5
-  m_Name: SelectDriveStyle_Button
+  m_Name: SelectGameMode_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1995,13 +1995,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 355692120}
-        m_TargetAssemblyTypeName: NWR.LobbyManager, Assembly-CSharp
-        m_MethodName: OpenOrCloseSelectRoadMenu
-        m_Mode: 1
+      - m_Target: {fileID: 355692121}
+        m_TargetAssemblyTypeName: NWR.UI_Inventory, Assembly-CSharp
+        m_MethodName: CloseOrOpenUIElement
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 1397093407}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2889,7 +2889,7 @@ GameObject:
   - component: {fileID: 900273959}
   - component: {fileID: 900273958}
   m_Layer: 5
-  m_Name: ListOfGameStyles
+  m_Name: ListOfGameModes
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3075,7 +3075,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1036623191}
   m_Layer: 5
-  m_Name: Setting_Button
+  m_Name: Settings_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5118,13 +5118,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 355692120}
-        m_TargetAssemblyTypeName: NWR.LobbyManager, Assembly-CSharp
-        m_MethodName: OpenOrCloseSelectGameStyle
-        m_Mode: 1
+      - m_Target: {fileID: 355692121}
+        m_TargetAssemblyTypeName: NWR.UI_Inventory, Assembly-CSharp
+        m_MethodName: CloseOrOpenUIElement
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 900273956}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -6642,13 +6642,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 355692120}
-        m_TargetAssemblyTypeName: NWR.LobbyManager, Assembly-CSharp
-        m_MethodName: OpenOrCloseCarsMenu
-        m_Mode: 1
+      - m_Target: {fileID: 355692121}
+        m_TargetAssemblyTypeName: NWR.UI_Inventory, Assembly-CSharp
+        m_MethodName: CloseOrOpenUIElement
+        m_Mode: 2
         m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_ObjectArgument: {fileID: 2142908216}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -7171,9 +7171,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 355692120}
-        m_TargetAssemblyTypeName: NWR.LobbyManager, Assembly-CSharp
-        m_MethodName: CloseLastOpenedWindowWithReturnArrow
+      - m_Target: {fileID: 355692121}
+        m_TargetAssemblyTypeName: NWR.UI_Inventory, Assembly-CSharp
+        m_MethodName: CloseUIElement
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
