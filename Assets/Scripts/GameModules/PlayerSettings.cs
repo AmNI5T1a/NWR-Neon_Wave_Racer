@@ -11,7 +11,7 @@ namespace NWR
 
         public void UpdatePlayerCar(Item item)
         {
-            playerCar = item.GetCarAsGameObject();
+            //playerCar = item.GetCarAsGameObject();
             playerCar.SetActive(true);
         }
     }

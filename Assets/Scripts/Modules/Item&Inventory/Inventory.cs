@@ -5,20 +5,20 @@ using UnityEngine;
 namespace NWR
 {
 
-    public class Inventory
+    public class Inventory : MonoBehaviour
     {
-        private List<Item> _listOfItems;
+        [SerializeField] private List<Car> cars;
 
-        public Inventory()
-        {
-            _listOfItems = new List<Item>();
-        }
+        [Space(2)]
 
-        public void AddItem(Item newItem)
-        {
-            _listOfItems.Add(newItem);
-        }
+        [SerializeField] private List<Road> roads;
 
-        public List<Item> GetInventory() => _listOfItems;
+        [Space(2)]
+
+        [SerializeField] private List<GameStyle> gameStyles;
+
+        public List<Car> GetListOfCars() => cars;
+        public List<Road> GetListOfRoads() => roads;
+        public List<GameStyle> GetListOfGameStyles() => gameStyles;
     }
 }

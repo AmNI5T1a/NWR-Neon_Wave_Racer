@@ -1167,11 +1167,12 @@ MonoBehaviour:
   _inputManager: {fileID: 1188184384}
   _playerSettings: {fileID: 1457726081}
   _player: {fileID: 1457726080}
-  _UI_Inventory: {fileID: 355692121}
+  _UI_manager: {fileID: 355692121}
   _listOfRoads: {fileID: 1397093407}
   _listOfGameStyles: {fileID: 900273956}
   _listOfCars: {fileID: 2142908216}
   _returnArrow: {fileID: 1470900532}
+  inventory: {fileID: 0}
 --- !u!114 &355692121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1188,6 +1189,7 @@ MonoBehaviour:
   _player: {fileID: 1457726080}
   _canvas: {fileID: 3737291805877942727}
   _closeLastOpenedUIElement: {fileID: 1470900532}
+  _inventory: {fileID: 1002794112}
   _selectRoadMenu: {fileID: 239136696}
   _roadSlotContainer: {fileID: 480071667}
   _roadSlotTemplate: {fileID: 215952035}
@@ -1530,7 +1532,7 @@ PrefabInstance:
     - target: {fileID: 9197331466610577304, guid: e1c671fa96b851f47bf405f048ad9260,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 9197331466610577304, guid: e1c671fa96b851f47bf405f048ad9260,
         type: 3}
@@ -2981,7 +2983,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &953131168
 GameObject:
@@ -3065,6 +3067,95 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 953131168}
   m_CullTransparentMesh: 1
+--- !u!1 &1002794111
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1002794113}
+  - component: {fileID: 1002794112}
+  m_Layer: 0
+  m_Name: Inventory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1002794112
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002794111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d0db2d5b35895b4f9dce7ed7feb6c27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cars:
+  - type: 1
+    name: Volkswagen Golf GTI
+    positionNumber: 1
+    sprite: {fileID: 21300000, guid: e971a1a5c7695d74b8b572379ae0bc10, type: 3}
+    price: 0
+    boughtStatus: 1
+    carPrefab: {fileID: 831776913}
+  - type: 1
+    name: Subaru WRX STI
+    positionNumber: 2
+    sprite: {fileID: 21300000, guid: a1ddc65666300e24d8d0729acde2de8a, type: 3}
+    price: 35000
+    boughtStatus: 0
+    carPrefab: {fileID: 1308169015}
+  - type: 1
+    name: Dodge Charger
+    positionNumber: 3
+    sprite: {fileID: 21300000, guid: 5be378737f3030f4d88148e57c1b964a, type: 3}
+    price: 72000
+    boughtStatus: 0
+    carPrefab: {fileID: 7079096938197883796}
+  roads:
+  - type: 2
+    name: Swagen 520
+    positionNumber: 1
+    sprite: {fileID: 21300000, guid: 5be378737f3030f4d88148e57c1b964a, type: 3}
+    price: 100
+    boughtStatus: 1
+  - type: 2
+    name: Abell
+    positionNumber: 2
+    sprite: {fileID: 21300000, guid: 5be378737f3030f4d88148e57c1b964a, type: 3}
+    price: 10000
+    boughtStatus: 0
+  gameStyles:
+  - type: 3
+    name: One direction
+    positionNumber: 1
+    sprite: {fileID: 21300000, guid: 5be378737f3030f4d88148e57c1b964a, type: 3}
+    boughtStatus: 1
+  - type: 3
+    name: Incoming traffic
+    positionNumber: 0
+    sprite: {fileID: 21300000, guid: 5be378737f3030f4d88148e57c1b964a, type: 3}
+    boughtStatus: 1
+--- !u!4 &1002794113
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1002794111}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1415675791}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1036623190
 GameObject:
   m_ObjectHideFlags: 0
@@ -4121,7 +4212,7 @@ PrefabInstance:
     - target: {fileID: 7584144608676561153, guid: 7d75f1ef41ee2e549b391f45eb0d4f11,
         type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7584144608676561153, guid: 7d75f1ef41ee2e549b391f45eb0d4f11,
         type: 3}
@@ -4360,6 +4451,7 @@ Transform:
   - {fileID: 1335993542}
   - {fileID: 1457726082}
   - {fileID: 1463907274}
+  - {fileID: 1002794113}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7486,7 +7578,7 @@ PrefabInstance:
     - target: {fileID: 5606350182761854354, guid: b549df124755c254ca2ddfd7ebc53451,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5606350182761854354, guid: b549df124755c254ca2ddfd7ebc53451,
         type: 3}
@@ -7599,7 +7691,7 @@ RectTransform:
   - {fileID: 1104698388}
   - {fileID: 1506839661}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}

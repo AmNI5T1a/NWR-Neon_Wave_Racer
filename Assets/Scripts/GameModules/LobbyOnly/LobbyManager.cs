@@ -17,8 +17,10 @@ namespace NWR
 
         [Space(10)]
 
-        [SerializeField] private UI_Inventory _UI_Inventory;
+        [SerializeField] private UI_Manager _UI_manager;
         [Space(2)]
+
+        //TODO: this 4 strokes send to UI_Manager let him do it 
         [SerializeField] private GameObject _listOfRoads;
         [SerializeField] private GameObject _listOfGameStyles;
         [SerializeField] private GameObject _listOfCars;
@@ -62,55 +64,40 @@ namespace NWR
             // Close car list
             carsMenuClosed = true;
             _listOfCars.SetActive(false);
-
-            // Instanciate Inventory
-            inventory = new Inventory();
-            RefreshInventory();
         }
 
 
 
         void RefreshInventory()
         {
-            inventory.AddItem(new Item { itemType = Item.ItemType.Road, amount = 1, boughtStatus = true, price = 228, posNumber = 1, name = "Abell 520" });
-            inventory.AddItem(new Item { itemType = Item.ItemType.Road, amount = 1, boughtStatus = false, price = 10000, posNumber = 2, name = "Sombrero" });
-            inventory.AddItem(new Item { itemType = Item.ItemType.GameStyle, amount = 1, boughtStatus = true, price = 100, posNumber = 1, name = "One direction" });
-            inventory.AddItem(new Item { itemType = Item.ItemType.GameStyle, amount = 1, boughtStatus = true, price = 200, posNumber = 2, name = "Oncoming traffic" });
-            inventory.AddItem(new Item { itemType = Item.ItemType.Car, amount = 1, boughtStatus = true, price = 1, posNumber = 1, name = "Golf GTI" });
-            inventory.AddItem(new Item { itemType = Item.ItemType.Car, amount = 1, boughtStatus = false, price = 32000, posNumber = 2, name = "Subaru WRX" });
-            inventory.AddItem(new Item { itemType = Item.ItemType.Car, amount = 1, boughtStatus = false, price = 75000, posNumber = 3, name = "Dodge Charger" });
-
-
-            _UI_Inventory.RefreshInventory();
+            //_UI_manager.RefreshInventory();
         }
-        public void SetRoad(Item item)
+        public void SetRoad(Road item)
         {
-            choosenRoadName = item.name;
+            choosenRoadName = item.GetName();
 
             roadChoosen = true;
         }
 
-        public void SetGameMode(Item item)
+        public void SetGameMode(GameStyle gameStyle)
         {
-            choosenRoadName = item.name;
+            choosenRoadName = gameStyle.GetName();
 
             gameModeChoosen = true;
         }
 
-        public void SetCarName(Item item)
+        public void SetCarName(Car car)
         {
-            choosenCarName = item.name;
+            choosenCarName = car.GetName();
 
             carChoosen = true;
         }
 
-        public bool BuyItemFromShop(ref Item itemToBuy)
+        public bool BuyItemFromShop(in uint price)
         {
-            if (_playerSettings.playerMoney >= itemToBuy.price)
+            if (_playerSettings.playerMoney >= price)
             {
-                _playerSettings.playerMoney = _playerSettings.playerMoney - itemToBuy.price;
-                itemToBuy.boughtStatus = true;
-
+                _playerSettings.playerMoney = _playerSettings.playerMoney - price;
                 return true;
             }
             else
