@@ -9,9 +9,9 @@ namespace NWR
         [SerializeField] public GameObject playerCar;
         [SerializeField] public uint playerMoney;
 
-        public void UpdatePlayerCar(Item item)
+        public void UpdatePlayerCar(Car car)
         {
-            //playerCar = item.GetCarAsGameObject();
+            playerCar = car.GetCarAsGameObject();
             playerCar.SetActive(true);
         }
     }

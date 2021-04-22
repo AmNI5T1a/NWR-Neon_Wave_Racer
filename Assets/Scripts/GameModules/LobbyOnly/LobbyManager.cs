@@ -34,6 +34,7 @@ namespace NWR
         [HideInInspector] private bool roadMenuClosed = true;
         [HideInInspector] private bool gameStylesMenuClosed = true;
         [HideInInspector] private bool carsMenuClosed = true;
+        [HideInInspector] private bool gameIsLoading;
 
 
         [HideInInspector] private bool roadChoosen;
@@ -64,13 +65,8 @@ namespace NWR
             // Close car list
             carsMenuClosed = true;
             _listOfCars.SetActive(false);
-        }
 
-
-
-        void RefreshInventory()
-        {
-            //_UI_manager.RefreshInventory();
+            gameIsLoading = false;
         }
         public void SetRoad(Road item)
         {
@@ -114,20 +110,30 @@ namespace NWR
             }
         }
 
+        // ? Should i upgrade logic for a scene load system cause if playa tap double times without delay it will load two same scenes?
         IEnumerator LoadAsyncScene(byte sceneNumber)
         {
-            Scene currentScene = SceneManager.GetActiveScene();
-
-            AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneNumber, LoadSceneMode.Additive);
-
-            while (!asyncLoad.isDone)
+            if (!gameIsLoading)
             {
-                yield return null;
+                gameIsLoading = true;
+
+                Scene currentScene = SceneManager.GetActiveScene();
+
+                AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneNumber, LoadSceneMode.Additive);
+
+                while (!asyncLoad.isDone)
+                {
+                    yield return null;
+                }
+
+                SceneManager.MoveGameObjectToScene(_playerSettings.playerCar, SceneManager.GetSceneByBuildIndex(1));
+
+                SceneManager.UnloadSceneAsync(currentScene);
             }
-
-            SceneManager.MoveGameObjectToScene(_playerSettings.playerCar, SceneManager.GetSceneByBuildIndex(1));
-
-            SceneManager.UnloadSceneAsync(currentScene);
+            else
+            {
+                Debug.Log("Game is already loading...");
+            }
         }
     }
 }

@@ -64,6 +64,7 @@ namespace NWR
             RefreshCarsMenu();
             RefreshGameStylesMenu();
             RefreshRoadsMenu();
+            UpdateMoneyScore();
         }
 
         void Update()
@@ -208,6 +209,8 @@ namespace NWR
             _carForPreview.SetActive(false);
             previewCarModeActive = false;
             Destroy(_buyButton);
+
+            _player.GetComponent<PlayerSettings>().playerCar.SetActive(true);
         }
 
         void PreviewCar(Car car)

@@ -1109,7 +1109,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'Empty
+  m_Text: 'Not choosen
 
 '
 --- !u!222 &350847075
@@ -1822,7 +1822,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 'car_name
+  m_Text: 'Not choosen
 
 '
 --- !u!222 &505729113
@@ -2628,7 +2628,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Empty
+  m_Text: Not choosen
 --- !u!222 &763116846
 CanvasRenderer:
   m_ObjectHideFlags: 0
