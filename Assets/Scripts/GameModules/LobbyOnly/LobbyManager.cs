@@ -18,31 +18,21 @@ namespace NWR
         [Space(10)]
 
         [SerializeField] private UI_Manager _UI_manager;
-        [Space(2)]
 
-        //TODO: this 4 strokes send to UI_Manager let him do it 
-        [SerializeField] private GameObject _listOfRoads;
-        [SerializeField] private GameObject _listOfGameStyles;
-        [SerializeField] private GameObject _listOfCars;
-        [SerializeField] private GameObject _returnArrow;
+        [Space(2)]
 
         [Header("Settings")]
         [SerializeField] public Inventory inventory;
 
         [Header("In play mode settings")]
-
-        [HideInInspector] private bool roadMenuClosed = true;
-        [HideInInspector] private bool gameStylesMenuClosed = true;
-        [HideInInspector] private bool carsMenuClosed = true;
         [HideInInspector] private bool gameIsLoading;
 
+        [Space(1)]
 
         [HideInInspector] private bool roadChoosen;
         [HideInInspector] private string choosenRoadName;
 
-
         [HideInInspector] private bool gameModeChoosen;
-        [HideInInspector] private string choosenGameMode;
 
         [HideInInspector] private bool carChoosen;
         [HideInInspector] private string choosenCarName;
@@ -50,21 +40,6 @@ namespace NWR
         {
             // Lock input at the start of the game
             _inputManager.inputLocked = true;
-
-            // Close road menu at the start of the game
-            roadMenuClosed = true;
-            _listOfRoads.SetActive(false);
-
-            // Close game styles at the start of the game
-            gameStylesMenuClosed = true;
-            _listOfGameStyles.SetActive(false);
-
-            // Close return arrow at the start of the game
-            _returnArrow.SetActive(false);
-
-            // Close car list
-            carsMenuClosed = true;
-            _listOfCars.SetActive(false);
 
             gameIsLoading = false;
         }
@@ -110,7 +85,6 @@ namespace NWR
             }
         }
 
-        // ? Should i upgrade logic for a scene load system cause if playa tap double times without delay it will load two same scenes?
         IEnumerator LoadAsyncScene(byte sceneNumber)
         {
             if (!gameIsLoading)
@@ -132,7 +106,7 @@ namespace NWR
             }
             else
             {
-                Debug.Log("Game is already loading...");
+                Debug.LogWarning("Game is already loading...");
             }
         }
     }

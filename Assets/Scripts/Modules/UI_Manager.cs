@@ -19,12 +19,14 @@ namespace NWR
         [Space(10)]
 
         [Header("RoadMenuUI Elements: ")]
+        [SerializeField] private GameObject _listOfRoadsUIComponent;
         [SerializeField] private GameObject _selectRoadMenu;
         [SerializeField] private GameObject _roadSlotContainer;
         [SerializeField] private GameObject _roadSlotTemplate;
 
         [Space(10)]
         [Header("GameStylesUI Elements")]
+        [SerializeField] private GameObject _listOfGameStylesUIComponent;
         [SerializeField] private GameObject _selectGameModeMenu;
         [SerializeField] private GameObject _gameStyleSlotContainer;
         [SerializeField] private GameObject _gameStyleSlotTemplate;
@@ -32,6 +34,7 @@ namespace NWR
         [Space(10)]
 
         [Header("CarsMenuUI Elements")]
+        [SerializeField] private GameObject _listOfCarsUIComponent;
         [SerializeField] private GameObject _carsMenuButtton;
         [SerializeField] private GameObject _buyACarButton;
         [SerializeField] private GameObject _carsMenuSlotContainer;
@@ -61,6 +64,10 @@ namespace NWR
 
         void Start()
         {
+            _listOfCarsUIComponent.SetActive(false);
+            _listOfGameStylesUIComponent.SetActive(false);
+            _listOfRoadsUIComponent.SetActive(false);
+
             RefreshCarsMenu();
             RefreshGameStylesMenu();
             RefreshRoadsMenu();
@@ -337,6 +344,13 @@ namespace NWR
 
         public void CloseUIElement()
         {
+            // TODO : add new logic cause if preview mode active && another window poped up it will close preview mode and last opened window
+            // TODO : something like if(previewCarModeActive && listOfOpened)
+            if (previewCarModeActive)
+            {
+                ClosePreviewMode();
+            }
+
             listOfOpenedUIElements[listOfOpenedUIElements.Count - 1].SetActive(false);
             listOfOpenedUIElements.Remove(listOfOpenedUIElements[listOfOpenedUIElements.Count - 1]);
         }
