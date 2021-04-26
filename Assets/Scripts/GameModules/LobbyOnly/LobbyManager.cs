@@ -14,14 +14,11 @@ namespace NWR
         [SerializeField] private InputManager _inputManager;
         [SerializeField] private PlayerSettings _playerSettings;
         [SerializeField] private GameObject _player;
-
-        [Space(10)]
-
         [SerializeField] private UI_Manager _UI_manager;
 
         [Space(2)]
 
-        [Header("Settings")]
+        [Header("Inventory")]
         [SerializeField] public Inventory inventory;
 
         [Header("In play mode settings")]
@@ -100,7 +97,7 @@ namespace NWR
                     yield return null;
                 }
 
-                SceneManager.MoveGameObjectToScene(_playerSettings.playerCar, SceneManager.GetSceneByBuildIndex(1));
+                SceneManager.MoveGameObjectToScene(_playerSettings.playerSelectedCar, SceneManager.GetSceneByBuildIndex(1));
 
                 SceneManager.UnloadSceneAsync(currentScene);
             }

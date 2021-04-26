@@ -8,16 +8,13 @@ namespace NWR
     public class PlayerData
     {
         public uint money;
-        public byte selectedCarNumber;
 
-        // TODO: add logic for road and gameMode
-        public byte selectedRoadNumber;
-        public byte selectedGameModeNumber;
+        public byte selectedCarID;
 
         public PlayerData(PlayerSettings player)
         {
             money = player.playerMoney;
-            selectedCarNumber = player.carPositionNumber;
+            selectedCarID = player.playerSelectedCarID;
         }
 
     }

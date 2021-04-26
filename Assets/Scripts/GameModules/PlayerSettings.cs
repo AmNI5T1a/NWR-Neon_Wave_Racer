@@ -7,24 +7,21 @@ namespace NWR
 {
     public class PlayerSettings : MonoBehaviour
     {
-        [SerializeField] public uint playerMoney;
-        [SerializeField] public GameObject playerCar;
-        [SerializeField] public byte carPositionNumber;
+        [Header("References: ")]
+        [SerializeField] private UI_Manager _ui_manager;
+        [SerializeField] private LobbyManager _lobbyManager;
 
-        // TODO: add logic for road and gameMode
-        [SerializeField] public byte selectedRoadNumber;
-        [SerializeField] public byte selectedGameModeNumber;
+        [Header("Stats: ")]
+        [SerializeField] public uint playerMoney;
+        [SerializeField] public GameObject playerSelectedCar;
+        [SerializeField] public byte playerSelectedCarID;
 
         public void UpdatePlayerCar(Car car)
         {
-            playerCar = car.GetCarAsGameObject();
-            carPositionNumber = Convert.ToByte(car.GetPositionNumber());
+            playerSelectedCar = car.GetCarAsGameObject();
+            playerSelectedCarID = car.GetPositionNumber();
 
-            // ! Debug info
-            // ! Delete after tests
-            Debug.Log(carPositionNumber);
-
-            playerCar.SetActive(true);
+            playerSelectedCar.SetActive(true);
         }
 
         public void SavePlayerStats()
@@ -37,7 +34,23 @@ namespace NWR
             PlayerData loadedData = SaveSystem.Load();
 
             playerMoney = loadedData.money;
-            carPositionNumber = loadedData.selectedCarNumber;
+            _ui_manager.UpdateMoneyScore();
+
+            playerSelectedCarID = loadedData.selectedCarID;
+
+            foreach (Car car in _lobbyManager.inventory.GetListOfCars())
+            {
+                // ! TEST SUBJECT
+                Debug.Log(car.GetName());
+                Debug.Log(playerSelectedCarID + " " + car.GetPositionNumber());
+
+                if (car.GetPositionNumber() == playerSelectedCarID)
+                {
+                    playerSelectedCar = car.GetCarAsGameObject();
+                    playerSelectedCar.SetActive(true);
+                    car.ChangeSelectedStatus();
+                }
+            }
         }
     }
 }

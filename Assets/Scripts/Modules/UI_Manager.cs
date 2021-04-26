@@ -217,7 +217,7 @@ namespace NWR
             previewCarModeActive = false;
             Destroy(_buyButton);
 
-            _player.GetComponent<PlayerSettings>().playerCar.SetActive(true);
+            _player.GetComponent<PlayerSettings>().playerSelectedCar.SetActive(true);
         }
 
         void PreviewCar(Car car)
@@ -225,7 +225,7 @@ namespace NWR
             if (previewCarModeActive)
                 ClosePreviewMode();
 
-            _player.GetComponent<PlayerSettings>().playerCar.SetActive(false);
+            _player.GetComponent<PlayerSettings>().playerSelectedCar.SetActive(false);
 
             _carForPreview = car.GetCarAsGameObject();
             _carForPreview.SetActive(true);
@@ -265,7 +265,7 @@ namespace NWR
             if (previewCarModeActive)
                 ClosePreviewMode();
 
-            _player.GetComponent<PlayerSettings>().playerCar.SetActive(false);
+            _player.GetComponent<PlayerSettings>().playerSelectedCar.SetActive(false);
 
             //TODO: check this stroke with Unit tests
             _player.GetComponent<PlayerSettings>().UpdatePlayerCar(car);
@@ -296,7 +296,7 @@ namespace NWR
 
             if (transactionCompletedStatus)
             {
-                _player.GetComponent<PlayerSettings>().playerCar = car.GetCarAsGameObject();
+                _player.GetComponent<PlayerSettings>().playerSelectedCar = car.GetCarAsGameObject();
 
                 Destroy(_buyButton);
 
@@ -313,7 +313,7 @@ namespace NWR
                 UpdateSelectedPlayerCarInUIComponent(car);
                 _lobbyManager.SetCarName(car);
 
-                _player.GetComponent<PlayerSettings>().playerCar.SetActive(true);
+                _player.GetComponent<PlayerSettings>().playerSelectedCar.SetActive(true);
 
                 DestroyAllCarsUIElements();
                 RefreshCarsMenu();
