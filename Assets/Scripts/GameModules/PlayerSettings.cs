@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 namespace NWR
 {
@@ -16,10 +17,13 @@ namespace NWR
         [SerializeField] public GameObject playerSelectedCar;
         [SerializeField] public byte playerSelectedCarID;
 
+        [SerializeField] public List<Byte> purchasedCarsIDs;
+
         public void UpdatePlayerCar(Car car)
         {
             playerSelectedCar = car.GetCarAsGameObject();
             playerSelectedCarID = car.GetPositionNumber();
+            _lobbyManager.choosenCar = car;
 
             playerSelectedCar.SetActive(true);
         }
@@ -29,6 +33,7 @@ namespace NWR
             SaveSystem.Save(this);
         }
 
+        // TODO: rework this method at all
         public void LoadPlayerStats()
         {
             PlayerData loadedData = SaveSystem.Load();
@@ -40,17 +45,30 @@ namespace NWR
 
             foreach (Car car in _lobbyManager.inventory.GetListOfCars())
             {
-                // ! TEST SUBJECT
-                Debug.Log(car.GetName());
-                Debug.Log(playerSelectedCarID + " " + car.GetPositionNumber());
-
                 if (car.GetPositionNumber() == playerSelectedCarID)
                 {
+                    _lobbyManager.choosenCar = car;
+                    _lobbyManager.carIsChoosen = true;
+
                     playerSelectedCar = car.GetCarAsGameObject();
                     playerSelectedCar.SetActive(true);
                     car.ChangeSelectedStatus();
+
+                    _ui_manager.UpdateSelectedPlayerCarInUIComponent(car);
                 }
             }
+
+            purchasedCarsIDs = loadedData.purcahsedCarsIDs.OfType<byte>().ToList();
+            foreach (Car car in _lobbyManager.inventory.GetListOfCars())
+            {
+                if (purchasedCarsIDs.Contains(car.GetPositionNumber()))
+                {
+                    car.PurchaseCar();
+                }
+            }
+
+            _ui_manager.DestroyAllCarsUIElements();
+            _ui_manager.RefreshCarsMenu();
         }
     }
 }

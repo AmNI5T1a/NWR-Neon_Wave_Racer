@@ -24,15 +24,14 @@ namespace NWR
         [Header("In play mode settings")]
         [HideInInspector] private bool gameIsLoading;
 
-        [Space(1)]
+        [Space(2)]
 
-        [HideInInspector] private bool roadChoosen;
-        [HideInInspector] private string choosenRoadName;
-
-        [HideInInspector] private bool gameModeChoosen;
-
-        [HideInInspector] private bool carChoosen;
-        [HideInInspector] private string choosenCarName;
+        [SerializeField] public Car choosenCar;
+        [SerializeField] public bool carIsChoosen;
+        [SerializeField] private Road choosenRoad;
+        [SerializeField] private bool roadIsChoosen;
+        [SerializeField] private GameStyle choosenGameStyle;
+        [SerializeField] private bool gameStyleIsChoosen;
         void Start()
         {
             // Lock input at the start of the game
@@ -40,25 +39,25 @@ namespace NWR
 
             gameIsLoading = false;
         }
-        public void SetRoad(Road item)
+        public void UpdateSelectedRoad(Road item)
         {
-            choosenRoadName = item.GetName();
+            choosenRoad = item;
 
-            roadChoosen = true;
+            roadIsChoosen = true;
         }
 
-        public void SetGameMode(GameStyle gameStyle)
+        public void UpdateSelectedGameMode(GameStyle gameStyle)
         {
-            choosenRoadName = gameStyle.GetName();
+            choosenGameStyle = gameStyle;
 
-            gameModeChoosen = true;
+            gameStyleIsChoosen = true;
         }
 
-        public void SetCarName(Car car)
+        public void UpdateSelectedCar(Car car)
         {
-            choosenCarName = car.GetName();
+            choosenCar = car;
 
-            carChoosen = true;
+            carIsChoosen = true;
         }
 
         public bool BuyItemFromShop(in uint price)
@@ -76,7 +75,7 @@ namespace NWR
 
         public void StartAGame()
         {
-            if (gameModeChoosen && roadChoosen)
+            if (carIsChoosen && gameStyleIsChoosen && roadIsChoosen)
             {
                 StartCoroutine(LoadAsyncScene(1));
             }

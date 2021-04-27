@@ -140,7 +140,7 @@ namespace NWR
 
                 _button = slot.transform.GetChild(1).GetComponent<Button>();
 
-                if (car.WhetherItemWasPuchasedOrNot())
+                if (car.BoughtStatus())
                     _button.AddEventListener(car, ChooseButtonClicked);
                 else
                     _button.AddEventListener(car, PreviewCar);
@@ -242,7 +242,7 @@ namespace NWR
 
         void ChooseButtonClicked(Road road)
         {
-            _lobbyManager.SetRoad(road);
+            _lobbyManager.UpdateSelectedRoad(road);
             _selectRoadMenu.transform.GetChild(2).GetComponent<Text>().text = road.GetName().ToString();
 
             GameObject listOfRoads = _selectRoadMenu.transform.parent.transform.GetChild(5).gameObject;
@@ -252,7 +252,7 @@ namespace NWR
 
         void ChooseButtonClicked(GameStyle gameStyle)
         {
-            _lobbyManager.SetGameMode(gameStyle);
+            _lobbyManager.UpdateSelectedGameMode(gameStyle);
             _selectGameModeMenu.transform.GetChild(2).GetComponent<Text>().text = gameStyle.GetName();
 
             GameObject listOfGameStyles = _selectGameModeMenu.transform.parent.transform.GetChild(6).gameObject;
@@ -270,7 +270,7 @@ namespace NWR
             //TODO: check this stroke with Unit tests
             _player.GetComponent<PlayerSettings>().UpdatePlayerCar(car);
 
-            _lobbyManager.SetCarName(car);
+            _lobbyManager.UpdateSelectedCar(car);
             UpdateSelectedPlayerCarInUIComponent(car);
         }
 
@@ -296,7 +296,9 @@ namespace NWR
 
             if (transactionCompletedStatus)
             {
-                _player.GetComponent<PlayerSettings>().playerSelectedCar = car.GetCarAsGameObject();
+                PlayerSettings player = _player.GetComponent<PlayerSettings>();
+                player.playerSelectedCar = car.GetCarAsGameObject();
+                player.playerSelectedCarID = car.GetPositionNumber();
 
                 Destroy(_buyButton);
 
@@ -311,12 +313,20 @@ namespace NWR
                 UpdateMoneyScore();
 
                 UpdateSelectedPlayerCarInUIComponent(car);
-                _lobbyManager.SetCarName(car);
+                _lobbyManager.UpdateSelectedCar(car);
 
                 _player.GetComponent<PlayerSettings>().playerSelectedCar.SetActive(true);
 
+                // * Important: Here I'm adding a new car Id to the list of purchased cars;
+                _player.GetComponent<PlayerSettings>().purchasedCarsIDs.Add(car.GetPositionNumber());
+
+                // * Updating UI after successful purchase
                 DestroyAllCarsUIElements();
                 RefreshCarsMenu();
+
+
+                // TODO: save after purchase
+                //SaveSystem.Save(_player.GetComponent<PlayerSettings>());
             }
             else
             {

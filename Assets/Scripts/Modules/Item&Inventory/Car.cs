@@ -11,7 +11,7 @@ namespace NWR
 
         public uint GetPrice() => price;
 
-        public bool WhetherItemWasPuchasedOrNot() => boughtStatus;
+        public bool BoughtStatus() => boughtStatus;
         public void PurchaseCar()
         {
             this.boughtStatus = true;
