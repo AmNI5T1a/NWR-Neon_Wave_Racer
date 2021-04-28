@@ -10,14 +10,21 @@ namespace NWR
         public uint money;
 
         public byte selectedCarID;
-        public byte[] purcahsedCarsIDs;
+        public byte[] purcahsedCarsID;
+
+        public byte selectedRoadID;
+        public byte[] purchasedRoadsID;
 
         public PlayerData(PlayerSettings player)
         {
-            money = player.playerMoney;
-            selectedCarID = player.playerSelectedCarID;
+            money = player.money;
+            selectedCarID = player.selectedCarID;
 
-            purcahsedCarsIDs = player.purchasedCarsIDs.ToArray();
+            purcahsedCarsID = player.purchasedCarsIDs.ToArray();
+
+            selectedRoadID = player.selectedRoadID;
+
+            // TODO: add logic for purchasedRoads array
         }
 
     }

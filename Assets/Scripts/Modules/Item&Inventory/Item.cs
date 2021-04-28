@@ -26,26 +26,10 @@ namespace NWR
 
         [SerializeField] protected Sprite sprite;
 
-        [Space(5)]
-
-        [SerializeField] protected bool thisItemSelected;
-
         public ItemType GetItemType() => type;
         public string GetName() => name;
         public byte GetPositionNumber() => positionNumber;
 
         public Sprite GetSprite() => sprite;
-
-        public void ChangeSelectedStatus()
-        {
-            if (thisItemSelected)
-            {
-                thisItemSelected = false;
-            }
-            else
-            {
-                thisItemSelected = true;
-            }
-        }
     }
 }

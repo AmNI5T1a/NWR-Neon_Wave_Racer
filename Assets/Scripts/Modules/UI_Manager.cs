@@ -71,7 +71,7 @@ namespace NWR
             RefreshCarsMenu();
             RefreshGameStylesMenu();
             RefreshRoadsMenu();
-            UpdateMoneyScore();
+            UpdateMoneyInUIComponent();
         }
 
         void Update()
@@ -217,7 +217,7 @@ namespace NWR
             previewCarModeActive = false;
             Destroy(_buyButton);
 
-            _player.GetComponent<PlayerSettings>().playerSelectedCar.SetActive(true);
+            _lobbyManager.playerCarObject.SetActive(true);
         }
 
         void PreviewCar(Car car)
@@ -225,7 +225,8 @@ namespace NWR
             if (previewCarModeActive)
                 ClosePreviewMode();
 
-            _player.GetComponent<PlayerSettings>().playerSelectedCar.SetActive(false);
+            //_player.GetComponent<PlayerSettings>().playerSelectedCar.SetActive(false);
+            _lobbyManager.playerCarObject.SetActive(false);
 
             _carForPreview = car.GetCarAsGameObject();
             _carForPreview.SetActive(true);
@@ -239,7 +240,15 @@ namespace NWR
 
             previewCarModeActive = true;
         }
+        #region ChooseButton
+        void ChooseButtonClicked(Car car)
+        {
+            if (previewCarModeActive)
+                ClosePreviewMode();
 
+            _lobbyManager.UpdateSelectedCar(newCar: car);
+            UpdateSelectedPlayerCarInUIComponent(car: car);
+        }
         void ChooseButtonClicked(Road road)
         {
             _lobbyManager.UpdateSelectedRoad(road);
@@ -249,7 +258,6 @@ namespace NWR
             listOfRoads.SetActive(false);
             listOfOpenedUIElements.Remove(listOfRoads);
         }
-
         void ChooseButtonClicked(GameStyle gameStyle)
         {
             _lobbyManager.UpdateSelectedGameMode(gameStyle);
@@ -259,46 +267,15 @@ namespace NWR
             listOfGameStyles.SetActive(false);
             listOfOpenedUIElements.Remove(listOfGameStyles);
         }
-
-        void ChooseButtonClicked(Car car)
-        {
-            if (previewCarModeActive)
-                ClosePreviewMode();
-
-            _player.GetComponent<PlayerSettings>().playerSelectedCar.SetActive(false);
-
-            //TODO: check this stroke with Unit tests
-            _player.GetComponent<PlayerSettings>().UpdatePlayerCar(car);
-
-            _lobbyManager.UpdateSelectedCar(car);
-            UpdateSelectedPlayerCarInUIComponent(car);
-        }
-
-        void BuyButtonClicked(Road road)
-        {
-            bool transactionCompletedStatus = _lobbyManager.BuyItemFromShop(road.GetPrice());
-
-            if (transactionCompletedStatus)
-            {
-                road.PurchaseRoad();
-
-                DestroyAllRoadsUIElements();
-                RefreshRoadsMenu();
-            }
-            else
-            {
-                Debug.Log("Not enough money");
-            }
-        }
+        #endregion
+        #region BuyButton
         void BuyButtonClicked(Car car)
         {
             bool transactionCompletedStatus = _lobbyManager.BuyItemFromShop(car.GetPrice());
 
             if (transactionCompletedStatus)
             {
-                PlayerSettings player = _player.GetComponent<PlayerSettings>();
-                player.playerSelectedCar = car.GetCarAsGameObject();
-                player.playerSelectedCarID = car.GetPositionNumber();
+                _lobbyManager.UpdateSelectedCar(newCar: car);
 
                 Destroy(_buyButton);
 
@@ -310,12 +287,9 @@ namespace NWR
 
                 ClosePreviewMode();
 
-                UpdateMoneyScore();
+                UpdateMoneyInUIComponent();
 
                 UpdateSelectedPlayerCarInUIComponent(car);
-                _lobbyManager.UpdateSelectedCar(car);
-
-                _player.GetComponent<PlayerSettings>().playerSelectedCar.SetActive(true);
 
                 // * Important: Here I'm adding a new car Id to the list of purchased cars;
                 _player.GetComponent<PlayerSettings>().purchasedCarsIDs.Add(car.GetPositionNumber());
@@ -333,7 +307,25 @@ namespace NWR
                 Debug.Log("Not enough money");
             }
         }
-        public void UpdateMoneyScore() => _playersStatsMenu.transform.GetChild(1).GetComponent<Text>().text = _player.GetComponent<PlayerSettings>().playerMoney.ToString();
+        void BuyButtonClicked(Road road)
+        {
+            bool transactionCompletedStatus = _lobbyManager.BuyItemFromShop(road.GetPrice());
+
+            if (transactionCompletedStatus)
+            {
+                road.PurchaseRoad();
+
+                DestroyAllRoadsUIElements();
+                RefreshRoadsMenu();
+            }
+            else
+            {
+                Debug.Log("Not enough money");
+            }
+        }
+        #endregion
+
+        public void UpdateMoneyInUIComponent() => _playersStatsMenu.transform.GetChild(1).GetComponent<Text>().text = _player.GetComponent<PlayerSettings>().money.ToString();
 
         public void UpdateSelectedPlayerCarInUIComponent(in Car car) =>
             _carsMenuButtton.transform.GetChild(2).GetComponent<Text>().text = car.GetName().ToString();

@@ -3,6 +3,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
 
 
 namespace NWR
@@ -13,25 +14,17 @@ namespace NWR
         [Header("References")]
         [SerializeField] private InputManager _inputManager;
         [SerializeField] private PlayerSettings _playerSettings;
-        [SerializeField] private GameObject _player;
         [SerializeField] private UI_Manager _UI_manager;
 
         [Space(2)]
 
-        [Header("Inventory")]
+        [Header("Main objects")]
         [SerializeField] public Inventory inventory;
+        [SerializeField] public GameObject playerCarObject;
 
         [Header("In play mode settings")]
         [HideInInspector] private bool gameIsLoading;
 
-        [Space(2)]
-
-        [SerializeField] public Car choosenCar;
-        [SerializeField] public bool carIsChoosen;
-        [SerializeField] private Road choosenRoad;
-        [SerializeField] private bool roadIsChoosen;
-        [SerializeField] private GameStyle choosenGameStyle;
-        [SerializeField] private bool gameStyleIsChoosen;
         void Start()
         {
             // Lock input at the start of the game
@@ -39,45 +32,52 @@ namespace NWR
 
             gameIsLoading = false;
         }
-        public void UpdateSelectedRoad(Road item)
-        {
-            choosenRoad = item;
 
-            roadIsChoosen = true;
+        public void UpdateSelectedCar(Car newCar)
+        {
+            if (playerCarObject != null)
+                playerCarObject.SetActive(false);
+
+            //* This is very important it's stores and shows in Lobby player's car and load a game with this car
+            playerCarObject = newCar.GetCarAsGameObject();
+            //* __________________________________________________________________
+
+            _playerSettings.selectedCar = newCar;
+            _playerSettings.selectedCarID = newCar.GetPositionNumber();
+
+            playerCarObject.SetActive(true);
         }
-
-        public void UpdateSelectedGameMode(GameStyle gameStyle)
+        public void UpdateSelectedRoad(Road newRoad)
         {
-            choosenGameStyle = gameStyle;
-
-            gameStyleIsChoosen = true;
+            _playerSettings.selectedRoad = newRoad;
+            _playerSettings.selectedRoadID = newRoad.GetPositionNumber();
         }
-
-        public void UpdateSelectedCar(Car car)
+        public void UpdateSelectedGameMode(GameStyle newGameStyle)
         {
-            choosenCar = car;
-
-            carIsChoosen = true;
+            _playerSettings.selectedGameStyle = newGameStyle;
+            _playerSettings.selectedGameStyleID = newGameStyle.GetPositionNumber();
         }
 
         public bool BuyItemFromShop(in uint price)
         {
-            if (_playerSettings.playerMoney >= price)
+            if (_playerSettings.money >= price)
             {
-                _playerSettings.playerMoney = _playerSettings.playerMoney - price;
+                _playerSettings.money = _playerSettings.money - price;
                 return true;
             }
-            else
-            {
-                return false;
-            }
+            return false;
         }
 
         public void StartAGame()
         {
-            if (carIsChoosen && gameStyleIsChoosen && roadIsChoosen)
+            if (_playerSettings.selectedCar != null && _playerSettings.selectedGameStyle != null && _playerSettings.selectedGameStyle != null)
             {
                 StartCoroutine(LoadAsyncScene(1));
+            }
+            else
+            {
+                // TODO: Can create a pop-up window and shop error there
+                Debug.LogError("CAN'T START A GAME CAR/ROAD/GAMESTYLE IS/ARE EMPTY");
             }
         }
 
@@ -96,7 +96,7 @@ namespace NWR
                     yield return null;
                 }
 
-                SceneManager.MoveGameObjectToScene(_playerSettings.playerSelectedCar, SceneManager.GetSceneByBuildIndex(1));
+                SceneManager.MoveGameObjectToScene(playerCarObject, SceneManager.GetSceneByBuildIndex(1));
 
                 SceneManager.UnloadSceneAsync(currentScene);
             }
