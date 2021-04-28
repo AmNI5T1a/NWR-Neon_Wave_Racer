@@ -252,7 +252,7 @@ namespace NWR
         void ChooseButtonClicked(Road road)
         {
             _lobbyManager.UpdateSelectedRoad(road);
-            _selectRoadMenu.transform.GetChild(2).GetComponent<Text>().text = road.GetName().ToString();
+            UpdateSelectedPlayerRoadInUIComponent(road);
 
             GameObject listOfRoads = _selectRoadMenu.transform.parent.transform.GetChild(5).gameObject;
             listOfRoads.SetActive(false);
@@ -329,6 +329,8 @@ namespace NWR
 
         public void UpdateSelectedPlayerCarInUIComponent(in Car car) =>
             _carsMenuButtton.transform.GetChild(2).GetComponent<Text>().text = car.GetName().ToString();
+        public void UpdateSelectedPlayerRoadInUIComponent(in Road road) =>
+            _selectRoadMenu.transform.GetChild(2).GetComponent<Text>().text = road.GetName().ToString();
 
         public void CloseOrOpenUIElement(GameObject gameObject)
         {

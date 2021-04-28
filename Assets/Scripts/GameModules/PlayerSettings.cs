@@ -21,7 +21,7 @@ namespace NWR
 
         [SerializeField] public Road selectedRoad;
         [SerializeField] public byte selectedRoadID;
-        [SerializeField] public byte purchasedRoadsID;
+        [SerializeField] public List<Byte> purchasedRoadsID;
 
         [SerializeField] public GameStyle selectedGameStyle;
         [SerializeField] public byte selectedGameStyleID;
@@ -31,7 +31,6 @@ namespace NWR
             SaveSystem.Save(this);
         }
 
-        // TODO: rework this method at all
         public void LoadPlayerStats()
         {
             PlayerData loadedData = SaveSystem.Load();
@@ -39,45 +38,42 @@ namespace NWR
             money = loadedData.money;
             _ui_manager.UpdateMoneyInUIComponent();
 
-            selectedCarID = loadedData.selectedCarID;
-
             foreach (Car car in _lobbyManager.inventory.GetListOfCars())
             {
-                if (car.GetPositionNumber() == selectedCarID)
+                if (loadedData.selectedCarID == car.GetPositionNumber())
                 {
                     _lobbyManager.UpdateSelectedCar(car);
                     _ui_manager.UpdateSelectedPlayerCarInUIComponent(car);
                 }
             }
-
             purchasedCarsIDs = loadedData.purcahsedCarsID.OfType<byte>().ToList();
             foreach (Car car in _lobbyManager.inventory.GetListOfCars())
             {
                 if (purchasedCarsIDs.Contains(car.GetPositionNumber()))
-                {
                     car.PurchaseCar();
+            }
+
+
+            purchasedRoadsID = loadedData.purchasedRoadsID.OfType<byte>().ToList();
+            foreach (Road road in _lobbyManager.inventory.GetListOfRoads())
+            {
+                if (purchasedRoadsID.Contains(road.GetPositionNumber()))
+                    road.PurchaseRoad();
+            }
+
+            foreach (Road road in _lobbyManager.inventory.GetListOfRoads())
+            {
+                if (loadedData.selectedRoadID == road.GetPositionNumber())
+                {
+                    _lobbyManager.UpdateSelectedRoad(road);
+                    _ui_manager.UpdateSelectedPlayerRoadInUIComponent(road);
                 }
             }
 
-            _ui_manager.DestroyAllCarsUIElements();
+            _ui_manager.DestroyAllUIElements();
             _ui_manager.RefreshCarsMenu();
-        }
-
-        public void LoadPlayerStatsTEST()
-        {
-            PlayerData loadedData = SaveSystem.Load();
-
-            // TODO: update money score
-
-            // TODO: find selected car with id 
-            // TODO:    and
-            // TODO: SetActive player's selected car, show in UI selected car name
-            // TODO: set in LobbyManager script: car as gameobject, car as Car, and bool as true in carIsChoosen
-
-            // TODO: get list of purchased roads and update UI
-            // TODO: get selectedRoadID from loadedData and update selected road and in UI component
-
-            // TODO: get selected GameModeID and update gameMode as GameObject and UI component
+            _ui_manager.RefreshRoadsMenu();
+            _ui_manager.RefreshGameStylesMenu();
         }
     }
 }

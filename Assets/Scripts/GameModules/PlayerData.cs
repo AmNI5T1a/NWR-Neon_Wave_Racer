@@ -18,13 +18,14 @@ namespace NWR
         public PlayerData(PlayerSettings player)
         {
             money = player.money;
-            selectedCarID = player.selectedCarID;
 
+            selectedCarID = player.selectedCarID;
             purcahsedCarsID = player.purchasedCarsIDs.ToArray();
 
             selectedRoadID = player.selectedRoadID;
+            purchasedRoadsID = player.purchasedRoadsID.ToArray();
 
-            // TODO: add logic for purchasedRoads array
+            // TODO: Add logic for GameMode Save&Load
         }
 
     }

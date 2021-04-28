@@ -1245,36 +1245,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _inputManager: {fileID: 1188184384}
   _playerSettings: {fileID: 1457726081}
-  _player: {fileID: 1457726080}
   _UI_manager: {fileID: 355692121}
   inventory: {fileID: 1002794112}
-  choosenCar:
-    type: 0
-    name: 
-    positionNumber: 0
-    sprite: {fileID: 0}
-    thisItemSelected: 0
-    price: 0
-    boughtStatus: 0
-    carPrefab: {fileID: 0}
-  carIsChoosen: 0
-  choosenRoad:
-    type: 0
-    name: 
-    positionNumber: 0
-    sprite: {fileID: 0}
-    thisItemSelected: 0
-    price: 0
-    boughtStatus: 0
-  roadIsChoosen: 0
-  choosenGameStyle:
-    type: 0
-    name: 
-    positionNumber: 0
-    sprite: {fileID: 0}
-    thisItemSelected: 0
-    boughtStatus: 0
-  gameStyleIsChoosen: 0
+  playerCarObject: {fileID: 0}
 --- !u!114 &355692121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3308,7 +3281,6 @@ MonoBehaviour:
     name: Volkswagen Golf GTI
     positionNumber: 1
     sprite: {fileID: 21300000, guid: e971a1a5c7695d74b8b572379ae0bc10, type: 3}
-    thisItemSelected: 0
     price: 0
     boughtStatus: 1
     carPrefab: {fileID: 831776913}
@@ -3316,7 +3288,6 @@ MonoBehaviour:
     name: Subaru WRX STI
     positionNumber: 2
     sprite: {fileID: 21300000, guid: a1ddc65666300e24d8d0729acde2de8a, type: 3}
-    thisItemSelected: 0
     price: 35000
     boughtStatus: 0
     carPrefab: {fileID: 1308169015}
@@ -3324,7 +3295,6 @@ MonoBehaviour:
     name: Dodge Charger
     positionNumber: 3
     sprite: {fileID: 21300000, guid: 5be378737f3030f4d88148e57c1b964a, type: 3}
-    thisItemSelected: 0
     price: 72000
     boughtStatus: 0
     carPrefab: {fileID: 7079096938197883796}
@@ -3333,14 +3303,12 @@ MonoBehaviour:
     name: Swagen 520
     positionNumber: 1
     sprite: {fileID: 21300000, guid: 5be378737f3030f4d88148e57c1b964a, type: 3}
-    thisItemSelected: 0
     price: 100
     boughtStatus: 1
   - type: 2
     name: Abell
     positionNumber: 2
     sprite: {fileID: 21300000, guid: 5be378737f3030f4d88148e57c1b964a, type: 3}
-    thisItemSelected: 0
     price: 10000
     boughtStatus: 0
   gameStyles:
@@ -3348,13 +3316,11 @@ MonoBehaviour:
     name: One direction
     positionNumber: 1
     sprite: {fileID: 21300000, guid: 5be378737f3030f4d88148e57c1b964a, type: 3}
-    thisItemSelected: 0
     boughtStatus: 1
   - type: 3
     name: Incoming traffic
     positionNumber: 0
     sprite: {fileID: 21300000, guid: 5be378737f3030f4d88148e57c1b964a, type: 3}
-    thisItemSelected: 0
     boughtStatus: 1
 --- !u!4 &1002794113
 Transform:
@@ -4784,12 +4750,33 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ui_manager: {fileID: 355692121}
   _lobbyManager: {fileID: 355692120}
-  money: 200000
-  playerSelectedCar: {fileID: 0}
+  money: 2302134
+  selectedCar:
+    type: 0
+    name: 
+    positionNumber: 0
+    sprite: {fileID: 0}
+    price: 0
+    boughtStatus: 0
+    carPrefab: {fileID: 0}
   selectedCarID: 1
   purchasedCarsIDs: 01
+  selectedRoad:
+    type: 0
+    name: 
+    positionNumber: 0
+    sprite: {fileID: 0}
+    price: 0
+    boughtStatus: 0
   selectedRoadID: 1
-  purchasedRoadsID: 1
+  purchasedRoadsID: 
+  selectedGameStyle:
+    type: 0
+    name: 
+    positionNumber: 0
+    sprite: {fileID: 0}
+    boughtStatus: 0
+  selectedGameStyleID: 1
 --- !u!4 &1457726082
 Transform:
   m_ObjectHideFlags: 0
