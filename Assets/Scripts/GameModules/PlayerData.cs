@@ -15,6 +15,8 @@ namespace NWR
         public byte selectedRoadID;
         public byte[] purchasedRoadsID;
 
+        public byte selectedGameModeID;
+
         public PlayerData(PlayerSettings player)
         {
             money = player.money;
@@ -25,7 +27,7 @@ namespace NWR
             selectedRoadID = player.selectedRoadID;
             purchasedRoadsID = player.purchasedRoadsID.ToArray();
 
-            // TODO: Add logic for GameMode Save&Load
+            selectedGameModeID = player.selectedGameStyleID;
         }
 
     }

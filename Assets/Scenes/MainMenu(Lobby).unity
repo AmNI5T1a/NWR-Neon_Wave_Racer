@@ -4751,6 +4751,9 @@ MonoBehaviour:
   _ui_manager: {fileID: 355692121}
   _lobbyManager: {fileID: 355692120}
   money: 2302134
+  selectedCarID: 1
+  selectedRoadID: 1
+  selectedGameStyleID: 1
   selectedCar:
     type: 0
     name: 
@@ -4759,8 +4762,6 @@ MonoBehaviour:
     price: 0
     boughtStatus: 0
     carPrefab: {fileID: 0}
-  selectedCarID: 1
-  purchasedCarsIDs: 01
   selectedRoad:
     type: 0
     name: 
@@ -4768,15 +4769,14 @@ MonoBehaviour:
     sprite: {fileID: 0}
     price: 0
     boughtStatus: 0
-  selectedRoadID: 1
-  purchasedRoadsID: 
   selectedGameStyle:
     type: 0
     name: 
     positionNumber: 0
     sprite: {fileID: 0}
     boughtStatus: 0
-  selectedGameStyleID: 1
+  purchasedCarsIDs: 01
+  purchasedRoadsID: 
 --- !u!4 &1457726082
 Transform:
   m_ObjectHideFlags: 0

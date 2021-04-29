@@ -159,7 +159,7 @@ namespace NWR
             {
                 GameObject slot = Instantiate(_roadSlotTemplate, _roadSlotContainer.transform);
 
-                if (!road.WhetherItemWasPuchasedOrNot())
+                if (!road.BoughtStatus())
                 {
                     slot.transform.GetChild(4).GetChild(0).GetChild(0).GetComponent<Text>().text = road.GetPrice().ToString();
 
@@ -246,13 +246,13 @@ namespace NWR
             if (previewCarModeActive)
                 ClosePreviewMode();
 
-            _lobbyManager.UpdateSelectedCar(newCar: car);
-            UpdateSelectedPlayerCarInUIComponent(car: car);
+            _lobbyManager.UpdateSelectedCar(car);
+            UpdatePlayerSelectedCarInUIComponent(car);
         }
         void ChooseButtonClicked(Road road)
         {
             _lobbyManager.UpdateSelectedRoad(road);
-            UpdateSelectedPlayerRoadInUIComponent(road);
+            UpdatePlayerSelectedRoadInUIComponent(road);
 
             GameObject listOfRoads = _selectRoadMenu.transform.parent.transform.GetChild(5).gameObject;
             listOfRoads.SetActive(false);
@@ -261,7 +261,7 @@ namespace NWR
         void ChooseButtonClicked(GameStyle gameStyle)
         {
             _lobbyManager.UpdateSelectedGameMode(gameStyle);
-            _selectGameModeMenu.transform.GetChild(2).GetComponent<Text>().text = gameStyle.GetName();
+            UpdatePlayerSelectedGameStyleInUIComponent(gameStyle);
 
             GameObject listOfGameStyles = _selectGameModeMenu.transform.parent.transform.GetChild(6).gameObject;
             listOfGameStyles.SetActive(false);
@@ -289,7 +289,7 @@ namespace NWR
 
                 UpdateMoneyInUIComponent();
 
-                UpdateSelectedPlayerCarInUIComponent(car);
+                UpdatePlayerSelectedCarInUIComponent(car);
 
                 // * Important: Here I'm adding a new car Id to the list of purchased cars;
                 _player.GetComponent<PlayerSettings>().purchasedCarsIDs.Add(car.GetPositionNumber());
@@ -314,6 +314,7 @@ namespace NWR
             if (transactionCompletedStatus)
             {
                 road.PurchaseRoad();
+                _player.GetComponent<PlayerSettings>().purchasedRoadsID.Add(road.GetPositionNumber());
 
                 DestroyAllRoadsUIElements();
                 RefreshRoadsMenu();
@@ -327,10 +328,13 @@ namespace NWR
 
         public void UpdateMoneyInUIComponent() => _playersStatsMenu.transform.GetChild(1).GetComponent<Text>().text = _player.GetComponent<PlayerSettings>().money.ToString();
 
-        public void UpdateSelectedPlayerCarInUIComponent(in Car car) =>
+        public void UpdatePlayerSelectedCarInUIComponent(in Car car) =>
             _carsMenuButtton.transform.GetChild(2).GetComponent<Text>().text = car.GetName().ToString();
-        public void UpdateSelectedPlayerRoadInUIComponent(in Road road) =>
+        public void UpdatePlayerSelectedRoadInUIComponent(in Road road) =>
             _selectRoadMenu.transform.GetChild(2).GetComponent<Text>().text = road.GetName().ToString();
+
+        public void UpdatePlayerSelectedGameStyleInUIComponent(in GameStyle mode) =>
+            _selectGameModeMenu.transform.GetChild(2).GetComponent<Text>().text = mode.GetName();
 
         public void CloseOrOpenUIElement(GameObject gameObject)
         {

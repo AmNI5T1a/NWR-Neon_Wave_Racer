@@ -9,23 +9,28 @@ namespace NWR
     public class PlayerSettings : MonoBehaviour
     {
         [Header("References: ")]
-        [SerializeField] private UI_Manager _ui_manager;
-        [SerializeField] private LobbyManager _lobbyManager;
+        [SerializeReference] private UI_Manager _ui_manager;
+        [SerializeReference] private LobbyManager _lobbyManager;
 
         [Header("Saved Settings: ")]
         [SerializeField] public uint money;
 
-        [SerializeField] public Car selectedCar;
+        [Space(33)]
+
         [SerializeField] public byte selectedCarID;
-        [SerializeField] public List<Byte> purchasedCarsIDs;
-
-        [SerializeField] public Road selectedRoad;
         [SerializeField] public byte selectedRoadID;
-        [SerializeField] public List<Byte> purchasedRoadsID;
-
-        [SerializeField] public GameStyle selectedGameStyle;
         [SerializeField] public byte selectedGameStyleID;
 
+        [Space(33)]
+
+        [SerializeField] public Car selectedCar;
+        [SerializeField] public Road selectedRoad;
+        [SerializeField] public GameStyle selectedGameStyle;
+
+        [Space(33)]
+
+        [SerializeField] public List<Byte> purchasedCarsIDs;
+        [SerializeField] public List<Byte> purchasedRoadsID;
         public void SavePlayerStats()
         {
             SaveSystem.Save(this);
@@ -43,16 +48,16 @@ namespace NWR
                 if (loadedData.selectedCarID == car.GetPositionNumber())
                 {
                     _lobbyManager.UpdateSelectedCar(car);
-                    _ui_manager.UpdateSelectedPlayerCarInUIComponent(car);
+                    _ui_manager.UpdatePlayerSelectedCarInUIComponent(car);
                 }
             }
+
             purchasedCarsIDs = loadedData.purcahsedCarsID.OfType<byte>().ToList();
             foreach (Car car in _lobbyManager.inventory.GetListOfCars())
             {
                 if (purchasedCarsIDs.Contains(car.GetPositionNumber()))
                     car.PurchaseCar();
             }
-
 
             purchasedRoadsID = loadedData.purchasedRoadsID.OfType<byte>().ToList();
             foreach (Road road in _lobbyManager.inventory.GetListOfRoads())
@@ -66,7 +71,17 @@ namespace NWR
                 if (loadedData.selectedRoadID == road.GetPositionNumber())
                 {
                     _lobbyManager.UpdateSelectedRoad(road);
-                    _ui_manager.UpdateSelectedPlayerRoadInUIComponent(road);
+                    _ui_manager.UpdatePlayerSelectedRoadInUIComponent(road);
+                }
+            }
+
+            foreach (GameStyle style in _lobbyManager.inventory.GetListOfGameStyles())
+            {
+                if (style.GetPositionNumber() == loadedData.selectedGameModeID)
+                {
+                    selectedGameStyle = style;
+                    selectedGameStyleID = loadedData.selectedGameModeID;
+                    _ui_manager.UpdatePlayerSelectedGameStyleInUIComponent(style);
                 }
             }
 
