@@ -268,6 +268,7 @@ namespace NWR
             listOfOpenedUIElements.Remove(listOfGameStyles);
         }
         #endregion
+
         #region BuyButton
         void BuyButtonClicked(Car car)
         {
@@ -327,7 +328,6 @@ namespace NWR
         #endregion
 
         public void UpdateMoneyInUIComponent() => _playersStatsMenu.transform.GetChild(1).GetComponent<Text>().text = _player.GetComponent<PlayerSettings>().money.ToString();
-
         public void UpdatePlayerSelectedCarInUIComponent(in Car car) =>
             _carsMenuButtton.transform.GetChild(2).GetComponent<Text>().text = car.GetName().ToString();
         public void UpdatePlayerSelectedRoadInUIComponent(in Road road) =>

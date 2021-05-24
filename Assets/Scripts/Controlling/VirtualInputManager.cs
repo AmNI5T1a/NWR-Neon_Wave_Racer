@@ -12,6 +12,6 @@ namespace NWR
         public bool MoveBack;
 
         public bool Brake;
-        public bool C;
+        public bool C_Key;
     }
 }
