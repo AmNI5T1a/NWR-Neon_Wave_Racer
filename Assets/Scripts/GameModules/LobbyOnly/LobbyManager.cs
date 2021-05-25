@@ -27,7 +27,6 @@ namespace NWR
 
         void Start()
         {
-            // Lock input at the start of the game
             _inputManager.inputLocked = true;
 
             gameIsLoading = false;
@@ -72,6 +71,8 @@ namespace NWR
         {
             if (_playerSettings.selectedCar != null && _playerSettings.selectedGameStyle != null && _playerSettings.selectedGameStyle != null)
             {
+                // ! Change logic its hard coded
+                // TODO: add a new variable with serialized field
                 StartCoroutine(LoadAsyncScene(1));
             }
             else
@@ -81,7 +82,7 @@ namespace NWR
             }
         }
 
-        IEnumerator LoadAsyncScene(byte sceneNumber)
+        public IEnumerator LoadAsyncScene(byte sceneNumber)
         {
             if (!gameIsLoading)
             {

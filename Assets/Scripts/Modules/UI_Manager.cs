@@ -254,7 +254,7 @@ namespace NWR
             _lobbyManager.UpdateSelectedRoad(road);
             UpdatePlayerSelectedRoadInUIComponent(road);
 
-            GameObject listOfRoads = _selectRoadMenu.transform.parent.transform.GetChild(5).gameObject;
+            GameObject listOfRoads = _selectRoadMenu.transform.parent.transform.GetChild(7).gameObject;
             listOfRoads.SetActive(false);
             listOfOpenedUIElements.Remove(listOfRoads);
         }
@@ -263,7 +263,7 @@ namespace NWR
             _lobbyManager.UpdateSelectedGameMode(gameStyle);
             UpdatePlayerSelectedGameStyleInUIComponent(gameStyle);
 
-            GameObject listOfGameStyles = _selectGameModeMenu.transform.parent.transform.GetChild(6).gameObject;
+            GameObject listOfGameStyles = _selectGameModeMenu.transform.parent.transform.GetChild(8).gameObject;
             listOfGameStyles.SetActive(false);
             listOfOpenedUIElements.Remove(listOfGameStyles);
         }

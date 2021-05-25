@@ -1,14 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace NWR
 {
     public class UIAnimationManager : MonoBehaviour
     {
+        [Header("References: ")]
         [SerializeField] private GameObject _mainMenuUIComponent;
         [SerializeField] private GameObject _settingsUIComponent;
+
+        [Space(10)]
+
+        [SerializeField] private GameObject _levelLoader;
+
+
 
         public void ShowSettingsMenu()
         {
@@ -20,6 +26,22 @@ namespace NWR
         {
             _mainMenuUIComponent.GetComponent<Animator>().SetTrigger("Show");
             _settingsUIComponent.GetComponent<Animator>().SetTrigger("Hide");
+        }
+
+        public void PlayButtonPressed()
+        {
+            // TODO: 1. hide menu UI component
+            // TODO: 2. show black screen (start transaction)
+            // TODO: 2. Start load lobby
+            // TODO: 3. after lobby loaded, load player save
+            // TODO: 4. hide black screen (end transaction with lobby on screen)
+
+
+            // * 1
+            _mainMenuUIComponent.GetComponent<Animator>().SetTrigger("Hide");
+
+            // * 2
+            _levelLoader.GetComponent<LevelLoader>().LoadScene(1);
         }
     }
 }
