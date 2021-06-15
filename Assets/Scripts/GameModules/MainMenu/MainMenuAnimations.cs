@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace NWR
 {
-    public class UIAnimationManager : MonoBehaviour
+    public class MainMenuAnimations : MonoBehaviour
     {
         [Header("References: ")]
         [SerializeField] private GameObject _mainMenuUIComponent;
@@ -36,12 +36,11 @@ namespace NWR
             // TODO: 3. after lobby loaded, load player save
             // TODO: 4. hide black screen (end transaction with lobby on screen)
 
-
             // * 1
             _mainMenuUIComponent.GetComponent<Animator>().SetTrigger("Hide");
 
             // * 2
-            _levelLoader.GetComponent<LevelLoader>().LoadScene(1);
+            _levelLoader.GetComponent<LevelLoader>().LoadScene(currentSceneId: 0, needToLoadSceneId: 1);
         }
     }
 }

@@ -15,6 +15,7 @@ namespace NWR
         [SerializeField] private InputManager _inputManager;
         [SerializeField] private PlayerSettings _playerSettings;
         [SerializeField] private UI_Manager _UI_manager;
+        [SerializeField] private LevelLoader _levelLoader;
 
         [Space(2)]
 
@@ -73,37 +74,11 @@ namespace NWR
             {
                 // ! Change logic its hard coded
                 // TODO: add a new variable with serialized field
-                StartCoroutine(LoadAsyncScene(1));
+                _levelLoader.LoadScene(1, 2);
             }
             else
             {
-                // TODO: Can create a pop-up window and shop error there
                 Debug.LogError("CAN'T START A GAME CAR/ROAD/GAMESTYLE IS/ARE EMPTY");
-            }
-        }
-
-        public IEnumerator LoadAsyncScene(byte sceneNumber)
-        {
-            if (!gameIsLoading)
-            {
-                gameIsLoading = true;
-
-                Scene currentScene = SceneManager.GetActiveScene();
-
-                AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneNumber, LoadSceneMode.Additive);
-
-                while (!asyncLoad.isDone)
-                {
-                    yield return null;
-                }
-
-                SceneManager.MoveGameObjectToScene(playerCarObject, SceneManager.GetSceneByBuildIndex(1));
-
-                SceneManager.UnloadSceneAsync(currentScene);
-            }
-            else
-            {
-                Debug.LogWarning("Game is already loading...");
             }
         }
     }
