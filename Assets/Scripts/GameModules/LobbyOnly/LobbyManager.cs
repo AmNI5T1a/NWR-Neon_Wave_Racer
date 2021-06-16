@@ -33,6 +33,11 @@ namespace NWR
             gameIsLoading = false;
         }
 
+        void Update()
+        {
+            Debug.Log(_UI_manager.canvas.gameObject.activeInHierarchy);
+        }
+
         public void UpdateSelectedCar(Car newCar)
         {
             if (playerCarObject != null)
@@ -72,8 +77,8 @@ namespace NWR
         {
             if (_playerSettings.selectedCar != null && _playerSettings.selectedGameStyle != null && _playerSettings.selectedGameStyle != null)
             {
-                // ! Change logic its hard coded
-                // TODO: add a new variable with serialized field
+                _UI_manager.canvas.gameObject.SetActive(false);
+                _levelLoader.listOFObjectsNotDestroyOnLoad.Add(playerCarObject);
                 _levelLoader.LoadScene(1, 2);
             }
             else

@@ -7,79 +7,54 @@ namespace NWR
 {
     public class LevelLoader : MonoBehaviour
     {
-        [Header("References: ")]
-        [SerializeField] public List<GameObject> listOfGameObjectsNeedToLoad;
-
         [Header("In game stats: ")]
-        [SerializeField] public bool gameIsLoading;
-
-        [Space(2)]
-
-        [SerializeField] private ushort currentSceneId;
-        [SerializeField] private ushort needToLoadSceneId;
+        [SerializeField] public List<GameObject> listOFObjectsNotDestroyOnLoad;
+        [HideInInspector] public bool gameIsLoading;
+        private ushort currentSceneId;
+        private ushort needToLoadSceneId;
 
         [Space(2)]
 
         [SerializeField] private AsyncOperation sceneAsync;
-        public void StartTransition()
-        {
-            this.gameObject.transform.GetChild(0).GetComponent<Animator>().SetTrigger("Start");
-        }
-
-        public void EndTransition()
-        {
-            this.gameObject.transform.GetChild(0).GetComponent<Animator>().SetTrigger("End");
-        }
-
         public void LoadScene(ushort currentSceneId, ushort needToLoadSceneId)
         {
             this.currentSceneId = currentSceneId;
             this.needToLoadSceneId = needToLoadSceneId;
 
-            StartCoroutine(LoadASyncScene());
+            StartCoroutine(LoadScene());
         }
 
-        private IEnumerator LoadASyncScene()
+        private IEnumerator LoadScene()
         {
-            if (!gameIsLoading)
+            yield return null;
+
+            this.gameObject.transform.GetChild(0).GetComponent<Animator>().SetTrigger("Start");
+            yield return new WaitForSeconds(1f);
+
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(sceneBuildIndex: needToLoadSceneId);
+            asyncOperation.allowSceneActivation = false;
+
+            while (!asyncOperation.isDone)
             {
-                gameIsLoading = true;
+                Debug.Log("Current progress: " + (asyncOperation.progress * 100) + "%");
+                Scene loadedScene = SceneManager.GetSceneByBuildIndex(needToLoadSceneId);
 
-                AsyncOperation scene = SceneManager.LoadSceneAsync(needToLoadSceneId, LoadSceneMode.Additive);
-                scene.allowSceneActivation = false;
-
-                sceneAsync = scene;
-
-                this.gameObject.transform.GetChild(0).GetComponent<Animator>().SetTrigger("Start");
-                yield return new WaitForSeconds(1f);
-
-                while (scene.progress < 0.9f)
+                foreach (GameObject obj in listOFObjectsNotDestroyOnLoad)
                 {
-                    Debug.Log("Loading scene progress: " + scene.progress);
-                    yield return null;
+                    DontDestroyOnLoad(obj);
                 }
 
-                enableNewLoadedScene();
-            }
-        }
-
-        private void enableNewLoadedScene()
-        {
-
-            Scene loadedScene = SceneManager.GetSceneByBuildIndex(needToLoadSceneId);
-
-            if (loadedScene.IsValid())
-            {
-                Debug.Log("Scene is Valid");
-
-                foreach (GameObject obj in listOfGameObjectsNeedToLoad)
+                if (asyncOperation.progress >= 0.9f)
                 {
-                    SceneManager.MoveGameObjectToScene(obj, loadedScene);
-                }
+                    Debug.LogWarning("Game is loaded");
+                    this.gameObject.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
 
-                //sceneAsync.allowSceneActivation = true;
-                SceneManager.SetActiveScene(loadedScene);
-                SceneManager.UnloadSceneAsync(currentSceneId);
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        asyncOperation.allowSceneActivation = true;
+                    }
+                }
+                yield return null;
             }
         }
     }

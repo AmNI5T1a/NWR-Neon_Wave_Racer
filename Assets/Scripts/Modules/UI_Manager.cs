@@ -11,7 +11,7 @@ namespace NWR
         [Header("References: ")]
         [SerializeField] private LobbyManager _lobbyManager;
         [SerializeField] private GameObject _player;
-        [SerializeField] private Canvas _canvas;
+        [SerializeField] public Canvas canvas;
         [SerializeField] private Inventory _inventory;
 
         [SerializeField] private GameObject _closeLastOpenedUIElement;
@@ -232,7 +232,7 @@ namespace NWR
             _carForPreview.SetActive(true);
 
             _buyButton = Instantiate(_buyACarButton, _buyACarButton.transform.position, _buyACarButton.transform.rotation);
-            _buyButton.transform.SetParent(_canvas.transform);
+            _buyButton.transform.SetParent(canvas.transform);
             _buyButton.GetComponent<RectTransform>().localScale = _buyButton.GetComponent<RectTransform>().localScale * 2;
             _buyButton.GetComponent<Button>().AddEventListener(car, BuyButtonClicked);
             _buyButton.transform.GetChild(1).GetComponent<Text>().text = car.GetPrice().ToString();
