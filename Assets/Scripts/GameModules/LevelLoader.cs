@@ -9,6 +9,7 @@ namespace NWR
     {
         [Header("In game stats: ")]
         [SerializeField] public List<GameObject> listOFObjectsNotDestroyOnLoad;
+        [SerializeField] public List<Canvas> listOfCanvasObjectsToHideBeforeLoad;
         [HideInInspector] public bool gameIsLoading;
         private ushort currentSceneId;
         private ushort needToLoadSceneId;
@@ -27,6 +28,8 @@ namespace NWR
         private IEnumerator LoadScene()
         {
             yield return null;
+
+            HideALLUIElementsOnScene();
 
             this.gameObject.transform.GetChild(0).GetComponent<Animator>().SetTrigger("Start");
             yield return new WaitForSeconds(1f);
@@ -55,6 +58,26 @@ namespace NWR
                     }
                 }
                 yield return null;
+            }
+        }
+
+        private void HideALLUIElementsOnScene()
+        {
+            if (listOfCanvasObjectsToHideBeforeLoad.Count != 0)
+            {
+                List<GameObject> listOFUIObjectsToHide = new List<GameObject>();
+                foreach (Canvas can in listOfCanvasObjectsToHideBeforeLoad)
+                {
+                    for (byte c = 0; c < can.gameObject.transform.childCount; c++)
+                    {
+                        can.gameObject.transform.GetChild(c).gameObject.SetActive(false);
+                    }
+                }
+            }
+            else
+            {
+                Debug.LogWarning("Didn't contains any canvas to hide UI elements");
+                Debug.LogWarning("To hide UI elements u need to add canvas to list with name {listOfCanvasObjectsToHideBeforeLoad}");
             }
         }
     }

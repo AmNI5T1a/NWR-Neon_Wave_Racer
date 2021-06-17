@@ -77,8 +77,8 @@ namespace NWR
         {
             if (_playerSettings.selectedCar != null && _playerSettings.selectedGameStyle != null && _playerSettings.selectedGameStyle != null)
             {
-                _UI_manager.canvas.gameObject.SetActive(false);
                 _levelLoader.listOFObjectsNotDestroyOnLoad.Add(playerCarObject);
+                _levelLoader.listOfCanvasObjectsToHideBeforeLoad.Add(_UI_manager.canvas);
                 _levelLoader.LoadScene(1, 2);
             }
             else
