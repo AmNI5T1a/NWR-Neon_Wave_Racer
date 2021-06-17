@@ -19,14 +19,22 @@ namespace NWR
         [SerializeField] private AsyncOperation sceneAsync;
         public void LoadScene(ushort currentSceneId, ushort needToLoadSceneId)
         {
-            this.currentSceneId = currentSceneId;
-            this.needToLoadSceneId = needToLoadSceneId;
+            if (!gameIsLoading)
+            {
+                this.currentSceneId = currentSceneId;
+                this.needToLoadSceneId = needToLoadSceneId;
 
-            StartCoroutine(LoadScene());
+                StartCoroutine(LoadScene());
+            }
+            else
+            {
+                Debug.LogError("Scene is already loading...");
+            }
         }
 
         private IEnumerator LoadScene()
         {
+            gameIsLoading = true;
             yield return null;
 
             HideALLUIElementsOnScene();
