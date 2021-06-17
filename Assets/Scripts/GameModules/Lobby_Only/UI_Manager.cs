@@ -14,6 +14,8 @@ namespace NWR
         [SerializeField] public Canvas canvas;
         [SerializeField] private Inventory _inventory;
 
+        [Space(2)]
+
         [SerializeField] private GameObject _closeLastOpenedUIElement;
 
         [Space(10)]
@@ -72,6 +74,9 @@ namespace NWR
             RefreshGameStylesMenu();
             RefreshRoadsMenu();
             UpdateMoneyInUIComponent();
+
+            // ! Loading game profile
+            _player.GetComponent<PlayerSettings>().LoadPlayerStats();
         }
 
         void Update()
@@ -248,6 +253,9 @@ namespace NWR
 
             _lobbyManager.UpdateSelectedCar(car);
             UpdatePlayerSelectedCarInUIComponent(car);
+
+            // ! Saving game
+            SaveSystem.Save(_player.GetComponent<PlayerSettings>());
         }
         void ChooseButtonClicked(Road road)
         {
@@ -257,6 +265,9 @@ namespace NWR
             GameObject listOfRoads = _selectRoadMenu.transform.parent.transform.GetChild(7).gameObject;
             listOfRoads.SetActive(false);
             listOfOpenedUIElements.Remove(listOfRoads);
+
+            // ! Saving game
+            SaveSystem.Save(_player.GetComponent<PlayerSettings>());
         }
         void ChooseButtonClicked(GameStyle gameStyle)
         {
@@ -266,6 +277,9 @@ namespace NWR
             GameObject listOfGameStyles = _selectGameModeMenu.transform.parent.transform.GetChild(8).gameObject;
             listOfGameStyles.SetActive(false);
             listOfOpenedUIElements.Remove(listOfGameStyles);
+
+            // ! Saving game
+            SaveSystem.Save(_player.GetComponent<PlayerSettings>());
         }
         #endregion
 
@@ -300,8 +314,8 @@ namespace NWR
                 RefreshCarsMenu();
 
 
-                // TODO: save after purchase
-                //SaveSystem.Save(_player.GetComponent<PlayerSettings>());
+                // ! Saving game
+                SaveSystem.Save(_player.GetComponent<PlayerSettings>());
             }
             else
             {
@@ -319,6 +333,9 @@ namespace NWR
 
                 DestroyAllRoadsUIElements();
                 RefreshRoadsMenu();
+
+                // ! Saving game
+                SaveSystem.Save(_player.GetComponent<PlayerSettings>());
             }
             else
             {

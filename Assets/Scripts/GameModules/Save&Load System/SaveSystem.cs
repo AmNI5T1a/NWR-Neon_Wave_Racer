@@ -8,6 +8,8 @@ namespace NWR
     {
         public static void Save(PlayerSettings player)
         {
+            Debug.LogWarning("Saving game...");
+
             BinaryFormatter formatter = new BinaryFormatter();
 
             string path = Application.persistentDataPath + "/PlayerData.dddsj";
@@ -22,6 +24,7 @@ namespace NWR
 
         public static PlayerData Load()
         {
+            Debug.LogWarning("Loading game...");
             string path = Application.persistentDataPath + "/PlayerData.dddsj";
 
             if (File.Exists(path))
@@ -36,7 +39,7 @@ namespace NWR
             }
             else
             {
-                Debug.LogError("File doens't found");
+                Debug.LogError("Save file doens't found");
                 return null;
             }
         }
