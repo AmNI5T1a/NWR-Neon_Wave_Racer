@@ -20,6 +20,11 @@ namespace NWR
                     _instance = obj.AddComponent<T>();
                     obj.name = typeof(T).ToString();
                 }
+                else
+                {
+                    Debug.Log("Can't create: " + _instance.name);
+                    Debug.Log("It is already created");
+                }
 
                 return _instance;
             }

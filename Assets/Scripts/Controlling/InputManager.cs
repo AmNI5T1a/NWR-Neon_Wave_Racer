@@ -81,11 +81,11 @@ namespace NWR
 
             if (Input.GetKey(KeyCode.C))
             {
-                VirtualInputManager.Instance.C = true;
+                VirtualInputManager.Instance.C_Key = true;
             }
             else
             {
-                VirtualInputManager.Instance.C = false;
+                VirtualInputManager.Instance.C_Key = false;
             }
         }
 
