@@ -14,9 +14,9 @@ namespace NWR.MainMenu
             }
         }
 
-        public void DebugLog()
+        void Start()
         {
-            Debug.Log("Test");
+
         }
     }
 }
