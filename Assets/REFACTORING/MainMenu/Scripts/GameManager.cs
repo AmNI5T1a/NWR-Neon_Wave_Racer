@@ -1,4 +1,5 @@
 using UnityEngine;
+using NWR.Modules;
 
 namespace NWR.MainMenu
 {
