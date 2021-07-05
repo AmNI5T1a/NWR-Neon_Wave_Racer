@@ -17,12 +17,7 @@ namespace NWR.MainMenu
 
         void Start()
         {
-            UI_Main.onLoadLevel += LevelLoad;
-        }
 
-        private void LevelLoad(int sceneId)
-        {
-            LevelLoader.Instance.LoadScene(sceneIdToLoad: 2);
         }
     }
 }

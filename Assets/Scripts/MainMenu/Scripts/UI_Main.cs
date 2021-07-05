@@ -1,25 +1,27 @@
 using System;
 using UnityEngine;
+using NWR.Modules;
 
 namespace NWR.MainMenu
 {
     public class UI_Main : MonoBehaviour
     {
-        public static event Action<int> onLoadLevel;
+        IAppearAnimation appearAnimation = new Menu_Animations();
+        IHideAnimation hideAnimation = new Menu_Animations();
         void Start()
         {
-            UI_Animations.Instance.Appear(this.gameObject);
+            StartCoroutine(appearAnimation.AppearAnimation(this.gameObject));
         }
 
         public void ShowSettingsMenu()
         {
-            UI_Animations.Instance.Hide(this.gameObject);
-            UI_Animations.Instance.Appear(this.gameObject.transform.parent.gameObject.transform.GetChild(1).gameObject);
+            StartCoroutine(hideAnimation.HideAnimation(this.gameObject));
+            StartCoroutine(appearAnimation.AppearAnimation(this.gameObject.transform.parent.GetChild(1).gameObject));
         }
 
         public void LoadLobby(int sceneId)
         {
-            onLoadLevel?.Invoke(sceneId);
+            LevelLoader.Instance.LoadScene(sceneId);
         }
 
     }

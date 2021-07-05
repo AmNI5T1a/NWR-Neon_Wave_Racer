@@ -5,7 +5,7 @@ using NWR.Modules;
 
 namespace NWR.MainMenu
 {
-    public class UI_Animations : Singleton<UI_Animations>
+    public class Menu_Animations : IAppearAnimation, IHideAnimation
     {
         private Sequence _sequence;
 
@@ -14,18 +14,7 @@ namespace NWR.MainMenu
 
 
 
-        void Awake()
-        {
-            DOTween.Init();
-        }
-
-
-
-        public void Appear(GameObject obj)
-        {
-            StartCoroutine(AppearAnimation(obj));
-        }
-        private IEnumerator AppearAnimation(GameObject obj)
+        public IEnumerator AppearAnimation(GameObject obj)
         {
             _sequence = DOTween.Sequence();
             RectTransform objRectTransform = obj.GetComponent<RectTransform>();
@@ -40,12 +29,7 @@ namespace NWR.MainMenu
         }
 
 
-
-        public void Hide(GameObject obj)
-        {
-            StartCoroutine(HideAnimation(obj));
-        }
-        private IEnumerator HideAnimation(GameObject obj)
+        public IEnumerator HideAnimation(GameObject obj)
         {
             _sequence = DOTween.Sequence();
             RectTransform objRectTransform = obj.GetComponent<RectTransform>();

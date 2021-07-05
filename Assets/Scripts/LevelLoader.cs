@@ -6,14 +6,15 @@ namespace NWR.Modules
 {
     public class LevelLoader : Singleton<LevelLoader>
     {
-        [SerializeField] private bool sceneIsLoading;
-
-        private byte currentSceneId;
-
-        [Space(2)]
-        [SerializeField] private AsyncOperation operation;
+        private static bool sceneIsLoading;
+        private AsyncOperation operation;
 
         void Awake()
+        {
+            InstanciateLoadingScreenCanvasFromRes();
+        }
+
+        private void InstanciateLoadingScreenCanvasFromRes()
         {
             var loadingScreen = Resources.Load("loadingScreen");
             var obj = Instantiate(loadingScreen) as GameObject;
@@ -22,7 +23,10 @@ namespace NWR.Modules
 
         public void LoadScene(int sceneIdToLoad)
         {
-            StartCoroutine(Load(sceneIdToLoad));
+            if (!sceneIsLoading)
+                StartCoroutine(Load(sceneIdToLoad));
+            else
+                Debug.LogWarning("Scene is already loading!");
         }
 
         private IEnumerator Load(int sceneIdToLoad)
@@ -30,6 +34,8 @@ namespace NWR.Modules
             sceneIsLoading = true;
             yield return null;
             Debug.Log("Yeah everything works fine");
+            yield return new WaitForSeconds(1f);
+            Destroy(this.gameObject);
         }
     }
 }
