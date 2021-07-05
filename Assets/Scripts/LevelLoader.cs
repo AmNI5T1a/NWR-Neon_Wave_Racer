@@ -1,6 +1,6 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace NWR.Modules
 {
@@ -12,11 +12,15 @@ namespace NWR.Modules
         void Awake()
         {
             InstanciateLoadingScreenCanvasFromRes();
+
+
+
+            DontDestroyOnLoad(this.gameObject);
         }
 
         private void InstanciateLoadingScreenCanvasFromRes()
         {
-            var loadingScreen = Resources.Load("loadingScreen");
+            var loadingScreen = Resources.Load("Loading Screen (Canvas)");
             var obj = Instantiate(loadingScreen) as GameObject;
             obj.transform.SetParent(this.gameObject.transform);
         }
@@ -32,9 +36,35 @@ namespace NWR.Modules
         private IEnumerator Load(int sceneIdToLoad)
         {
             sceneIsLoading = true;
-            yield return null;
-            Debug.Log("Yeah everything works fine");
-            yield return new WaitForSeconds(1f);
+
+            IAppearAnimation appearAnimation = new LoadingScreenAnimations();
+            StartCoroutine(appearAnimation.AppearAnimation(this.gameObject.transform.GetChild(0).GetChild(0).gameObject));
+            yield return new WaitForSeconds(1.55f);
+
+            operation = SceneManager.LoadSceneAsync(sceneBuildIndex: sceneIdToLoad);
+            operation.allowSceneActivation = false;
+
+            while (!operation.isDone)
+            {
+                Debug.Log("Current loading progress: " + (operation.progress * 100) + "%");
+                Scene loadedScene = SceneManager.GetSceneByBuildIndex(sceneIdToLoad);
+
+                if (operation.progress >= 0.9f)
+                {
+                    Debug.LogWarning("Scene is loaded!");
+                    this.gameObject.transform.GetChild(0).GetChild(0).GetChild(0).gameObject.SetActive(true);
+                    if (Input.GetKeyDown(KeyCode.Space))
+                    {
+                        operation.allowSceneActivation = true;
+                        IHideAnimation hideAnimation = new LoadingScreenAnimations();
+                        StartCoroutine(hideAnimation.HideAnimation(this.gameObject.transform.GetChild(0).GetChild(0).gameObject));
+                        yield return new WaitForSeconds(1.55f);
+                    }
+                }
+                yield return null;
+            }
+
+            sceneIsLoading = false;
             Destroy(this.gameObject);
         }
     }
