@@ -1,0 +1,10 @@
+using UnityEngine;
+
+namespace NWR.Modules
+{
+    public class Item : ScriptableObject
+    {
+        [SerializeField] protected int ID;
+        [SerializeField] protected string Denomination;
+    }
+}

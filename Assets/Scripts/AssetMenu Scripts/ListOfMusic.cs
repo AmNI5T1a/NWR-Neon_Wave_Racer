@@ -12,7 +12,7 @@ namespace NWR.Modules
 
 
 
-    [CreateAssetMenu(fileName = "List of Music", menuName = "NWR/List Of Music")]
+    [CreateAssetMenu(fileName = "List of Music", menuName = "NWR/Music/List of music")]
     public class ListOfMusic : ScriptableObject
     {
         public SongStyle style;
