@@ -3206,7 +3206,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &529802837639604929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3220,8 +3220,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StackOfMusic:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: 6881527b104c5c441a6b0dc802c0ce02, type: 2}
+  - {fileID: 11400000, guid: 497ebbe439df73d44aec4138c8498113, type: 2}
 --- !u!4 &529802837639604931
 Transform:
   m_ObjectHideFlags: 0

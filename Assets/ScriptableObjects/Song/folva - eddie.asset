@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f19bae4a03e09d479667421c6a0801a, type: 3}
+  m_Name: folva - eddie
+  m_EditorClassIdentifier: 
+  Id: 6
+  clip: {fileID: 8300000, guid: 24f16a07d70c4574b8b8931a0f5fef43, type: 3}
+  description: folva - eddie
