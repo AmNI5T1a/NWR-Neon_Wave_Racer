@@ -6,5 +6,7 @@ namespace NWR.Modules
     {
         [SerializeField] protected int ID;
         [SerializeField] protected string Denomination;
+
+        public int GetID() => ID;
     }
 }

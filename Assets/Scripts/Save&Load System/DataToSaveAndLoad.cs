@@ -31,7 +31,7 @@ namespace NWR.Modules
             this.selectedGameModeID = 0;
 
             this.ID_OfAllPurchasedCars = new int[1] { 0 };
-            this.ID_OfAllPurchasedRoads = new int[0];
+            this.ID_OfAllPurchasedRoads = new int[1] { 2 }; 
         }
     }
 }

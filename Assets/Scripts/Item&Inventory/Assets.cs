@@ -1,44 +1,36 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace NWR.Modules
 {
-    [System.Serializable]
     public class Assets : MonoBehaviour
     {
         [System.Serializable]
-        private class Cars
+        public class StackOfItems<T> where T : Item
         {
-            [SerializeField] private Car car;
-            [SerializeField] private bool isBought;
+            [SerializeField] private T _item;
+            [SerializeField] public bool _isBought;
+
+            public T GetItem
+            {
+                get { return _item; }
+            }
         }
 
-        [SerializeField] private List<Cars> listOfCars;
+        [SerializeField] public List<StackOfItems<Car>> stackOf_Cars;
+        [SerializeField] public List<StackOfItems<Road>> stackOf_Roads;
 
-        [System.Serializable]
-        private class Roads
+
+        void Start()
         {
-            [SerializeField] private Road road;
-            [SerializeField] private bool isBought;
+
         }
 
-        [SerializeField] private List<Roads> listOfRoads;
-        [SerializeField] private List<GameMode> listOfGameModes;
 
+        private void SetIfCarPurchased(List<int> IDs_ofBoughtItems)
+        {
 
-        void Awake()
-        {
-            Player.onGetIDsBoughtCars += UpdateListOfCarsAfterDeserialization;
-            Player.onGetIDsBoughtRoads += UpdateListOfRoadsAfterDeserialization;
-        }
-
-        private void UpdateListOfCarsAfterDeserialization(List<int> IDs_OfBoughtCars)
-        {
-            Debug.Log("Trying to update list of cars and set which was bought in previous sessions");
-        }
-        private void UpdateListOfRoadsAfterDeserialization(List<int> IDs_ofBoughtRoads)
-        {
-            Debug.Log("Trying to update list of roads and set which was bought in previous sessions");
         }
     }
 }

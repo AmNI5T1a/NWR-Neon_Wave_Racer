@@ -8,8 +8,8 @@ namespace NWR.Modules
     {
         public static Player Instance { get; private set; }
 
-        public static event Action<List<int>> onGetIDsBoughtCars;
-        public static event Action<List<int>> onGetIDsBoughtRoads;
+        public static event Action<List<int>> OnGetIDsOfBoughtCars;
+        public static event Action<List<int>> OnGetIDsOfBoughtRoads;
 
         public uint money;
 
@@ -37,17 +37,16 @@ namespace NWR.Modules
             // * Update Player statistics
             LoadPlayerDataOnStart();
 
-            // * Try to set which items was bought
-            onGetIDsBoughtCars?.Invoke(boughtCars_List);
-            onGetIDsBoughtRoads?.Invoke(boughtRoads_List);
+            // * Send as publisher event of bought items
+            if (boughtCars_List.Count != 0)
+                OnGetIDsOfBoughtCars?.Invoke(boughtCars_List);
+            if (boughtRoads_List.Count != 0)
+                OnGetIDsOfBoughtRoads?.Invoke(boughtRoads_List);
         }
 
         private void LoadPlayerDataOnStart()
         {
-
             DataToSaveAndLoad loadedData = LoadSystem.Load();
-
-            this.money = loadedData.money;
 
             this.money = loadedData.money;
 
