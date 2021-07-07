@@ -1046,8 +1046,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fe076c4c57ce434b88a93f1e02bd9b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stackOf_Cars: []
-  stackOf_Roads: []
+  cars_list:
+  - item: {fileID: 11400000, guid: bceb49cf9c905e1438bfc6fd41627ba2, type: 2}
+    isBought: 0
+  - item: {fileID: 11400000, guid: 67435f71bd1f59741bf452c407b3c956, type: 2}
+    isBought: 0
+  - item: {fileID: 11400000, guid: 8256381ea33ef6943a407958463f53bc, type: 2}
+    isBought: 0
+  roads_list:
+  - item: {fileID: 11400000, guid: bdfa150211025454e87a004b78041878, type: 2}
+    isBought: 0
 --- !u!1 &1734738646
 GameObject:
   m_ObjectHideFlags: 0

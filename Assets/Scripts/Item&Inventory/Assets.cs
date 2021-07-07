@@ -7,30 +7,39 @@ namespace NWR.Modules
     public class Assets : MonoBehaviour
     {
         [System.Serializable]
-        public class StackOfItems<T> where T : Item
+        private class ItemAndStats<T> where T : Item
         {
-            [SerializeField] private T _item;
-            [SerializeField] public bool _isBought;
-
-            public T GetItem
-            {
-                get { return _item; }
-            }
+            [SerializeField] public T item;
+            [SerializeField] public bool isBought;
         }
 
-        [SerializeField] public List<StackOfItems<Car>> stackOf_Cars;
-        [SerializeField] public List<StackOfItems<Road>> stackOf_Roads;
+        [SerializeField] private List<ItemAndStats<Car>> cars_list;
+        [SerializeField] private List<ItemAndStats<Road>> roads_list;
 
 
         void Start()
         {
-
+            Player.OnGetIDsOfBoughtCars += SetPurchasedStatusForCars;
+            Player.OnGetIDsOfBoughtRoads += SetPurchasedStatusForRoads;
         }
 
-
-        private void SetIfCarPurchased(List<int> IDs_ofBoughtItems)
+        private void SetPurchasedStatusForCars(List<int> IDs_ofPurchasedItems)
         {
-
+            foreach (ItemAndStats<Car> item in cars_list)
+            {
+                item.isBought = IDs_ofPurchasedItems.Contains(item.item.GetID());
+            }
         }
+
+        private void SetPurchasedStatusForRoads(List<int> IDs_ofPurchasedItems)
+        {
+            foreach (ItemAndStats<Road> item in roads_list)
+            {
+                item.isBought = IDs_ofPurchasedItems.Contains(item.item.GetID());
+            }
+        }
+
+
+
     }
 }
