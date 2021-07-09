@@ -38,7 +38,15 @@ namespace NWR.Modules
             BinaryFormatter formatter = new BinaryFormatter();
             FileStream stream = new FileStream(path, FileMode.Create);
 
-            DataToSaveAndLoad newData = new DataToSaveAndLoad();
+            DataToSaveAndLoad newData = new DataToSaveAndLoad()
+            {
+                money = 0,
+                selectedCarID = 0,
+                selectedRoadID = 0,
+                selectedGameModeID = 0,
+                ID_OfAllPurchasedCars = new int[1] { 0 },
+                ID_OfAllPurchasedRoads = new int[1] { 2 }
+            };
 
             formatter.Serialize(stream, newData);
             stream.Close();

@@ -13,8 +13,8 @@ namespace NWR.Modules
             [SerializeField] public bool isBought;
         }
 
-        [SerializeField] private List<ItemAndStats<Car>> cars_list;
-        [SerializeField] private List<ItemAndStats<Road>> roads_list;
+        [SerializeField] public List<ItemAndStats<Car>> cars_list;
+        [SerializeField] public List<ItemAndStats<Road>> roads_list;
 
         public static event SendCar OnSendCar;
         public delegate void SendCar(ItemAndStats<Car> car);
@@ -45,8 +45,5 @@ namespace NWR.Modules
                 item.isBought = IDs_ofPurchasedItems.Contains(item.item.GetID());
             }
         }
-
-
-
     }
 }

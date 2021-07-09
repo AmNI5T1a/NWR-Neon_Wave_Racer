@@ -11,14 +11,18 @@ namespace NWR.Modules
         public static event Action<List<int>> OnGetIDsOfBoughtCars;
         public static event Action<List<int>> OnGetIDsOfBoughtRoads;
 
-        public uint money;
+        // ? Should i do this
+        public static event SetPlayerCarInLobby OnSetPlayerCarInLobby;
+        public delegate void SetPlayerCarInLobby(Car car);
 
-        public ushort selectedCarID;
-        public ushort selectedRoadID;
-        public ushort selectedGameModeID;
+        public static uint money;
 
-        public List<int> boughtCars_List = new List<int>();
-        public List<int> boughtRoads_List = new List<int>();
+        public static ushort selectedCarID;
+        public static ushort selectedRoadID;
+        public static ushort selectedGameModeID;
+
+        public static List<int> boughtCars_List = new List<int>();
+        public static List<int> boughtRoads_List = new List<int>();
 
         void Awake()
         {
@@ -46,14 +50,14 @@ namespace NWR.Modules
         {
             DataToSaveAndLoad loadedData = LoadSystem.Load();
 
-            this.money = loadedData.money;
+            money = loadedData.money;
 
-            this.selectedCarID = loadedData.selectedCarID;
-            this.selectedRoadID = loadedData.selectedRoadID;
-            this.selectedGameModeID = loadedData.selectedGameModeID;
+            selectedCarID = loadedData.selectedCarID;
+            selectedRoadID = loadedData.selectedRoadID;
+            selectedGameModeID = loadedData.selectedGameModeID;
 
-            this.boughtCars_List = new List<int>(loadedData.ID_OfAllPurchasedCars);
-            this.boughtRoads_List = new List<int>(loadedData.ID_OfAllPurchasedRoads);
+            boughtCars_List = new List<int>(loadedData.ID_OfAllPurchasedCars);
+            boughtRoads_List = new List<int>(loadedData.ID_OfAllPurchasedRoads);
         }
     }
 }

@@ -11,27 +11,16 @@ namespace NWR.Modules
         public int[] ID_OfAllPurchasedCars;
         public int[] ID_OfAllPurchasedRoads;
 
-        public DataToSaveAndLoad(Player playersData)
-        {
-            money = playersData.money;
-
-            selectedCarID = playersData.selectedCarID;
-            selectedRoadID = playersData.selectedRoadID;
-            selectedGameModeID = playersData.selectedGameModeID;
-
-            ID_OfAllPurchasedCars = playersData.boughtCars_List.ToArray();
-            ID_OfAllPurchasedRoads = playersData.boughtRoads_List.ToArray();
-        }
-
         public DataToSaveAndLoad()
         {
-            this.money = 0;
-            this.selectedCarID = 0;
-            this.selectedRoadID = 0;
-            this.selectedGameModeID = 0;
+            money = Player.money;
 
-            this.ID_OfAllPurchasedCars = new int[1] { 0 };
-            this.ID_OfAllPurchasedRoads = new int[1] { 2 }; 
+            selectedCarID = Player.selectedCarID;
+            selectedRoadID = Player.selectedRoadID;
+            selectedGameModeID = Player.selectedGameModeID;
+
+            ID_OfAllPurchasedCars = Player.boughtCars_List.ToArray();
+            ID_OfAllPurchasedRoads = Player.boughtRoads_List.ToArray();
         }
     }
 }

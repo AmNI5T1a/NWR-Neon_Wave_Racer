@@ -13,7 +13,7 @@ namespace NWR.Modules
             string path = Application.persistentDataPath + "/data.ddsjs";
             FileStream stream = new FileStream(path, FileMode.Create);
 
-            DataToSaveAndLoad playerData = new DataToSaveAndLoad(Player.Instance);
+            DataToSaveAndLoad playerData = new DataToSaveAndLoad();
 
             formatter.Serialize(stream, playerData);
             stream.Close();

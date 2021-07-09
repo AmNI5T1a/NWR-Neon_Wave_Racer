@@ -421,6 +421,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1066900480}
+  - {fileID: 381333374}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -573,6 +574,36 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &381333373
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 381333374}
+  m_Layer: 0
+  m_Name: Lobby Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &381333374
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 381333373}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 191901754}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &522034553
 GameObject:
   m_ObjectHideFlags: 0
@@ -1074,12 +1105,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e1fa9e784cbc8e4d99555cc7d483cad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  money: 0
-  selectedCarID: 0
-  selectedRoadID: 0
-  selectedGameModeID: 0
-  boughtCars_List: 
-  boughtRoads_List: 
 --- !u!1 &1055004514
 GameObject:
   m_ObjectHideFlags: 0
@@ -1722,11 +1747,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cars_list:
-  - item: {fileID: 11400000, guid: bceb49cf9c905e1438bfc6fd41627ba2, type: 2}
+  - item: {fileID: 11400000, guid: 67435f71bd1f59741bf452c407b3c956, type: 2}
     isBought: 0
   - item: {fileID: 11400000, guid: 8256381ea33ef6943a407958463f53bc, type: 2}
     isBought: 0
-  - item: {fileID: 11400000, guid: 67435f71bd1f59741bf452c407b3c956, type: 2}
+  - item: {fileID: 11400000, guid: bceb49cf9c905e1438bfc6fd41627ba2, type: 2}
     isBought: 0
   roads_list:
   - item: {fileID: 11400000, guid: bdfa150211025454e87a004b78041878, type: 2}

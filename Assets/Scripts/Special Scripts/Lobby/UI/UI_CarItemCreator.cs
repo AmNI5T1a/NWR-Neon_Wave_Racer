@@ -1,5 +1,6 @@
 using UnityEngine;
 using NWR.Modules;
+using TMPro;
 
 namespace NWR.Lobby
 {
@@ -12,7 +13,9 @@ namespace NWR.Lobby
 
         private void CreateItemAsUI_Gameobject(Assets.ItemAndStats<Car> car)
         {
-            Debug.Log(car.item.GetName());
+            var item_template_prefab = Resources.Load("Car item-template");
+            GameObject item = Instantiate(item_template_prefab, this.gameObject.transform) as GameObject;
+            item.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = car.item.GetName();
         }
     }
 }

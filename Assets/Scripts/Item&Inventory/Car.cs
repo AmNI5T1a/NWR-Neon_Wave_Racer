@@ -8,5 +8,7 @@ namespace NWR.Modules
         [SerializeField] private uint price;
         [SerializeField] private string description;
         [SerializeField] private GameObject prefab;
+
+        public GameObject GetCarAsGameObject() => prefab;
     }
 }
