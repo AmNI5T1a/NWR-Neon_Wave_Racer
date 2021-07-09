@@ -38,9 +38,7 @@ namespace NWR.Modules
             LoadPlayerDataOnStart();
 
             // * Send as publisher event of bought items
-            //if (boughtCars_List.Count != 0)
             OnGetIDsOfBoughtCars?.Invoke(boughtCars_List);
-            //if (boughtRoads_List.Count != 0)
             OnGetIDsOfBoughtRoads?.Invoke(boughtRoads_List);
         }
 

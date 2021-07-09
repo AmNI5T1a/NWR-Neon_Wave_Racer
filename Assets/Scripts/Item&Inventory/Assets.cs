@@ -1,5 +1,5 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace NWR.Modules
@@ -7,7 +7,7 @@ namespace NWR.Modules
     public class Assets : MonoBehaviour
     {
         [System.Serializable]
-        private class ItemAndStats<T> where T : Item
+        public class ItemAndStats<T> where T : Item
         {
             [SerializeField] public T item;
             [SerializeField] public bool isBought;
@@ -16,8 +16,10 @@ namespace NWR.Modules
         [SerializeField] private List<ItemAndStats<Car>> cars_list;
         [SerializeField] private List<ItemAndStats<Road>> roads_list;
 
+        public static event SendCar OnSendCar;
+        public delegate void SendCar(ItemAndStats<Car> car);
 
-        void Start()
+        void Awake()
         {
             Player.OnGetIDsOfBoughtCars += SetPurchasedStatusForCars;
             Player.OnGetIDsOfBoughtRoads += SetPurchasedStatusForRoads;
@@ -32,6 +34,7 @@ namespace NWR.Modules
             foreach (ItemAndStats<Car> item in cars_list)
             {
                 item.isBought = IDs_ofPurchasedItems.Contains(item.item.GetID());
+                OnSendCar?.Invoke(item);
             }
         }
 
