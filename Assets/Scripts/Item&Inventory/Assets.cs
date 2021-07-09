@@ -23,6 +23,10 @@ namespace NWR.Modules
             Player.OnGetIDsOfBoughtRoads += SetPurchasedStatusForRoads;
         }
 
+
+        // ? Can i recode it to 1 method
+        // ! 2 same methods cause id of each child from item starts with 0
+        // ! Lists don't know about each other
         private void SetPurchasedStatusForCars(List<int> IDs_ofPurchasedItems)
         {
             foreach (ItemAndStats<Car> item in cars_list)
