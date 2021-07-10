@@ -11,6 +11,8 @@ namespace NWR.Lobby
 
         void Awake()
         {
+            if (this.gameObject.activeSelf == false)
+                this.gameObject.SetActive(true);
             Player.OnSetPlayerCarInLobby += CreateOrUpdateCarAsGameObject;
         }
 

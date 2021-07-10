@@ -8,6 +8,8 @@ namespace NWR.Lobby
     {
         void Awake()
         {
+            if (this.gameObject.activeSelf == false)
+                this.gameObject.SetActive(true);
             Assets.OnSendCar += CreateItemAsUI_Gameobject;
         }
 

@@ -6,7 +6,7 @@ namespace NWR.Lobby
     {
         public void ShowList()
         {
-            this.gameObject.transform.parent.GetChild(1).gameObject.GetComponent<IShowList>().ShowList();
+            this.gameObject.transform.parent.GetChild(0).gameObject.GetComponent<IShowOrHideList>().ShowOrHide();
         }
     }
 }
