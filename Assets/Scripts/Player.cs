@@ -12,8 +12,8 @@ namespace NWR.Modules
         public static event Action<List<int>> OnGetIDsOfBoughtRoads;
 
         // ? Should i do this
-        public static event SetPlayerCarInLobby OnSetPlayerCarInLobby;
-        public delegate void SetPlayerCarInLobby(Car car);
+        public static event SetPlayerCarInLobby OnInstanciatePlayerCarInLobby;
+        public delegate void SetPlayerCarInLobby(ushort playerCar_ID);
 
         public static uint money;
 
@@ -41,9 +41,10 @@ namespace NWR.Modules
             // * Update Player statistics
             LoadPlayerDataOnStart();
 
-            // * Send as publisher event of bought items
+            // * Loading all game objects and UI components
             OnGetIDsOfBoughtCars?.Invoke(boughtCars_List);
             OnGetIDsOfBoughtRoads?.Invoke(boughtRoads_List);
+            OnInstanciatePlayerCarInLobby?.Invoke(selectedCarID);
         }
 
         private void LoadPlayerDataOnStart()

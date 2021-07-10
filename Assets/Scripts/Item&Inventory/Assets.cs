@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using NWR.Lobby;
 
 namespace NWR.Modules
 {
@@ -23,6 +24,8 @@ namespace NWR.Modules
         {
             Player.OnGetIDsOfBoughtCars += SetPurchasedStatusForCars;
             Player.OnGetIDsOfBoughtRoads += SetPurchasedStatusForRoads;
+
+            Player.OnInstanciatePlayerCarInLobby += FindAndInstaciatePlayerCar;
         }
 
 
@@ -43,6 +46,19 @@ namespace NWR.Modules
             foreach (ItemAndStats<Road> item in roads_list)
             {
                 item.isBought = IDs_ofPurchasedItems.Contains(item.item.GetID());
+            }
+        }
+
+        private void FindAndInstaciatePlayerCar(ushort playerCar_ID)
+        {
+            foreach (ItemAndStats<Car> car in cars_list)
+            {
+                if (car.item.GetID() == playerCar_ID)
+                {
+                    LobbyManager.Instance.InstanciatePlayerCar(car.item);
+                    Debug.Log("Found player car instanciating it...");
+                    return;
+                }
             }
         }
     }
