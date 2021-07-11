@@ -13,12 +13,14 @@ namespace NWR.Modules
             [SerializeField] public T item;
             [SerializeField] public bool isBought;
         }
-
         [SerializeField] public List<ItemAndStats<Car>> cars_list;
         [SerializeField] public List<ItemAndStats<Road>> roads_list;
         [SerializeField] public List<ItemAndStats<GameMode>> gameModes_list;
-        public static event EventHandler<OnFindPlayerSelectedItemsEventArgs> OnFindPlayerSelectedItems;
-        public class OnFindPlayerSelectedItemsEventArgs : EventArgs
+
+
+
+        public static event EventHandler<OnSendPlayerSelectedItemsEventArgs> OnSendPlayerSelectedItems;
+        public class OnSendPlayerSelectedItemsEventArgs : EventArgs
         {
             public ItemAndStats<Car> playerCar;
             public ItemAndStats<Road> playerRoad;
@@ -26,8 +28,14 @@ namespace NWR.Modules
         }
 
 
-        // ! Create here actions for every item 
 
+        public static event EventHandler<OnSendItemsEventArgs> OnSendItems;
+        public class OnSendItemsEventArgs : EventArgs
+        {
+            public List<ItemAndStats<Car>> cars_List;
+            public List<ItemAndStats<Road>> roads_List;
+            public List<ItemAndStats<GameMode>> gameModes_List;
+        }
 
         void Awake()
         {
@@ -37,10 +45,21 @@ namespace NWR.Modules
             Player.OnSendPlayerSelectedItemIDs += FindAndSendItemsInformation;
         }
 
+        void Start()
+        {
+            OnSendItems?.Invoke(this, new OnSendItemsEventArgs
+            {
+                cars_List = this.cars_list,
+                roads_List = this.roads_list,
+                gameModes_List = this.gameModes_list
+            });
+        }
+
 
         // ? Can i recode it to 1 method
         // ! 2 same methods cause id of each child from item starts with 0
         // ! Lists don't know about each other
+        #region LoadAlreadyPurchasedCars
         private void SetPurchasedStatusForCars(List<int> IDs_ofPurchasedItems)
         {
             foreach (ItemAndStats<Car> item in cars_list)
@@ -56,10 +75,10 @@ namespace NWR.Modules
                 item.isBought = IDs_ofPurchasedItems.Contains(item.item.GetID());
             }
         }
-
+        #endregion LoadAlreadyPurchasedCars
         private void FindAndSendItemsInformation(object sender, Player.PlayerSelectedItemIDsEventArgs e)
         {
-            OnFindPlayerSelectedItemsEventArgs playerItems = new OnFindPlayerSelectedItemsEventArgs();
+            OnSendPlayerSelectedItemsEventArgs playerItems = new OnSendPlayerSelectedItemsEventArgs();
 
             foreach (ItemAndStats<Car> car in cars_list)
             {
@@ -86,7 +105,7 @@ namespace NWR.Modules
                 }
             }
 
-            OnFindPlayerSelectedItems?.Invoke(this, playerItems);
+            OnSendPlayerSelectedItems?.Invoke(this, playerItems);
         }
     }
 }

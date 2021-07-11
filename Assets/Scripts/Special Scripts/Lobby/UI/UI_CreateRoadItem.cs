@@ -5,9 +5,9 @@ namespace NWR.Lobby
 {
     class UI_CreateRoadItem : MonoBehaviour, I_UI_ItemCreator
     {
-        public void CreateItem(Assets.OnFindPlayerSelectedItemsEventArgs e)
+        public void CreateItem<T>(T item) where T : Item
         {
-            Debug.Log(this.gameObject.name + " object is trying to create road");
+            throw new System.NotImplementedException();
         }
     }
 }
