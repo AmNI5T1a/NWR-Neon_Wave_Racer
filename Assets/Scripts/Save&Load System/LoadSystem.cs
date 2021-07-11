@@ -40,10 +40,10 @@ namespace NWR.Modules
 
             DataToSaveAndLoad newData = new DataToSaveAndLoad()
             {
-                money = 0,
+                money = 9900,
                 selectedCarID = 0,
-                selectedRoadID = 0,
-                selectedGameModeID = 0,
+                selectedRoadID = 2,
+                selectedGameModeID = 1,
                 ID_OfAllPurchasedCars = new int[1] { 0 },
                 ID_OfAllPurchasedRoads = new int[1] { 2 }
             };

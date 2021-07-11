@@ -13,14 +13,14 @@ namespace NWR.Modules
 
         public DataToSaveAndLoad()
         {
-            money = Player.money;
+            money = Player.Instance.money;
 
-            selectedCarID = Player.selectedCarID;
-            selectedRoadID = Player.selectedRoadID;
-            selectedGameModeID = Player.selectedGameModeID;
+            selectedCarID = Player.Instance.selectedCarID;
+            selectedRoadID = Player.Instance.selectedRoadID;
+            selectedGameModeID = Player.Instance.selectedGameModeID;
 
-            ID_OfAllPurchasedCars = Player.boughtCars_List.ToArray();
-            ID_OfAllPurchasedRoads = Player.boughtRoads_List.ToArray();
+            ID_OfAllPurchasedCars = Player.Instance.boughtCars_List.ToArray();
+            ID_OfAllPurchasedRoads = Player.Instance.boughtRoads_List.ToArray();
         }
     }
 }

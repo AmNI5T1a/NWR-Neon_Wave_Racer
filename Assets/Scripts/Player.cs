@@ -11,18 +11,25 @@ namespace NWR.Modules
         public static event Action<List<int>> OnGetIDsOfBoughtCars;
         public static event Action<List<int>> OnGetIDsOfBoughtRoads;
 
-        // ? Should i do this
-        public static event SetPlayerCarInLobby OnInstanciatePlayerCarInLobby;
-        public delegate void SetPlayerCarInLobby(ushort playerCar_ID);
 
-        public static uint money;
+        public static EventHandler<PlayerSelectedItemIDsEventArgs> OnSendPlayerSelectedItemIDs;
+        public class PlayerSelectedItemIDsEventArgs : EventArgs
+        {
+            public ushort car_ID;
+            public ushort road_ID;
+            public ushort gameMode_ID;
+        }
 
-        public static ushort selectedCarID;
-        public static ushort selectedRoadID;
-        public static ushort selectedGameModeID;
 
-        public static List<int> boughtCars_List = new List<int>();
-        public static List<int> boughtRoads_List = new List<int>();
+
+        public uint money;
+
+        public ushort selectedCarID;
+        public ushort selectedRoadID;
+        public ushort selectedGameModeID;
+
+        public List<int> boughtCars_List = new List<int>();
+        public List<int> boughtRoads_List = new List<int>();
 
         void Awake()
         {
@@ -44,7 +51,14 @@ namespace NWR.Modules
             // * Loading all game objects and UI components
             OnGetIDsOfBoughtCars?.Invoke(boughtCars_List);
             OnGetIDsOfBoughtRoads?.Invoke(boughtRoads_List);
-            OnInstanciatePlayerCarInLobby?.Invoke(selectedCarID);
+
+            OnSendPlayerSelectedItemIDs?.Invoke(this, new PlayerSelectedItemIDsEventArgs
+            {
+                car_ID = selectedCarID,
+                road_ID = selectedRoadID,
+                gameMode_ID = selectedGameModeID
+
+            });
         }
 
         private void LoadPlayerDataOnStart()

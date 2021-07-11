@@ -16,16 +16,25 @@ namespace NWR.Modules
 
         [SerializeField] public List<ItemAndStats<Car>> cars_list;
         [SerializeField] public List<ItemAndStats<Road>> roads_list;
+        [SerializeField] public List<ItemAndStats<GameMode>> gameModes_list;
+        public static event EventHandler<OnFindPlayerSelectedItemsEventArgs> OnFindPlayerSelectedItems;
+        public class OnFindPlayerSelectedItemsEventArgs : EventArgs
+        {
+            public ItemAndStats<Car> playerCar;
+            public ItemAndStats<Road> playerRoad;
+            public ItemAndStats<GameMode> playerGameMode;
+        }
 
-        public static event SendCar OnSendCar;
-        public delegate void SendCar(ItemAndStats<Car> car);
+
+        // ! Create here actions for every item 
+
 
         void Awake()
         {
             Player.OnGetIDsOfBoughtCars += SetPurchasedStatusForCars;
             Player.OnGetIDsOfBoughtRoads += SetPurchasedStatusForRoads;
 
-            Player.OnInstanciatePlayerCarInLobby += FindAndInstaciatePlayerCar;
+            Player.OnSendPlayerSelectedItemIDs += FindAndSendItemsInformation;
         }
 
 
@@ -37,7 +46,6 @@ namespace NWR.Modules
             foreach (ItemAndStats<Car> item in cars_list)
             {
                 item.isBought = IDs_ofPurchasedItems.Contains(item.item.GetID());
-                OnSendCar?.Invoke(item);
             }
         }
 
@@ -49,17 +57,37 @@ namespace NWR.Modules
             }
         }
 
-        private void FindAndInstaciatePlayerCar(ushort playerCar_ID)
+        private void FindAndSendItemsInformation(object sender, Player.PlayerSelectedItemIDsEventArgs e)
         {
+            OnFindPlayerSelectedItemsEventArgs playerItems = new OnFindPlayerSelectedItemsEventArgs();
+
             foreach (ItemAndStats<Car> car in cars_list)
             {
-                if (car.item.GetID() == playerCar_ID)
+                if (car.item.GetID() == e.car_ID)
                 {
-                    LobbyManager.Instance.InstanciatePlayerCar(car.item);
-                    Debug.Log("Found player car instanciating it...");
-                    return;
+                    playerItems.playerCar = car;
                 }
             }
+
+
+            foreach (ItemAndStats<Road> road in roads_list)
+            {
+                if (road.item.GetID() == e.road_ID)
+                {
+                    playerItems.playerRoad = road;
+                }
+            }
+
+            foreach (ItemAndStats<GameMode> gm in gameModes_list)
+            {
+                if (gm.item.GetID() == e.gameMode_ID)
+                {
+                    playerItems.playerGameMode = gm;
+                }
+            }
+
+            OnFindPlayerSelectedItems?.Invoke(this, playerItems);
         }
     }
 }
+
