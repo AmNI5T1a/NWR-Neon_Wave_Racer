@@ -7,7 +7,7 @@ namespace NWR.Lobby
     {
         public void CreateItem<T>(T item) where T : Item
         {
-            throw new System.NotImplementedException();
+            Debug.LogWarning("Not inmplemented");
         }
     }
 }

@@ -4,7 +4,7 @@ using DG.Tweening;
 
 namespace NWR.Lobby
 {
-    public class UI_List : MonoBehaviour, IShowOrHideList
+    public class UI_ShowHideList : MonoBehaviour, IShowOrHideList
     {
         [Header("Stats: ")]
         [SerializeField] private Vector2 position_ON_Screen;

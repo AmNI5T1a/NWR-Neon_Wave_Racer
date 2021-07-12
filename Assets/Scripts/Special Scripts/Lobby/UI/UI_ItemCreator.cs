@@ -26,7 +26,6 @@ namespace NWR.Lobby
                 foreach (Assets.ItemAndStats<Car> car in e.cars_List)
                 {
                     creator.CreateItem<Car>(car.item);
-                    Debug.LogWarning("creating car");
                 }
             }
 

@@ -706,12 +706,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 522034553}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7357a6333aec624cac2ae481182e2d3, type: 3}
+  m_Script: {fileID: 11500000, guid: 69aac9da7e82d6543a779d2ab60cc9d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   position_ON_Screen: {x: 0, y: 124}
   position_OUT_ofScreen: {x: 1523, y: 124}
-  leap: {x: 20, y: 0}
+  leap: {x: 60, y: 0}
   isActive: 0
 --- !u!225 &522034558
 CanvasGroup:
@@ -736,8 +736,8 @@ GameObject:
   - component: {fileID: 685537813}
   - component: {fileID: 685537815}
   - component: {fileID: 685537814}
-  - component: {fileID: 685537816}
   - component: {fileID: 685537817}
+  - component: {fileID: 685537816}
   - component: {fileID: 685537818}
   - component: {fileID: 685537819}
   m_Layer: 5
@@ -813,12 +813,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 685537812}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7357a6333aec624cac2ae481182e2d3, type: 3}
+  m_Script: {fileID: 11500000, guid: 69aac9da7e82d6543a779d2ab60cc9d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position_ON_Screen: {x: 400, y: -530}
-  position_OUT_ofScreen: {x: 400, y: 300}
-  leap: {x: 0, y: 25}
+  position_ON_Screen: {x: 400, y: -531}
+  position_OUT_ofScreen: {x: 400, y: 307}
+  leap: {x: 0, y: 20}
   isActive: 0
 --- !u!225 &685537817
 CanvasGroup:
@@ -2469,8 +2469,8 @@ GameObject:
   - component: {fileID: 1774623301}
   - component: {fileID: 1774623303}
   - component: {fileID: 1774623302}
-  - component: {fileID: 1774623304}
   - component: {fileID: 1774623305}
+  - component: {fileID: 1774623304}
   - component: {fileID: 1774623307}
   - component: {fileID: 1774623306}
   m_Layer: 5
@@ -2496,7 +2496,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -400, y: 300}
+  m_AnchoredPosition: {x: -400, y: 290}
   m_SizeDelta: {x: 231.552, y: 550}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1774623302
@@ -2546,12 +2546,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 1774623300}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7357a6333aec624cac2ae481182e2d3, type: 3}
+  m_Script: {fileID: 11500000, guid: 69aac9da7e82d6543a779d2ab60cc9d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  position_ON_Screen: {x: -400, y: -530}
+  position_ON_Screen: {x: -400, y: -531}
   position_OUT_ofScreen: {x: -400, y: 300}
-  leap: {x: 0, y: 25}
+  leap: {x: 0, y: 30}
   isActive: 0
 --- !u!225 &1774623305
 CanvasGroup:
