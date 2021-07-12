@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Volkswagen Golf
   m_EditorClassIdentifier: 
   ID: 0
-  Denomination: Volkswagen Golf Mk2 GTI
+  Denomination: Huko Mk1
   price: 0
   description: default car
-  prefab: {fileID: 2271902546736585320, guid: 7d75f1ef41ee2e549b391f45eb0d4f11, type: 3}
+  prefab: {fileID: 7619938043571561123, guid: 66b926a6ecb742844b7e56c7c3e4b57e, type: 3}

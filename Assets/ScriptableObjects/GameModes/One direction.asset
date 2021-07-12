@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4671a665743c05e458cd4c7b02fcb763, type: 3}
   m_Name: One direction
   m_EditorClassIdentifier: 
-  ID: 0
-  Denomination: Every car on road go for one direction
+  ID: 1
+  Denomination: One direction
   image: {fileID: 21300000, guid: 107eaf282c3eb8247b59fde213770165, type: 3}

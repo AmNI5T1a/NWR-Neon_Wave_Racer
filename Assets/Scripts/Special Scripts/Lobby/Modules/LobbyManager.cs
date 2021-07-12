@@ -24,11 +24,13 @@ namespace NWR.Lobby
             {
                 Destroy(this.gameObject);
             }
+
+            Assets.OnSendPlayerSelectedItems += InstanciatePlayerCar;
         }
 
-        public void InstanciatePlayerCar(Car playerCar)
+        public void InstanciatePlayerCar(object sender, Assets.OnSendPlayerSelectedItemsEventArgs e)
         {
-            GameObject car = Instantiate(playerCar.GetCarAsGameObject(), playerCarPosition, Quaternion.identity);
+            GameObject car = Instantiate(e.playerCar.item.GetCarAsGameObject(), playerCarPosition, Quaternion.identity);
         }
     }
 }
